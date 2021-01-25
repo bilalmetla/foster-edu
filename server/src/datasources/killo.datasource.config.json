@@ -1,0 +1,11 @@
+{
+  "name": "killo",
+  "connector": "mongodb",
+  "url": "mongodb+srv://bilalmetla:mlab7626858@cluster0-dbmup.mongodb.net/kilo",
+  "host": "127.0.0.1",
+  "port": 27017,
+  "user": "",
+  "password": "",
+  "database": "kilo",
+  "useNewUrlParser": false
+}
