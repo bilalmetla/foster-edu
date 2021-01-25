@@ -1,38 +1,88 @@
 
-import React, {setState} from "react";
+import React, {useState} from "react";
 import {
-  Link
+  Link,
+  useHistory
 } from "react-router-dom";
 import { Container, Row, Col, Button,
     FormControl, Form, InputGroup, Spinner } from 'react-bootstrap';
+    
 
-import { signUp } from "../../services/user";
+import {useForm} from 'react-hook-form';
+import { MessageBox, signUp } from "../../services"
 
 function RegisterView (props){
+    const { register, handleSubmit, errors, watch } = useForm(); // initialize the hook
+    const password = {}
+    password.current = watch("password", "");
 
-    function submitSignUp (){
-        //this.setState({loading: true})
-        signUp('/customers')
-      .then(
-        (result) => {
-        //   this.setState({
-        //     loading: false,
-        //   });
+    const [isLoading, setIsLoading] = useState(false);
+    const [modalShow, setModalShow] = useState(false);
+    const [modalHeading, setModalHeading] = useState('Error!');
+    const [modalMessage, setModalMessage] = useState('');
+    const [isSuccessModal, setisSuccessModal] = useState(false);
 
-          console.log(result)
-        },
-      
-        (error) => {
-        //   this.setState({
-        //     loading: false,
-        //     error
-        //   });
-        }
-      )
-    }
+    const onSubmit = (data) => {
+        setIsLoading(true)
+        signUp(data)
+        .then((responseJson) => {
+            setIsLoading(false)
+            // Do something with the response
+            console.log('responseJson', responseJson)
+            if(responseJson.ok === false){
+                setisSuccessModal(false)
+                setModalHeading(responseJson.status || 'Error')
+                setModalMessage(`${responseJson.statusText}`)
+                
+                setModalShow(true)
+                return
+            }
+            if(responseJson.error){
+                setisSuccessModal(false)
+                setModalHeading(responseJson.error.code || 'Error')
+                setModalMessage(`${responseJson.error.message}`)
+                setModalShow(true)
+                return
+            }
+          //  window.location.href ='/dashboard';
+          setisSuccessModal(true)
+          setModalHeading('Thanks')
+          setModalMessage(`Thanks for Signup. please verify you Email: ${data.email}`)          
+          setModalShow(true)
 
+          })
+          .catch((error) => {
+            setIsLoading(false)
+            console.trace(error)
+          setModalHeading('Error!')
+          setModalMessage(error.toString())
+            setModalShow(true)
+          });
+    };
+
+   // props.user= {}
+    /**
+     * {
+            
+            "name": "25231656232",
+            "phone": "25231656232",
+            "isWebRegistered": true,
+            userType:'tutor',
+            emailAddress:'bilal@gmail.com',
+           
+          }
+     */
+     
     return (
         <div id="register" className="section">
+             <MessageBox
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                heading={modalHeading}
+                message={modalMessage}
+                isSuccess={isSuccessModal}
+            />
+
         <Container>
             <Row>
                 <Col md={5} id="register-left-side">
@@ -55,16 +105,50 @@ function RegisterView (props){
                         </p>
                         <Row>
                             <Col md={{span:10, offset:2}}>
-                        <Form >
+                        <Form  onSubmit={handleSubmit(onSubmit)}>
                         
-                        <Form.Label htmlFor="firstName" srOnly>
-                              First Name
+                        <Form.Label htmlFor="confirmPassword" srOnly>
+                            User Type
                           </Form.Label>
                           <InputGroup>
                               <InputGroup.Prepend>
                               <InputGroup.Text><i className="fa fa-user"></i></InputGroup.Text>
                               </InputGroup.Prepend>
-                              <FormControl size="lg" id="firstName" name="firstName" placeholder="first name" />
+                              <FormControl size="lg" 
+                                as="select"
+                                className="mr-sm-2"
+                                id="userType"
+                                name="userType"
+                                custom
+                                placeholder="user tyoe" 
+                               value={props.userType}
+                                ref={register({
+                                    required: "select one option"
+                                  })}
+                                 title="userType is required"
+                                >
+                                <option value="" />
+                                <option value="tutor">Tutor</option>
+                                <option value="student">Student</option>
+                                <option value="parents">Parents</option>
+                            </FormControl>
+                          </InputGroup>
+
+                        <Form.Label htmlFor="firstName" srOnly>
+                              First Name 
+                          </Form.Label>
+                          <InputGroup>
+                              <InputGroup.Prepend>
+                              <InputGroup.Text><i className="fa fa-user"></i></InputGroup.Text>
+                              </InputGroup.Prepend>
+                              <FormControl size="lg" id="firstName"
+                               name="firstName" 
+                               value={props.firstName} 
+                               placeholder="first name" 
+                               ref={register({required: true}) } 
+                               title="first name is required" 
+                               />
+                              
                           </InputGroup>
                           
                           <Form.Label htmlFor="lastName" srOnly>
@@ -74,7 +158,7 @@ function RegisterView (props){
                               <InputGroup.Prepend>
                               <InputGroup.Text><i className="fa fa-user"></i></InputGroup.Text>
                               </InputGroup.Prepend>
-                              <FormControl size="lg" id="lastName" name="lastName" placeholder="last name" />
+                              <FormControl size="lg" id="lastName" name="lastName" value={props.lastName} placeholder="last name" ref={register({required: true}) } title="last name is required" />
                           </InputGroup>
 
 
@@ -85,7 +169,12 @@ function RegisterView (props){
                               <InputGroup.Prepend>
                               <InputGroup.Text><i className="fa fa-user"></i></InputGroup.Text>
                               </InputGroup.Prepend>
-                              <FormControl size="lg" type="email" id="email" name="email" placeholder="Email" />
+                              <FormControl size="lg" type="email"
+                               value={props.emailAddress} 
+                               id="email" 
+                               name="email" 
+                               placeholder="Email" 
+                               ref={register({required: true}) } title="email is required" />
                           </InputGroup>
 
 
@@ -96,61 +185,50 @@ function RegisterView (props){
                               <InputGroup.Prepend>
                               <InputGroup.Text><i className="fa fa-user"></i></InputGroup.Text>
                               </InputGroup.Prepend>
-                              <FormControl size="lg" type="password" id="password" name="password" placeholder="Password" />
+                              <FormControl size="lg" type="password" id="password" name="password" 
+                              value={props.password} placeholder="Password" 
+                              ref={register({
+                                required: "You must specify a password",
+                                minLength: {
+                                  value: 4,
+                                  message: "Password must have at least 8 characters"
+                                }
+                              })}
+                               title="password is required" 
+                               />
+
+                            {errors.password && <p>{errors.password.message}</p>}
                           </InputGroup>
 
-                          <Form.Label htmlFor="confirmPassword" srOnly>
+                          {/* <Form.Label htmlFor="confirmPassword" srOnly>
                               Confirm Password
                           </Form.Label>
                           <InputGroup>
                               <InputGroup.Prepend>
                               <InputGroup.Text><i className="fa fa-user"></i></InputGroup.Text>
                               </InputGroup.Prepend>
-                              <FormControl size="lg" type="password" id="confirmPassword" placeholder="Confirm Password" />
-                          </InputGroup>
+                              <FormControl size="lg" type="password" 
+                              id="confirmPassword" 
+                              name="confirmPassword" 
+                              placeholder="Confirm Password" 
+                              ref={register({
+                                validate: value =>
+                                
+                                  value === password.password || "The passwords do not match"
+                              })}
+                               />
+                               {errors.password_repeat && <p>{errors.password_repeat.message}</p>}
+                          </InputGroup> */}
                         
-                          <Form.Label htmlFor="confirmPassword" srOnly>
-                              select
-                          </Form.Label>
-                          <InputGroup>
-                              <InputGroup.Prepend>
-                              <InputGroup.Text><i className="fa fa-user"></i></InputGroup.Text>
-                              </InputGroup.Prepend>
-                              <FormControl size="lg" 
-                                as="select"
-                                className="mr-sm-2"
-                                id="userType"
-                                custom
-                                placeholder="select" 
-                                >
-                                <option value="">user Type...</option>
-                                <option value="tutor">Tutor</option>
-                                <option value="student">Student</option>
-                                <option value="parents">Parents</option>
-                            </FormControl>
-                          </InputGroup>
-{/* 
-                          <Form.Group controlId="userType">
-                            <Form.Label className="mr-sm-2" htmlFor="userType" srOnly >
-                            User Type
-                            </Form.Label>
-                            <Form.Control
-                                as="select"
-                                className="mr-sm-2"
-                                id="userType"
-                                custom
-                            >
-                                <option value="">user Type...</option>
-                                <option value="tutor">Tutor</option>
-                                <option value="student">Student</option>
-                                <option value="parents">Parents</option>
-                            </Form.Control>
-                            </Form.Group> */}
+
 
 
                           <div className="sign-up-link">
                            {/* <Link className="btn-dark" to="/dashboard" size="lg">Sign Up</Link>{' '} */}
-                           <Button disabled={props.loading} className="btn-dark" onClick={submitSignUp} >
+                           <Button disabled={props.loading}
+                            className="btn-dark"   
+                            type="submit"
+                             >
                                {props.loading && <Spinner
                               as="span"
                               animation="grow"

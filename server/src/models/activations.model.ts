@@ -17,7 +17,7 @@ export class Activations extends Entity {
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
   })
   smsCode: number;
 

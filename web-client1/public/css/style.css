@@ -407,3 +407,42 @@ padding: 15px;
     /* padding: 10px 20px; */
 
 }
+
+.message-box-error {
+    color: #e67e22;
+}
+.message-box-error > div >div{
+    border: 2px solid #e67e22;
+}
+.message-box-error > div >div > .modal-header{
+    border-bottom: 2px solid #e67e22;
+}
+
+.message-box-success {
+    color:rgba(52, 73, 94, 0.7);
+}
+.message-box-success > div >div{
+    border: 2px solid rgba(52, 73, 94, 0.7);
+}
+.message-box-success > div >div > .modal-header{
+    border-bottom: 2px solid rgba(52, 73, 94, 0.7);
+}
+.close {
+    color: #e74c3c;
+}
+
+#verify-email {
+    margin: 0 auto;
+    text-align: center;
+}
+#verify-email p {
+    line-height: 1rem;
+}
+
+.custom-header {
+    background-color: #e74c3c;
+    color: #fff;
+    /* height: 100px; */
+    text-align: center;
+    padding: 70px;
+}

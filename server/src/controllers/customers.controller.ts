@@ -48,7 +48,7 @@ export class CustomersController {
   ) {}
 
 
-  @secured(SecuredType.IS_AUTHENTICATED)
+  //@secured(SecuredType.IS_AUTHENTICATED)   
   @post('/customers', {
     responses: {
       '200': {
@@ -413,7 +413,122 @@ export class CustomersController {
   }
 
 
+   @post('/customers/register', {
+    responses: {
+      '200': {
+        description: 'Please Activate via SMS CODE',
+        content: {'application/json': {schema: getModelSchemaRef(Customers)}},
+      },
+    },
+  })
+  async register(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(Customers, {
+            title: 'NewCustomers',
+            exclude: ['id'],
+          }),
+        },
+      },
+    })
+    customers: Omit<Customers, 'id'>,
+  ): Promise< User | Customers | any> {
+   
+   // let appVersion = customers.versionCode;
+    let phone = customers.email
+    if(!phone){
+      return CONSTANTS.INVALID_EMAIL_ADDRESS
+    }
+        
+        let filter = {
+            "where": { email: phone },
+            // "fields": {
+            //     "id": true,
+            //     "name": true,
+            //     "phone": true,
+            // }
+        };
+        let foundCust = await this.customersRepository.find(filter);
+        logger.debug(foundCust);
+        if (foundCust && foundCust.length === 0) {
+          customers.phone = phone;
+          const tokenObject = {username: phone};
+          let token = await signAsync(tokenObject, JWT_SECRET);
+          customers.access_token = token;
+            //customers.access_token = uuid.v4();
+            customers.isActivated = false;
+            
+            customers.createdDate= new Date();
+            let today = new Date();
+            let tomorrow = new Date();
+            tomorrow.setDate(today.getDate() + 1);
+            let smsCode = Math.floor(Math.random() * 899999 + 100000);
+            let emailCode = Math.floor(Math.random() * 899999 + 100000);
+            await this.activationsRepository.create({
+               phone, smsCode: smsCode, emailCode: emailCode, 
+               expiry: tomorrow.toString() 
+              });
+            const createdCustomer = await this.customersRepository.create(customers);
+            let user = await this.userRepository.create({username: phone});
+            delete createdCustomer.access_token;
+            let verifyUrl = `/customers/${createdCustomer.id}/verify/${emailCode}`
+           // sendPk.sendOTP(smsCode, createdCustomer.phone);
+           logger.info('verification link : '+ verifyUrl)
+            return createdCustomer;
+            
+        }
+        else {
+          return CONSTANTS.EMAIL_ALREADY_EXISTS
+            
+        }
+  }
 
+
+  @post('/customers/verify/email', {
+    responses: {
+      '200': {
+        description: 'Please Activate Your Email',
+        //content: {'application/json': {schema: getModelSchemaRef(Customers)}},
+      },
+    },
+  })
+  async emailVerification(
+    //@param.path.string('id') id: string,
+    @requestBody() activation: Activations,
+    
+  ): Promise< User | Customers | any> {
+   
+    let id = activation.phone
+    let emailCode = activation.emailCode
+  
+        let filter = {
+            "where": { id: id },
+            // "fields": {
+            //     "id": true,
+            //     "name": true,
+            //     "phone": true,
+            // }
+        };
+        let foundCust = await this.customersRepository.find(filter);
+        logger.debug('customer '+ foundCust);
+        if (foundCust && foundCust.length === 0) {
+          return CONSTANTS.EMAIL_VERIFICATION_FAILED
+        }
+        
+        let actRecord = await this.activationsRepository.findOne({ "where": { and:[{phone: foundCust[0].email}, {emailCode: emailCode}] } });
+        if (actRecord) {
+          logger.debug(JSON.stringify(actRecord));
+            let customer = { isActivated: true};
+            await this.customersRepository.updateAll(customer, { id });
+            await this.activationsRepository.deleteAll({ phone: foundCust[0].email });
+            
+            return CONSTANTS.EMAIL_VERIFICATION_SUCCESS;
+        }
+        else {      
+            return CONSTANTS.ACTIVATION_FAILED;
+        }            
+  }
 
 
 

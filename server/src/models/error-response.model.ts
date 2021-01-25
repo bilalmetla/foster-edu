@@ -11,10 +11,10 @@ export class ErrorResponse extends Entity {
   message: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
   })
-  statusCode: number;
+  resultCode: string;
 
   @property({
     type: 'string',

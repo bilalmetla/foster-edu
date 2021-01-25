@@ -12,7 +12,10 @@ import './App.css';
 
 /**import components */
 import  {Header, Footer, }  from "./components";
-import  {Home, Tutors, Register,  Dashboard, ForgotPasswordView }  from "./pages";
+import  {Home, Tutors, Register,  
+  Dashboard, ForgotPasswordView,
+  VerifyEmail,
+ }  from "./pages";
 
 
 
@@ -38,6 +41,13 @@ export default class App extends React.Component {
                    <Home />
                    <Footer />
                   </Route>
+
+{/* <Route path="/users/:id" render={(props) => <UserPage {...props} />}/> */}
+                  <Route path="/customers/:id/verify/:code" render={(props) => <VerifyEmail {...props} />} />
+                  {/* <VerifyEmail />
+                   
+                  </Route> */}
+
                   <Route path="/login">
                     <Register />
                    

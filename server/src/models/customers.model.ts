@@ -12,19 +12,31 @@ export class Customers extends Entity {
 
   @property({
     type: 'string',
-    required: true,
+    required: false,  
   })
   name: string;
+ 
+  @property({
+    type: 'string',
+    required: true,
+  })
+  firstName: string;
 
   @property({
     type: 'string',
     required: true,
+  })
+  lastName: string;
+
+  @property({
+    type: 'string',
+    required: false,
   })
   phone: string;
 
   @property({
     type: 'string',
-    
+    required: false,
   })
   access_token?: string;
 
@@ -36,12 +48,13 @@ export class Customers extends Entity {
 
   @property({
     type: 'date',
-  //  default: new Date(),
+    default: new Date(),
   })
   createdDate?: Date;
 
   @property({
     type: 'date',
+    default: new Date(),
   })
   updatedDate?: Date;
 
@@ -93,6 +106,15 @@ export class Customers extends Entity {
   })
   userType: string;
 
+  @property({
+    type: 'string',
+    required: false,
+  })
+  email: string;
+  
+ 
+
+  
 
   @hasMany(() => Orders)
   orders: Orders[];
