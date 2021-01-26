@@ -12,3 +12,11 @@ export function signUp(data) {
   export function login(data) {
    return post(data, `/customers/login`)
   }
+
+  export function forGotPassword(data) {
+   return post(data, `/customers/forgotPassword`)
+  }
+  
+  export function passwordReset(data, urlParams) {
+   return post(data, `/customers/${urlParams.customerId}/passwordReset`)
+  }

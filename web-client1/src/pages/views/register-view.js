@@ -37,7 +37,7 @@ function RegisterView (props){
                 setModalShow(true)
                 return
             }
-            if(responseJson.error){
+            if(responseJson.resultCode != 2001){
                 setisSuccessModal(false)
                 setModalHeading(responseJson.error.code || 'Error')
                 setModalMessage(`${responseJson.error.message}`)
@@ -123,7 +123,7 @@ function RegisterView (props){
                                 placeholder="user tyoe" 
                                value={props.userType}
                                 ref={register({
-                                    required: "select one option"
+                                    required: "Select User Type"
                                   })}
                                  title="userType is required"
                                 >
@@ -133,6 +133,7 @@ function RegisterView (props){
                                 <option value="parents">Parents</option>
                             </FormControl>
                           </InputGroup>
+                          {errors.userType && <p>{errors.userType.message}</p> }
 
                         <Form.Label htmlFor="firstName" srOnly>
                               First Name 
@@ -145,12 +146,13 @@ function RegisterView (props){
                                name="firstName" 
                                value={props.firstName} 
                                placeholder="first name" 
-                               ref={register({required: true}) } 
+                               ref={register({required: 'first name is required'}) } 
                                title="first name is required" 
                                />
                               
                           </InputGroup>
-                          
+                          {errors.firstName && <p>{errors.firstName.message}</p> }
+
                           <Form.Label htmlFor="lastName" srOnly>
                               Last Name
                           </Form.Label>
@@ -158,9 +160,15 @@ function RegisterView (props){
                               <InputGroup.Prepend>
                               <InputGroup.Text><i className="fa fa-user"></i></InputGroup.Text>
                               </InputGroup.Prepend>
-                              <FormControl size="lg" id="lastName" name="lastName" value={props.lastName} placeholder="last name" ref={register({required: true}) } title="last name is required" />
+                              <FormControl size="lg" id="lastName" 
+                              name="lastName" 
+                              value={props.lastName} 
+                              placeholder="last name" 
+                              ref={register({required: 'Required Last Name'}) } 
+                              title="last name is required"
+                               />
                           </InputGroup>
-
+                          {errors.lastName && <p>{errors.lastName.message}</p> }
 
                           <Form.Label htmlFor="email" srOnly>
                               Email
@@ -174,9 +182,13 @@ function RegisterView (props){
                                id="email" 
                                name="email" 
                                placeholder="Email" 
-                               ref={register({required: true}) } title="email is required" />
+                               ref={register({
+                                   required: 'required a valid email',
+                                   
+                                }) }
+                                title="email is required" />
                           </InputGroup>
-
+                          {errors.email && <p>{errors.email.message}</p> }
 
                           <Form.Label htmlFor="Password" srOnly>
                               Password
@@ -191,14 +203,14 @@ function RegisterView (props){
                                 required: "You must specify a password",
                                 minLength: {
                                   value: 4,
-                                  message: "Password must have at least 8 characters"
+                                  message: "Password must have at least 4 characters"
                                 }
                               })}
                                title="password is required" 
                                />
-
-                            {errors.password && <p>{errors.password.message}</p>}
                           </InputGroup>
+                          {errors.password && <p>{errors.password.message}</p>}
+                          
 
                           {/* <Form.Label htmlFor="confirmPassword" srOnly>
                               Confirm Password

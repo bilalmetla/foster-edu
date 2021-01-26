@@ -455,23 +455,14 @@ export class CustomersController {
           customers.phone = phone;
           
             customers.isActivated = false;
-            
             customers.createdDate= new Date();
-            let today = new Date();
-            let tomorrow = new Date();
-            tomorrow.setDate(today.getDate() + 1);
-            let smsCode = Math.floor(Math.random() * 899999 + 100000);
-            let emailCode = Math.floor(Math.random() * 899999 + 100000);
-            await this.activationsRepository.create({
-               phone, smsCode: smsCode, emailCode: emailCode, 
-               expiry: tomorrow.toString() 
-              });
+            await this.createActivationRecord(phone)
             const createdCustomer = await this.customersRepository.create(customers);
             let user = await this.userRepository.create({username: phone});
             delete createdCustomer.access_token;
-            let verifyUrl = `/customers/${createdCustomer.id}/verify/${emailCode}`
+            //let verifyUrl = `/customers/${createdCustomer.id}/verify/${emailCode}`
            // sendPk.sendOTP(smsCode, createdCustomer.phone);
-           logger.info('verification link : '+ verifyUrl)
+           //logger.info('verification link : '+ verifyUrl)
             return createdCustomer;
             
         }
@@ -571,7 +562,103 @@ export class CustomersController {
          
   }
 
+  @post('/customers/forgotPassword', {
+    responses: {
+      '200': {
+        description: 'Please reset password with email',
+        //content: {'application/json': {schema: getModelSchemaRef(Customers)}},
+      },
+    },
+  })
+  async forgotPassword(
+    @requestBody() customer: User,
 
+  ): Promise< User | Customers | any> {
+   
+    let email = customer.username
+    if(!email){
+      return CONSTANTS.INVALID_EMAIL_ADDRESS
+    }
+        
+        let filter = {
+            "where": { email },
+            // "fields": {
+            //     "id": true,
+            //     "name": true,
+            //     "phone": true,
+            // }
+        };
+        let foundCust = await this.customersRepository.find(filter);
+        logger.debug(foundCust);
+        if (foundCust && foundCust.length === 0) {
+          return CONSTANTS.USER_NOT_EXISTS
+        }
+        await this.createActivationRecord(email)
+        //return CONSTANTS.RESET_PASSWORD_LINK_SENT
+        return {customerId: foundCust[0].id}
+         
+  }
+
+
+  @post('/customers/{customerId}/passwordReset', {
+    responses: {
+      '200': {
+        description: 'Please reset password with email',
+        //content: {'application/json': {schema: getModelSchemaRef(Customers)}},
+      },
+    },
+  })
+  async passwordReset(
+    @param.path.string('customerId') customerId: string,
+    @requestBody() activation: Activations,
+
+  ): Promise< User | Customers | any> {
+   
+    let emailCode = activation.emailCode
+    let newPassword = activation.newPassword
+    if(!newPassword || !emailCode){
+      return CONSTANTS.RESET_PASSWORD_FAILED;
+    }
+   
+        let filter = {
+            "where": { id: customerId },
+            // "fields": {
+            //     "id": true,
+            //     "name": true,
+            //     "phone": true,
+            // }
+        };
+        let foundCust = await this.customersRepository.find(filter);
+        logger.debug(foundCust);
+        if (foundCust && foundCust.length === 0) {
+          return CONSTANTS.USER_NOT_EXISTS
+        }
+
+        let actRecord = await this.activationsRepository.findOne({ "where": { and:[{phone: foundCust[0].email}, {emailCode: emailCode}] } });
+        
+        if (actRecord) {
+          logger.debug(JSON.stringify(actRecord));
+            let customer = { isActivated: true, password:newPassword};
+            await this.customersRepository.updateAll(customer, { id: customerId });
+            await this.activationsRepository.deleteAll({ phone: foundCust[0].email });
+            
+            return CONSTANTS.EMAIL_VERIFICATION_SUCCESS;
+        }
+        else {      
+            return CONSTANTS.RESET_PASSWORD_FAILED;
+        }
+        
+  }
+
+
+
+  async createActivationRecord (phone: string){
+          let smsCode = Math.floor(Math.random() * 899999 + 100000);
+            let emailCode = Math.floor(Math.random() * 899999 + 100000);
+            await this.activationsRepository.create({
+               phone, smsCode: smsCode, emailCode: emailCode
+              });
+  }
 
    validatePhone (phone: string): string {
     phone = parseInt(phone, 10).toString();

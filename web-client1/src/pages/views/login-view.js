@@ -1,5 +1,5 @@
 
-import React, {setState, useState} from "react";
+import React, { useState} from "react";
 import {
   Link
 } from "react-router-dom";
@@ -33,10 +33,10 @@ function LoginView (props){
                 setModalShow(true)
                 return
             }
-            if(responseJson.error){
+            if(responseJson.resultCode && responseJson.resultCode != 2001){
                 setisSuccessModal(false)
-                setModalHeading(responseJson.error.code || 'Error')
-                setModalMessage(`${responseJson.error.message}`)
+                setModalHeading(responseJson.code || 'Error')
+                setModalMessage(`${responseJson.message}`)
                 setModalShow(true)
                 return
             }

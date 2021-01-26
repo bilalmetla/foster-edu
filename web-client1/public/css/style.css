@@ -409,7 +409,7 @@ padding: 15px;
 }
 
 .message-box-error {
-    color: #e67e22;
+    /* color: #e67e22; */
 }
 .message-box-error > div >div{
     border: 2px solid #e67e22;
@@ -419,7 +419,7 @@ padding: 15px;
 }
 
 .message-box-success {
-    color:rgba(52, 73, 94, 0.7);
+    /* color:rgba(52, 73, 94, 0.7); */
 }
 .message-box-success > div >div{
     border: 2px solid rgba(52, 73, 94, 0.7);
