@@ -37,7 +37,7 @@ function RegisterView (props){
                 setModalShow(true)
                 return
             }
-            if(responseJson.resultCode != 2001){
+            if(responseJson.resultCode && responseJson.resultCode != 2001){
                 setisSuccessModal(false)
                 setModalHeading(responseJson.error.code || 'Error')
                 setModalMessage(`${responseJson.error.message}`)

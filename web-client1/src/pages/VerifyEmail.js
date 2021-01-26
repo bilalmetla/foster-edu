@@ -30,9 +30,9 @@ function VerifyEmail (props){
                 return
             }
 
-            if(responseJson.error && responseJson.error.resultCode !== '2001'){
-                setModalHeading(responseJson.error.code || 'Error')
-                setModalMessage(`${responseJson.error.message}`)
+            if(responseJson.resultCode && responseJson.resultCode !== '2001'){
+                setModalHeading(responseJson.code || 'Error')
+                setModalMessage(`${responseJson.message}`)
                 setModalShow(true)
 
             
@@ -40,8 +40,8 @@ function VerifyEmail (props){
             }
 
             setisSuccessModal(true)
-            setModalHeading(responseJson.error.code || 'Success')
-            setModalMessage(`${responseJson.error.message}`)
+            setModalHeading(responseJson.code || 'Success')
+            setModalMessage(`${responseJson.message}`)
                 setModalShow(true)
                 setTimeout(() => {
                     window.location.href = '/login'
