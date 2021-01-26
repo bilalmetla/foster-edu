@@ -1,10 +1,11 @@
 
 
 import MessageBox  from "./MessageBox";
-import { signUp, verifyEmail } from "./user";
+import { signUp, verifyEmail, login } from "./user";
 
 export {
     MessageBox,
     signUp,
-    verifyEmail
+    verifyEmail,
+    login
 }

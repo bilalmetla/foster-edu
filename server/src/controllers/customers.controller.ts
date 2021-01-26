@@ -453,10 +453,7 @@ export class CustomersController {
         logger.debug(foundCust);
         if (foundCust && foundCust.length === 0) {
           customers.phone = phone;
-          const tokenObject = {username: phone};
-          let token = await signAsync(tokenObject, JWT_SECRET);
-          customers.access_token = token;
-            //customers.access_token = uuid.v4();
+          
             customers.isActivated = false;
             
             customers.createdDate= new Date();
@@ -528,6 +525,50 @@ export class CustomersController {
         else {      
             return CONSTANTS.ACTIVATION_FAILED;
         }            
+  }
+
+
+  @post('/customers/login', {
+    responses: {
+      '200': {
+        description: 'Please login with email',
+        content: {'application/json': {schema: getModelSchemaRef(Customers)}},
+      },
+    },
+  })
+  async login(
+    @requestBody() customers: User,
+
+  ): Promise< User | Customers | any> {
+   
+    let email = customers.username
+    let password = customers.password
+    if(!email){
+      return CONSTANTS.INVALID_EMAIL_ADDRESS
+    }
+        
+        let filter = {
+            "where": { email },
+            // "fields": {
+            //     "id": true,
+            //     "name": true,
+            //     "phone": true,
+            // }
+        };
+        let foundCust = await this.customersRepository.find(filter);
+        logger.debug(foundCust);
+        if (foundCust && foundCust.length === 0) {
+          return CONSTANTS.USER_NOT_EXISTS
+        }
+        if(!foundCust[0].isActivated){
+          return CONSTANTS.USER_NOT_ACTIVATED
+        }
+        if(foundCust[0].password !== password){
+          return CONSTANTS.CREDIENTIALS_MISMATCHED
+        }
+
+        return foundCust[0];
+         
   }
 
 

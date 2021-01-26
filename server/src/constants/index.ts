@@ -21,6 +21,10 @@ export class CONSTANTS {
   public static readonly  EMAIL_ALREADY_EXISTS = {error: new ErrorResponse({resultCode: '2001', name: "Bad Request", code:"DUPLICATE_EMAIL", message: "Email Already Exists!"}) };  
   public static readonly  EMAIL_VERIFICATION_SUCCESS = {error: new ErrorResponse({resultCode: '2001', name: "", code:"EMAIL_VERIFICATION_SUCCESS", message: "Thanks, Your email is verified"}) };  
   public static readonly  EMAIL_VERIFICATION_FAILED = {error: new ErrorResponse({resultCode: 'ER3001', name: "", code:"EMAIL_VERIFICATION_FAILED", message: "Your email verification link is Expired!"}) };  
+  public static readonly  USER_NOT_EXISTS = {error: new ErrorResponse({resultCode: 'ER3002', name: "", code:"USER_NOT_EXISTS", message: "User not found. Please register first!"}) };  
+  public static readonly  USER_NOT_ACTIVATED = {error: new ErrorResponse({resultCode: 'ER3003', name: "", code:"USER_NOT_ACTIVATED", message: "User not activated!"}) };  
+  public static readonly  CREDIENTIALS_MISMATCHED = {error: new ErrorResponse({resultCode: 'ER3004', name: "", code:"CREDIENTIALS_MISMATCHED", message: "Your credientials are wrong!"}) };  
+  
 
     
   }

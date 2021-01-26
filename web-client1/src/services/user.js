@@ -8,3 +8,7 @@ export function signUp(data) {
   export function verifyEmail(data) {
    return post(data, `/customers/verify/email`)
   }
+
+  export function login(data) {
+   return post(data, `/customers/login`)
+  }

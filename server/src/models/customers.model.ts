@@ -112,6 +112,12 @@ export class Customers extends Entity {
   })
   email: string;
   
+  @property({
+    type: 'string',
+    required: false,
+  })
+  password: string;
+  
  
 
   
