@@ -1,5 +1,5 @@
 
-import {post} from "./HttpClient";
+import {post, put, get} from "./HttpClient";
 
 export function signUp(data) {
    return post(data, '/customers/register')
@@ -19,4 +19,12 @@ export function signUp(data) {
   
   export function passwordReset(data, urlParams) {
    return post(data, `/customers/${urlParams.customerId}/passwordReset`)
+  }
+  
+  export function getCustomerById(customerId) {
+   return get(`/customers/${customerId}`)
+  }
+
+  export function updateCustomerInfo(data, urlParams) {
+   return put(data, `/customers/${urlParams.customerId}`)
   }

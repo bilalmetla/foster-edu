@@ -1,6 +1,9 @@
 import {Entity, model, property, hasMany} from '@loopback/repository';
 import {Orders} from './orders.model';
 
+// export interface location {
+//   [key: string]: [];
+// }
 @model({settings: {strict: false,strictObjectIDCoercion: true}})
 export class Customers extends Entity {
   @property({
@@ -118,9 +121,107 @@ export class Customers extends Entity {
   })
   password: string;
   
- 
+  @property({
+    type: 'string',
+    required: false,
+  })
+  tagLine: string;
 
+  @property({
+    type: 'number',
+    required: false,
+  })
+  fees: number;
+
+  @property({
+    type: 'string',
+    required: false,
+  })
+  feesPer: string;
+
+  @property({
+    type: 'string',
+    required: false,
+  })
+  gender: string;
+
+  @property({
+    type: 'string',
+    required: false,
+  })
+  greateTutorLine: string;
   
+  
+  @property({
+    type: 'string',
+    required: false,
+  })
+  teachingExperienceLine: string;
+ 
+  @property({
+    type: 'object',
+  })
+  location?: any;
+  
+  @property({
+    type: 'array',
+    itemType: 'object',
+    required: false,
+  })
+  education: object[];
+
+  @property({
+    type: 'boolean',
+    default : true
+  })
+  isOnlineTeaching?: boolean
+
+  @property({
+    type: 'boolean',
+    default : false
+  })
+  isOfflineTeaching?: boolean
+
+  @property({
+    type: 'boolean',
+    default : false
+  })
+  isPublicContactInfo?: boolean
+
+  @property({
+    type: 'string',
+  })
+  addressLine?: string
+  
+  @property({
+    type: 'array',
+    itemType: 'string',
+    required: false,
+  })
+  teachingSubjects?: string[];
+ 
+  @property({
+    type: 'array',
+    itemType: 'string',
+    required: false,
+  })
+  teachingGrades?: string[];
+ 
+ 
+  @property({
+    type: 'string',
+    required: false,
+  })
+  teachingArea?: string;
+  
+  
+  @property({
+    type: 'string',
+    required: false,
+  })
+  teachingCity?: string;
+
+
 
   @hasMany(() => Orders)
   orders: Orders[];

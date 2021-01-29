@@ -18,19 +18,33 @@ export function get(url) {
         //'Authorization': 'Bearer ' +access_token
       },
       body: JSON.stringify(data)
-  };
-    // return fetch(`${REACT_APP_API_BASE_URL}${url}`, requestOptions)
-    // .then(response =>
-    //   response.json()
-    // )
-    // .catch(error => {
-    //   console.log('http error', error)
-    // })
-
+    }
     let url = `${REACT_APP_API_BASE_URL}${pathName}`
     return fetch(url, requestOptions)
     .then((response) => {
-     // console.log('response', response)
+      if (response.ok) {
+        return response.json();
+      } else {
+        return response
+      }
+    })
+    
+
+  }
+
+  export function put(data, pathName) {
+   
+    const requestOptions = {
+      method: 'PUT',
+      headers: { 
+        'Content-Type': 'application/json' ,
+        //'Authorization': 'Bearer ' +access_token
+      },
+      body: JSON.stringify(data)
+    }
+    let url = `${REACT_APP_API_BASE_URL}${pathName}`
+    return fetch(url, requestOptions)
+    .then((response) => {
       if (response.ok) {
         return response.json();
       } else {

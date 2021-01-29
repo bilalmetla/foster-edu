@@ -4,8 +4,10 @@ import {
     Switch,
     Route,
   } from "react-router-dom";
-import { Container, Row, Col, Accordion, Card } from 'react-bootstrap';
-import { DSAbout, DSContact } from "../components";
+import { DSAbout, DSContact, DSExpertise,
+  DSEducation,
+  DSMediums,
+ } from "../components";
 
 export default class DSContent extends React.Component {
  
@@ -19,6 +21,18 @@ export default class DSContent extends React.Component {
 
                   <Route path="/dashboard/contact">
                   <DSContact />
+                  </Route>
+                  
+                  <Route path="/dashboard/expertise">
+                  <DSExpertise />
+                  </Route>
+                  
+                  <Route path="/dashboard/education">
+                  <DSEducation />
+                  </Route>
+                 
+                  <Route path="/dashboard/mediums">
+                  <DSMediums />
                   </Route>
 
             </Switch>

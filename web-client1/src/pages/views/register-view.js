@@ -60,19 +60,7 @@ function RegisterView (props){
           });
     };
 
-   // props.user= {}
-    /**
-     * {
-            
-            "name": "25231656232",
-            "phone": "25231656232",
-            "isWebRegistered": true,
-            userType:'tutor',
-            emailAddress:'bilal@gmail.com',
-           
-          }
-     */
-     
+   
     return (
         <div id="register" className="section">
              <MessageBox

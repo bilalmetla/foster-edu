@@ -18,6 +18,7 @@ import  {Home, Tutors, Register,
   ResetPassword,
  }  from "./pages";
 
+ import Dashboard2 from "./pages/Dashboard/Dashboard";
 
 
 
@@ -67,6 +68,7 @@ export default class App extends React.Component {
                   
                   <Route path="/dashboard">
                     <Dashboard />
+                    {/* <Dashboard2 /> */}
                    
                   </Route>
 

@@ -1,0 +1,24 @@
+{
+  "name": "foster-edu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server":"npm start --prefix server",
+    "client":"npm start --prefix web-client1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bilalmetla/foster-edu.git"
+  },
+  "keywords": [
+    "foster"
+  ],
+  "author": "bilalmetla@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bilalmetla/foster-edu/issues"
+  },
+  "homepage": "https://github.com/bilalmetla/foster-edu#readme"
+}

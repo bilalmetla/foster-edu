@@ -148,7 +148,7 @@ export class CustomersController {
     return this.customersRepository.updateAll(customers, where);
   }
 
-  @secured(SecuredType.IS_AUTHENTICATED)
+ // @secured(SecuredType.IS_AUTHENTICATED)
   @get('/customers/{id}', {
     responses: {
       '200': {
@@ -175,12 +175,13 @@ export class CustomersController {
     if(!filter){
       filter = {}
     }
-    filter.fields = {id: true, name: true, phone: true, isActivated: true, isWebRegistered: true, deviceToken: true};
+    //filter.fields = {id: true, name: true, phone: true, isActivated: true, isWebRegistered: true, deviceToken: true};
+    filter.fields = {password:false, access_token: false}
     return this.customersRepository.findById(id, filter);
   }
 
 
-  @secured(SecuredType.IS_AUTHENTICATED)
+  //@secured(SecuredType.IS_AUTHENTICATED)
   @patch('/customers/{id}', {
     responses: {
       '204': {
@@ -198,24 +199,27 @@ export class CustomersController {
       },
     })
     customers: Customers,
-  ): Promise<void> {
+  ): Promise<void | any> {
     await this.customersRepository.updateById(id, customers);
+    return  {resultCode:2001, replyMessage:"Successfully Updated Information.."}
   }
 
 
-  @secured(SecuredType.IS_AUTHENTICATED)
+  //@secured(SecuredType.IS_AUTHENTICATED)
   @put('/customers/{id}', {
     responses: {
       '204': {
         description: 'Customers PUT success',
+        constent:{resultCode:2001, replyMessage:"Successfully Updated Information.."}
       },
     },
   })
   async replaceById(
     @param.path.string('id') id: string,
     @requestBody() customers: Customers,
-  ): Promise<void> {
+  ): Promise<void | any> {
     await this.customersRepository.replaceById(id, customers);
+    return  {resultCode:2001, replyMessage:"Successfully Updated Information.."}
   }
 
 
@@ -452,7 +456,7 @@ export class CustomersController {
         let foundCust = await this.customersRepository.find(filter);
         logger.debug(foundCust);
         if (foundCust && foundCust.length === 0) {
-          customers.phone = phone;
+         // customers.phone = phone;
           
             customers.isActivated = false;
             customers.createdDate= new Date();

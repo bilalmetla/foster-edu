@@ -13,6 +13,9 @@ import DSMenu from "./DSMenu";
 import DSContent from "./DSContent";
 import DSAbout from "./DSAbout";
 import DSContact from "./DSContact";
+import DSExpertise from "./DSExpertise";
+import DSEducation from "./DSEducation";
+import DSMediums from "./DSMediums";
 
 export {
     Header,
@@ -28,4 +31,7 @@ export {
     DSContent,
     DSAbout,
     DSContact,
+    DSExpertise,
+    DSEducation,
+    DSMediums,
 }

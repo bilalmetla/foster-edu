@@ -42,15 +42,15 @@ export default class DSMenu extends React.Component {
                     </p>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link class="nav-link active" to="/">Expertise</Link>
+                        <Link class="nav-link active" to="/dashboard/expertise">Expertise</Link>
                     </p>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link class="nav-link active" to="/">Education</Link>
+                        <Link class="nav-link active" to="/dashboard/education">Education</Link>
                     </p>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link class="nav-link active" to="/">Location</Link>
+                        <Link class="nav-link active" to="/dashboard/mediums">Teaching Mediums</Link>
                     </p>
                     </Card.Body>
                 </Accordion.Collapse>

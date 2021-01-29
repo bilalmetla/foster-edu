@@ -2,8 +2,10 @@
 
 import MessageBox  from "./MessageBox";
 import { signUp, verifyEmail, login,
-     forGotPassword, passwordReset 
-    } from "./user";
+     forGotPassword, passwordReset ,
+     updateCustomerInfo,
+     getCustomerById
+    } from "./User";
 
 export {
     MessageBox,
@@ -12,4 +14,6 @@ export {
     login,
     forGotPassword,
     passwordReset,
+    updateCustomerInfo,
+    getCustomerById,
 }
