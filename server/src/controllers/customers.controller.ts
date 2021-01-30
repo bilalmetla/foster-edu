@@ -90,7 +90,7 @@ export class CustomersController {
     return this.customersRepository.count(where);
   }
 
-  @secured(SecuredType.IS_AUTHENTICATED)
+  //@secured(SecuredType.IS_AUTHENTICATED)
   @get('/customers', {
     responses: {
       '200': {
@@ -117,10 +117,13 @@ export class CustomersController {
       filter.order = ['createdDate Desc']
     }
 
-    filter.limit = 20;
+   // filter.userType='tutor'
+    filter.limit = 100;
     //filter.skip = 0;
 
-    filter.fields = {id: true, name: true, phone: true, isActivated: true, isWebRegistered: true, deviceToken: true};
+    //filter.fields = {id: true, name: true, phone: true, isActivated: true, isWebRegistered: true, deviceToken: true};
+    filter.fields = {password: false, access_token: false};
+    console.log('customer filter ', JSON.stringify(filter))
     return this.customersRepository.find(filter);
   }
 

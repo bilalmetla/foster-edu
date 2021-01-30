@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, {useState, } from "react";
 
 import { Container, Row, Col, 
     Form, InputGroup, FormControl,
@@ -7,10 +7,31 @@ import { Container, Row, Col,
   } from 'react-bootstrap';
 
   import TutorListInfo from './TutorListInfo.js';
+  import {useForm} from 'react-hook-form';
 
-export default class SearchTutors extends React.Component {
- 
-    render(){
+
+
+export default function SearchTutors (props) {
+  const { register, handleSubmit, setValue, errors, } = useForm();
+  const [subject, setSubject] = useState('');
+  let tutorsList = []
+  if(props.tutors && props.tutors.length > 0){
+     tutorsList = props.tutors.map(item=>{
+      // console.log(item)
+              return <TutorListInfo 
+               tutor={item}
+               key={item.id}
+               />
+     })
+  }
+  
+    
+  const findTutors= (data)=>{
+    console.log(data)
+    props.findTutors(data)
+  }
+
+
       return (
           <div>
             <div id="tutors-filter-search-box">
@@ -19,29 +40,36 @@ export default class SearchTutors extends React.Component {
                 <Form.Label htmlFor="inlineFormInput" >
                     Subject
                 </Form.Label>
-                <Form.Control placeholder="Subject" />
+                <Form.Control placeholder="Subject"
+                name="subject"
+               // value={props.subject}
+                ref={register()}
+                />
                 </Col>
                
                 <Col>
-                <Button style={{marginTop:'25px'}} variant="btn" size="md">Search</Button>{' '}
+                <Button style={{marginTop:'25px'}}
+                 variant="btn" size="md"
+                 onClick={handleSubmit(findTutors) }
+                 type="submit"
+                 >
+                   Search
+                   </Button>{' '}
                 </Col>
             </Form.Row>
 
             <div id="tutor-results-info" style={{marginTop:'25px'}}>
-                <h4>Total Found  <Badge variant="success">200</Badge>{' '}</h4>
+                <h4>Total Found  <Badge variant="success">{props.totalTutors}</Badge>{' '}</h4>
             </div>
 
             </div>
 
 
-            <TutorListInfo />
-            <TutorListInfo />
-            <TutorListInfo />
-            <TutorListInfo />
-            <TutorListInfo />
+            
+          {tutorsList}
 
 
               </div>
       )
-    }
+    
 }

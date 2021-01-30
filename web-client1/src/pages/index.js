@@ -6,6 +6,7 @@ import ForgotPasswordView from "./views/forgot-password";
 import Dashboard  from "./Dashboard";
 import VerifyEmail  from "./VerifyEmail";
 import ResetPassword  from "./ResetPassword";
+import ViewProfile  from "./ViewProfile";
 
 export {
     Home,
@@ -14,5 +15,6 @@ export {
     Dashboard,
     ForgotPasswordView,
     VerifyEmail,
-    ResetPassword
+    ResetPassword,
+    ViewProfile
 }

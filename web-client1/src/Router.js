@@ -12,10 +12,12 @@ import './App.css';
 
 /**import components */
 import  {Header, Footer, }  from "./components";
+
 import  {Home, Tutors, Register,  
   Dashboard, ForgotPasswordView,
   VerifyEmail,
   ResetPassword,
+  ViewProfile
  }  from "./pages";
 
  import Dashboard2 from "./pages/Dashboard/Dashboard";
@@ -72,7 +74,14 @@ export default class App extends React.Component {
                    
                   </Route>
 
-                  {/* <Route path="/dashboard/about" component={Dashboard} /> */}
+                  {/* <Route path="/ViewProfile" component={Dashboard} /> */}
+                  <Route path="/profile/:id" render={
+                      
+                    (props) => {
+                    <ViewProfile {...props} /> 
+                  }
+                  }/>
+
                  
                 </Switch>
              

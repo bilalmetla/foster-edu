@@ -28,3 +28,16 @@ export function signUp(data) {
   export function updateCustomerInfo(data, urlParams) {
    return put(data, `/customers/${urlParams.customerId}`)
   }
+
+  export function getTutors(filterParams= {}) {
+   filterParams.userType = 'tutor'
+     
+      let filter = {
+        where:{
+           and:[]
+        }
+     }
+     filter.where.and.push(filterParams)
+     //filter.where = filterParams
+      return get(`/customers?filter=${JSON.stringify(filter)}`)
+  }

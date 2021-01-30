@@ -4,7 +4,8 @@ import MessageBox  from "./MessageBox";
 import { signUp, verifyEmail, login,
      forGotPassword, passwordReset ,
      updateCustomerInfo,
-     getCustomerById
+     getCustomerById,
+     getTutors,
     } from "./User";
 
 export {
@@ -16,4 +17,5 @@ export {
     passwordReset,
     updateCustomerInfo,
     getCustomerById,
+    getTutors,
 }
