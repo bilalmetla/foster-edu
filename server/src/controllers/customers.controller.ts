@@ -204,7 +204,7 @@ export class CustomersController {
     customers: Customers,
   ): Promise<void | any> {
     await this.customersRepository.updateById(id, customers);
-    return  {resultCode:2001, replyMessage:"Successfully Updated Information.."}
+    return  {resultCode:2001, message:"Successfully Updated Information.."}
   }
 
 
@@ -213,7 +213,7 @@ export class CustomersController {
     responses: {
       '204': {
         description: 'Customers PUT success',
-        constent:{resultCode:2001, replyMessage:"Successfully Updated Information.."}
+        constent:{resultCode:2001, message:"Successfully Updated Information.."}
       },
     },
   })
@@ -222,7 +222,7 @@ export class CustomersController {
     @requestBody() customers: Customers,
   ): Promise<void | any> {
     await this.customersRepository.replaceById(id, customers);
-    return  {resultCode:2001, replyMessage:"Successfully Updated Information.."}
+    return  {resultCode:2001, message:"Successfully Updated Information.."}
   }
 
 
@@ -461,16 +461,19 @@ export class CustomersController {
         if (foundCust && foundCust.length === 0) {
          // customers.phone = phone;
           
+         const tokenObject = {username: phone};
+          let token = await signAsync(tokenObject, JWT_SECRET);
+          customers.access_token = token;
             customers.isActivated = false;
             customers.createdDate= new Date();
             await this.createActivationRecord(phone)
             const createdCustomer = await this.customersRepository.create(customers);
             let user = await this.userRepository.create({username: phone});
-            delete createdCustomer.access_token;
+           // delete createdCustomer.access_token;
             //let verifyUrl = `/customers/${createdCustomer.id}/verify/${emailCode}`
            // sendPk.sendOTP(smsCode, createdCustomer.phone);
            //logger.info('verification link : '+ verifyUrl)
-            return createdCustomer;
+            return {customerId: createdCustomer.id};
             
         }
         else {
@@ -548,9 +551,7 @@ export class CustomersController {
         let filter = {
             "where": { email },
             // "fields": {
-            //     "id": true,
-            //     "name": true,
-            //     "phone": true,
+            //     "password": false,
             // }
         };
         let foundCust = await this.customersRepository.find(filter);
@@ -564,7 +565,7 @@ export class CustomersController {
         if(foundCust[0].password !== password){
           return CONSTANTS.CREDIENTIALS_MISMATCHED
         }
-
+        delete foundCust[0].password
         return foundCust[0];
          
   }

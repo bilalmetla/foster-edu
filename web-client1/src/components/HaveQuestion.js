@@ -23,7 +23,7 @@ export default class HaveQuestion extends React.Component {
                           <div className="helCenter" style={{display:'flex'}}>
                             <i className="fa fa-question"></i>
                             <p >Get answers in our Help Center or connect with Customer Support.</p>
-                            <Button variant="btn" size="lg">Ask</Button>{' '}
+                            <Button onClick={()=> window.location.href = '/contact-us' } variant="btn" size="lg">Ask</Button>{' '}
                           </div>
                      
                       </Col>

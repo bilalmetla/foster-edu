@@ -41,3 +41,8 @@ export function signUp(data) {
      //filter.where = filterParams
       return get(`/customers?filter=${JSON.stringify(filter)}`)
   }
+
+
+  export function sendContactUs(data) {
+   return post(data, `/web/contact-us`)
+  }

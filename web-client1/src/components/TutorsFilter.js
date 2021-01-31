@@ -5,7 +5,7 @@ import SearchTutors from "./SearchTutors";
 import TutorsFilterControls from "./TutorsFilterControls";
 import { getTutors } from "../services";
 import {useForm} from 'react-hook-form';
-
+import Spinner from './common/Spinner';
 
 
 export default function TutorsFilter() {
@@ -14,15 +14,20 @@ export default function TutorsFilter() {
     const [totalTutors, setTotalTutors] = useState(0);
     const [tutorFilter, settutorFilter] = useState({});
     const [subject, setsubject] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
 
     useEffect(() => {
       // get user and set form fields
+      setIsLoading(true)
       getTutors().then(tutors => {
-          
+        setIsLoading(false)
           setTutors(tutors);
           setTotalTutors(tutors.length)
-      });
+      }).catch(error=>{
+        setIsLoading(false)
+        console.log(error)
+      })
     }, []);
 
 
@@ -36,13 +41,13 @@ export default function TutorsFilter() {
     }else {
       delete filter.teachingSubjects
     }
-
+ 
     filterTutors(filter)
       
     }
 
     const applyFilterOnSearchTutors = (data)=>{
-      console.log(data)
+      //console.log(data)
       
       let fltr = data || tutorFilter
       fltr = JSON.parse(JSON.stringify(fltr))
@@ -63,19 +68,25 @@ export default function TutorsFilter() {
       if(subject){
         fltr.teachingSubjects = subject
       }
+     
       filterTutors(fltr)
       }
     
       function filterTutors (filter){
+        setIsLoading(true)
         getTutors(filter).then(tutors => {
-            
+          setIsLoading(false)
           setTutors(tutors);
           setTotalTutors(tutors.length)
-        });
+        }).catch(error=>{
+          setIsLoading(false)
+          console.log(error)
+        })
       }
 
       return (
           <div>
+            {isLoading && <Spinner />}
               <Container>
                     <Row>
                     <Col md={3} >

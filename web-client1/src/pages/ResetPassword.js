@@ -2,10 +2,17 @@
 import React, {useState} from "react";
 
 import { Container, Row, Col, Button,
-    FormControl, Form, InputGroup, Spinner
+    FormControl, Form, InputGroup,
  } from 'react-bootstrap';
  import {useForm} from 'react-hook-form';
 import { passwordReset, MessageBox } from "../services";
+import Spinner from '../components/common/Spinner';
+import { NotificationManager } from 'react-notifications';
+
+
+
+
+
 
 function ResetPassword (props){
     const { register, handleSubmit, errors, watch } = useForm();
@@ -30,27 +37,19 @@ function ResetPassword (props){
         .then(responseJson => {
             setIsLoading(false)
             if(responseJson.ok === false){
-                setisSuccessModal(false)
-                setModalHeading(responseJson.status || 'Error')
-                setModalMessage(`${responseJson.statusText}`)
-                setModalShow(true)
+                NotificationManager.error(responseJson.statusText, 'Error!', 2000);
+
                 return
             }
 
             if(responseJson.resultCode && responseJson.resultCode !== '2001'){
-                setisSuccessModal(false)
-                setModalHeading(responseJson.code || 'Error')
-                setModalMessage(`${responseJson.message}`)
-                setModalShow(true)
-
+                NotificationManager.error(responseJson.message, 'Error!', 2000);
             
                 return
             }
 
-            setisSuccessModal(true)
-            setModalHeading(responseJson.code || 'Success')
-            setModalMessage(`${responseJson.message}`)
-                setModalShow(true)
+            NotificationManager.error(responseJson.message, 'Error!', 2000);
+
                 setTimeout(() => {
                     window.location.href = '/login'
                 }, 1500);
@@ -59,14 +58,14 @@ function ResetPassword (props){
         .catch( error => {
             setIsLoading(true)
             console.log(error)
-            setModalMessage(error.toString())
-                setModalShow(true)
+            NotificationManager.error(error.toString(), 'Error!', 2000);
                 return
         })
     }
 
         return(
             <div id="verify-email">
+                {isLoading && <Spinner />}
                 <MessageBox 
                 show={modalShow}
                 onHide={() => setModalShow(false)}
@@ -141,16 +140,9 @@ function ResetPassword (props){
                                                     <Button
                                                         size="lg"
                                                         className="btn-dark"
-                                                        disabled={props.isLoading}
+                                                        disabled={isLoading}
                                                         type="submit"
                                                         > 
-                                                        {props.isLoading && <Spinner
-                                                        as="span"
-                                                        animation="grow"
-                                                        size="sm"
-                                                        role="status"
-                                                        aria-hidden="true"
-                                                        />}
                                                         Reset Password
                                                     </Button>
                                                  

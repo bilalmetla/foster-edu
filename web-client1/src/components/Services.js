@@ -12,7 +12,7 @@ export default class Services extends React.Component {
               <Container>
                   <Row>
                       <Col md={12}>
-                          <h2 className="section-heading">Online lessons & Improve your results.</h2>
+                          <h2 className="section-heading">Take online lessons & Improve your results.</h2>
                       </Col>
                   </Row>
 

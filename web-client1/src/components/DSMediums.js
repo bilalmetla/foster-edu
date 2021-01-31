@@ -2,9 +2,14 @@ import React, {useState, useEffect} from "react";
 import { Container, Row, Col,Form, Button } from 'react-bootstrap';
 import {useForm} from 'react-hook-form';
 import {  getCustomerById, updateCustomerInfo } from "../services"
+import Spinner from '../components/common/Spinner';
+import { NotificationManager } from 'react-notifications';
+
+
+
 
 function DSMediums  (props){
-
+    const [isLoading, setIsLoading] = useState(false);
     const { register, handleSubmit, setValue, errors, } = useForm();
     const [customer, setCustomer] = useState({});
     const [isOfflineTeaching, setIsOfflineTeaching] = useState(false);
@@ -14,18 +19,27 @@ function DSMediums  (props){
     const onSubmit = (data) => {
      
        let postData = {...customer, ...data};
+       setIsLoading(true)
     updateCustomerInfo(postData, {customerId: '600f23da7234a142acc51963'})
     .then(result =>{
+        setIsLoading(false)
         console.log(result)
+        NotificationManager.success(result.message, 'Successful!', 2000);
+
     })
     .catch(error=>{
+        setIsLoading(false)
         console.log(error)
+        NotificationManager.error(error.toString(), 'Error!', 2000);
+
     })
     }
 
     useEffect(() => {
             // get user and set form fields
+            setIsLoading(true)
             getCustomerById('600f23da7234a142acc51963').then(customer => {
+                setIsLoading(false)
                 const fields = [
                  'isOnlineTeaching',
                  'isOfflineTeaching',
@@ -38,14 +52,19 @@ function DSMediums  (props){
                 setIsOfflineTeaching(customer.isOfflineTeaching)
                 setTeachingCity(customer.teachingCity)
                 setTeachingArea(customer.teachingArea)
-            });
+            }).catch(error=>{
+                setIsLoading(false)
+                console.log(error)
+                NotificationManager.error(error.toString(), 'Error!', 2000);
+
+            })
     }, []);
 
     
 
       return (
         <div className="section">
-
+        {isLoading && <Spinner />}
         <Container>
             <Row>
                 <Col md={{span:12, offset:4}}>
@@ -115,7 +134,7 @@ function DSMediums  (props){
 
                     <Form.Row>
                     <Button as={Col}  className="btn-dark"
-                     
+                     disabled={isLoading}
                      size="sm"
                      md={{span:8, offset:2}}
                      onClick={handleSubmit(onSubmit)}

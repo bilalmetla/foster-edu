@@ -2,11 +2,16 @@ import React, {useState, useEffect} from "react";
 import { Container, Row, Col,Form, Button } from 'react-bootstrap';
 import {useForm} from 'react-hook-form';
 import {  getCustomerById, updateCustomerInfo } from "../services"
+import Spinner from '../components/common/Spinner';
+import { NotificationManager } from 'react-notifications';
+
+
 
 function DSAbout  (props){
-
+    const [isLoading, setIsLoading] = useState(false);
     const { register, handleSubmit, setValue, errors, } = useForm();
     const [customer, setCustomer] = useState({});
+    let userId = localStorage.getItem('userId')
 
     const onSubmit = (data) => {
        if(data.fees){
@@ -16,18 +21,27 @@ function DSAbout  (props){
        }
        //data.userType = customer.userType;
        let postData = {...customer, ...data};
-    updateCustomerInfo(postData, {customerId: '600f23da7234a142acc51963'})
+       setIsLoading(true)
+    updateCustomerInfo(postData, {customerId: userId})
     .then(result =>{
-        console.log(result)
+        setIsLoading(false)
+        //console.log(result)
+        NotificationManager.success(result.message, 'Successful!', 2000);
+
     })
     .catch(error=>{
+        setIsLoading(false)
         console.log(error)
+        NotificationManager.error(error.toString(), 'Error!', 2000);
+
     })
     }
 
     useEffect(() => {
             // get user and set form fields
-            getCustomerById('600f23da7234a142acc51963').then(customer => {
+            setIsLoading(true)
+            getCustomerById(userId).then(customer => {
+                setIsLoading(false)
                 const fields = ['firstName',
                  'lastName',
                  'tagLine',
@@ -40,13 +54,18 @@ function DSAbout  (props){
                 ];
                 fields.forEach(field => setValue(field, customer[field]));
                 setCustomer(customer);
-            });
+            }).catch(error=>{
+                setIsLoading(false)
+                console.log(error)
+                NotificationManager.error(error.toString(), 'Error!', 2000);
+
+            })
     }, []);
 
 
       return (
         <div className="section">
-
+        {isLoading && <Spinner />}
         <Container>
             <Row>
                 <Col md={{span:12, offset:4}}>
@@ -165,7 +184,7 @@ function DSAbout  (props){
 
                     <Form.Row>
                     <Button as={Col}  className="btn-dark"
-                     
+                     disabled={isLoading}
                      size="sm"
                      md={{span:8, offset:2}}
                      onClick={handleSubmit(onSubmit)}

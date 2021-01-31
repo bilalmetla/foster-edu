@@ -1,5 +1,7 @@
 import React from "react";
-
+import {
+    Link
+  } from "react-router-dom";
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 
@@ -24,16 +26,16 @@ export default class Footer extends React.Component {
                                  <a href="">About Us </a>
                                  </p>
                                  <p>
-                                <a href="">Contact Us </a>
+                                <Link to="/contact-us">Contact Us </Link>
                                 </p>
                              </div>
 
                              <div style={{marginLeft:'10px'}}>
                                 <p >
-                                 <a href="">Become a Tutor </a>
+                                 <Link to="/register">Become a Tutor </Link>
                                  </p>
                                  <p>
-                                <a href="">Hire a Tutor </a>
+                                <Link to="/tutors">Hire a Tutor </Link>
                                 </p>
                              </div>
 

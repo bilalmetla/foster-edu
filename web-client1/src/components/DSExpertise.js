@@ -3,15 +3,16 @@ import { Container, Row, Col,Form, Button } from 'react-bootstrap';
 import {useForm} from 'react-hook-form';
 import {  getCustomerById, updateCustomerInfo } from "../services"
 import { Multiselect } from 'multiselect-react-dropdown';
-
+import Spinner from '../components/common/Spinner';
+import { NotificationManager } from 'react-notifications';
 
 
 
 function DSExpertise  (props){
-
+    const [isLoading, setIsLoading] = useState(false);
     const { register, handleSubmit, setValue, errors, } = useForm();
     const [customer, setCustomer] = useState({});
-    let id ='600f23da7234a142acc51963'
+    let userId = localStorage.getItem('userId')
 
 
     props = {
@@ -76,32 +77,40 @@ function DSExpertise  (props){
     postData.teachingSubjects = customer.teachingSubjects
     postData.teachingGrades = customer.teachingGrades
 
-
-    updateCustomerInfo(postData, {customerId: id})
+    setIsLoading(true)
+    updateCustomerInfo(postData, {customerId: userId})
     .then(result =>{
-        console.log(result)
+        setIsLoading(false)
+        //console.log(result)
+        NotificationManager.success(result.message, 'Successful!', 2000);
+
     })
     .catch(error=>{
+        setIsLoading(false)
         console.log(error)
+        NotificationManager.error(error.toString(), 'Error!', 2000);
+
     })
     }
 
     useEffect(() => {
+       
             // get user and set form fields
-            getCustomerById(id).then(customer => {
-                // const fields = [
-                //     'teachingSubjects',
-                //     'teachingGrades'
-                // ];
-                // fields.forEach(field => setValue(field, customer[field]));
+            setIsLoading(true)
+            getCustomerById(userId).then(customer => {
+                setIsLoading(false)
+                
                 setCustomer(customer);
-            });
+            }).catch(error=>{
+                setIsLoading(false)
+                NotificationManager.error(error.toString(), 'Error!', 2000);
+            })
     }, []);
 
 
       return (
         <div className="section">
-
+        {isLoading && <Spinner />}
 
         <Container>
             <Row>
@@ -145,7 +154,7 @@ function DSExpertise  (props){
 
                     <Form.Row>
                     <Button as={Col}  className="btn-dark"
-                     
+                     disabled={isLoading}
                      size="sm"
                      md={{span:8, offset:3}}
                      onClick={handleSubmit(onSubmit)}

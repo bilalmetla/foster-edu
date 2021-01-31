@@ -1,22 +1,36 @@
 
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
   Link
 } from "react-router-dom";
 import { Container, Row, Col, Accordion, Card } from 'react-bootstrap';
 
 
-export default class DSMenu extends React.Component {
- 
-    render(){
+export default function DSMenu () {
+
+    const [customer, setcustomer] = useState({});
+    const [customerName, setcustomerName] = useState('');
+    const [customerImage, setcustomerImage] = useState('');
+
+   useEffect(() => {
+       let user = localStorage.getItem('user')
+       if(!user){
+           window.location.href = '/'
+       }
+       user = JSON.parse(user)
+     setcustomerName(user.firstName +' '+ user.lastName)
+     setcustomerImage(user.imageUrl)
+      
+   }, []);
+
       return (
           <div id="dashboar-menu">
                <Container>
                 <Row>
                     <Col md={12}>
               <div id="dashboar-menu-heading">
-              <img src="images/tutor4-740x792.jpg" alt="user profile image" />
-              <h4>Muhammad Bilal </h4>
+              <img src={customerImage &&'/images/tutor4-740x792.jpg'} alt="user profile image" />
+              <h4>{customerName} </h4>
               {/* <p>
                   <i className="fa fa-user">
                   </i>
@@ -80,8 +94,7 @@ export default class DSMenu extends React.Component {
                         <Link class="nav-link" to="/">Student Reviews</Link>
                     </p>
                     <p>
-                    {/* <i className="fa fa-user"> </i> */}
-                        <Link class="nav-link active" to="/">Location</Link>
+
                     </p>
                     </Card.Body>
                 </Accordion.Collapse>
@@ -92,7 +105,7 @@ export default class DSMenu extends React.Component {
             <ul class="nav flex-column">
               
                 <li class="nav-item">
-                    <a class="nav-link " href="#">Log Out</a>
+                    <Link class="nav-link " to="/login" onClick={()=> localStorage.clear()}>Log Out</Link>
                 </li>
                 </ul>
            
@@ -101,5 +114,5 @@ export default class DSMenu extends React.Component {
             </Container>
             </div>
       )
-    }
+    
 }

@@ -311,7 +311,8 @@ padding: 15px;
 }
 
 #register-signup input,
-#register-signup select
+#register-signup select,
+#register-signup textarea
  {
     background-color: #ecf0f1;
     margin: 3px;
@@ -449,4 +450,40 @@ padding: 15px;
 
 .Offers-margin {
     margin-bottom: 1px;
+}
+
+#contact-us-left-side {
+    background: #e74c3c;
+    padding-top: 50px;
+    color: #fff;
+    text-align: left;
+    padding-left: 50px;
+}
+
+#contact-us-info {
+    margin-top: 40px;
+    
+}
+
+#contact-us-info > strong {
+    font-size: 18px;
+}
+
+
+#contact-us-social-links i.fa {
+    /* color: #34495e; */
+    margin: 10px;
+    font-size: 25px;
+    
+}
+
+#contact-us-social-links i.fa:hover{
+    color: #e67e22;
+
+}
+
+form label{
+    float: left;
+    margin-bottom: 0;
+    margin-top: 10px;
 }

@@ -228,7 +228,7 @@ export class FeedbackController {
   @post('/web/contact-us', {
     responses: {
       '204': {
-        description: 'Feedback DELETE success',
+        description: 'Feedback Posted success',
       },
     },
   })

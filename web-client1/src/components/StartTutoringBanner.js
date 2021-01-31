@@ -15,7 +15,7 @@ export default class StartTutoringBanner extends React.Component {
                           Start tutoring with <strong>Foster</strong>
                           </h2>
                           <p>We’re always looking for talented tutors. Set your own rate, get paid and make a difference.</p>
-                          <Button variant="btn" size="lg">Apply Now</Button>{' '}
+                          <Button variant="btn" size="lg" onClick={()=> window.location.href ='/register'}>Apply Now</Button>{' '}
 
                       </Col>
                   </Row>

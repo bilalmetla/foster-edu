@@ -17,17 +17,22 @@ import  {Home, Tutors, Register,
   Dashboard, ForgotPasswordView,
   VerifyEmail,
   ResetPassword,
-  ViewProfile
+  ViewProfile,
+  ContactUs
  }  from "./pages";
 
  import Dashboard2 from "./pages/Dashboard/Dashboard";
+// React Notification
+import 'react-notifications/lib/notifications.css';
+import { NotificationContainer } from 'react-notifications';
 
 
 
 export default class App extends React.Component {
     render(){
 
-        return (
+        return (<div>
+           <NotificationContainer/>
             <Router>
               
           
@@ -63,7 +68,7 @@ export default class App extends React.Component {
                    
                   </Route>
                   <Route path="/tutors">
-                  <Header />
+                    <Header />
                     <Tutors />
                     <Footer />
                   </Route>
@@ -73,14 +78,22 @@ export default class App extends React.Component {
                     {/* <Dashboard2 /> */}
                    
                   </Route>
+                  
+                  
+                  <Route path="/contact-us">
+                    <Header />
+                    <ContactUs />
+                    <Footer />
+                   
+                  </Route>
 
                   {/* <Route path="/ViewProfile" component={Dashboard} /> */}
-                  <Route path="/profile/:id" render={
+                  {/* <Route path="/profile/:id" render={
                       
-                    (props) => {
+                    (props) => 
                     <ViewProfile {...props} /> 
-                  }
-                  }/>
+                    
+                  }/> */}
 
                  
                 </Switch>
@@ -88,6 +101,7 @@ export default class App extends React.Component {
         
            
             </Router>
+            </div>
           )
     }
   

@@ -2,32 +2,47 @@ import React, {useState, useEffect} from "react";
 import { Container, Row, Col,Form, Button } from 'react-bootstrap';
 import {useForm} from 'react-hook-form';
 import {  getCustomerById, updateCustomerInfo } from "../services"
+import Spinner from '../components/common/Spinner';
+import { NotificationManager } from 'react-notifications';
+
+
+
 
 function DSEducation  (props){
-
+    const [isLoading, setIsLoading] = useState(false);
     const { register, handleSubmit, setValue, errors, } = useForm();
     const [customer, setCustomer] = useState({});
     //const [education, setEducation] = useState({});
+    let userId = localStorage.getItem('userId')
 
+    
     const onSubmit = (education) => {
        
     //let postData = {...customer, ...data};
    // customer.education && customer.education.length > 0 ?customer.education.push(education)
    customer.education = []
    customer.education[0] = education
-
-    updateCustomerInfo(customer, {customerId: '600f23da7234a142acc51963'})
+   setIsLoading(true)
+    updateCustomerInfo(customer, {customerId: userId})
     .then(result =>{
-        console.log(result)
+        setIsLoading(false)
+       // console.log(result)
+        NotificationManager.success(result.message, 'Successful!', 2000);
+
     })
     .catch(error=>{
+        setIsLoading(false)
         console.log(error)
+        NotificationManager.error(error.toString(), 'Error!', 2000);
+
     })
     }
 
     useEffect(() => {
             // get user and set form fields
-            getCustomerById('600f23da7234a142acc51963').then(customer => {
+            setIsLoading(true)
+            getCustomerById(userId).then(customer => {
+                setIsLoading(false)
                 let education = customer.education ? customer.education[0]: {}
                 const fields = ['institute',
                  'degree',
@@ -35,13 +50,18 @@ function DSEducation  (props){
                 ];
                 fields.forEach(field => setValue(field, education[field]));
                 setCustomer(customer);
-            });
+            }).catch(error=>{
+                setIsLoading(false)
+                console.log(error)
+                NotificationManager.error(error.toString(), 'Error!', 2000);
+
+            })
     }, []);
 
 
       return (
         <div className="section">
-
+            {isLoading && <Spinner />}
         <Container>
             <Row>
                 <Col md={{span:12, offset:2}}>

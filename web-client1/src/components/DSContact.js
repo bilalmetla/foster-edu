@@ -3,28 +3,43 @@ import React, {useState, useEffect} from "react";
 import { Container, Row, Col,Form, Button } from 'react-bootstrap';
 import {useForm} from 'react-hook-form';
 import {  getCustomerById, updateCustomerInfo } from "../services"
+import Spinner from '../components/common/Spinner';
+import { NotificationManager } from 'react-notifications';
+
+
+
 
 export default function DSContact (props) {
     const { register, handleSubmit, setValue, errors, } = useForm();
     const [customer, setCustomer] = useState({});
-    let id = '600f23da7234a142acc51963'
+    const [isLoading, setIsLoading] = useState(false);
+    let userId = localStorage.getItem('userId')
 
 const onSubmit = (data) => {
        
        let postData = {...customer, ...data};
-    updateCustomerInfo(postData, {customerId: id})
+       setIsLoading(true)
+    updateCustomerInfo(postData, {customerId: userId})
     .then(result =>{
-        console.log(result)
+        setIsLoading(false)
+        //console.log(result)
+        NotificationManager.success(result.message, 'Successful!', 2000);
+
     })
     .catch(error=>{
+        setIsLoading(false)
         console.log(error)
+        NotificationManager.error(error.toString(), 'Error!', 2000);
+
     })
     }
 
 
     useEffect(() => {
         // get user and set form fields
-        getCustomerById(id).then(customer => {
+        setIsLoading(true)
+        getCustomerById(userId).then(customer => {
+            setIsLoading(false)
             const fields = [
              'phone',
              'email',
@@ -35,12 +50,18 @@ const onSubmit = (data) => {
             ];
             fields.forEach(field => setValue(field, customer[field]));
             setCustomer(customer);
-        });
+        }).catch(error=>{
+            setIsLoading(false)
+            console.log(error)
+            NotificationManager.error(error.toString(), 'Error!', 2000);
+
+        })
     }, []);
 
 
       return (
         <div className="section">
+            {isLoading && <Spinner />}
         <Container>
             <Row>
                 <Col md={{span:12, offset:6}}>
@@ -86,7 +107,7 @@ const onSubmit = (data) => {
 
                     <Button 
                     as={Col}  className="btn-dark"
-                     
+                     disabled={isLoading}
                      size="sm"
                      md={{span:6, offset:3}}
                      onClick={handleSubmit(onSubmit)}

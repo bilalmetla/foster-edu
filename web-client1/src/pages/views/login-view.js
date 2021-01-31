@@ -4,10 +4,15 @@ import {
   Link
 } from "react-router-dom";
 import { Container, Row, Col, Button,
-    FormControl, Form, InputGroup, Spinner } from 'react-bootstrap';
+    FormControl, Form, InputGroup, } from 'react-bootstrap';
     
 import {useForm} from 'react-hook-form';
 import { MessageBox, login } from "../../services"
+import Spinner from '../../components/common/Spinner';
+import { NotificationManager } from 'react-notifications';
+
+
+
 
 function LoginView (props){
     const { register, handleSubmit, errors, watch } = useForm();
@@ -26,21 +31,29 @@ function LoginView (props){
             // Do something with the response
             console.log('responseJson', responseJson)
             if(responseJson.ok === false){
-                setisSuccessModal(false)
-                setModalHeading(responseJson.status || 'Error')
-                setModalMessage(`${responseJson.statusText}`)
+                // setisSuccessModal(false)
+                // setModalHeading(responseJson.status || 'Error')
+                // setModalMessage(`${responseJson.statusText}`)
                 
-                setModalShow(true)
+                // setModalShow(true)
+                NotificationManager.error(responseJson.statusText, 'Error!', 2000);
+
                 return
             }
             if(responseJson.resultCode && responseJson.resultCode != 2001){
-                setisSuccessModal(false)
-                setModalHeading(responseJson.code || 'Error')
-                setModalMessage(`${responseJson.message}`)
-                setModalShow(true)
+                // setisSuccessModal(false)
+                // setModalHeading(responseJson.code || 'Error')
+                // setModalMessage(`${responseJson.message}`)
+                // setModalShow(true)
+                NotificationManager.error(responseJson.message, 'Error!', 2000);
+
                 return
             }
           
+            localStorage.setItem('userId', responseJson.id);
+            localStorage.setItem('access_token', responseJson.access_token);
+            localStorage.setItem('userType', responseJson.userType);
+            localStorage.setItem('user', JSON.stringify(responseJson));
             window.location.href ='/dashboard/about';
         
 
@@ -48,15 +61,15 @@ function LoginView (props){
           .catch((error) => {
             setIsLoading(false)
             console.trace(error)
-          setModalHeading('Error!')
-          setModalMessage(error.toString())
-            setModalShow(true)
+            NotificationManager.error(error.toString(), 'Error!', 2000);
+
           });
     };
 
 
     return (
         <div id="register" className="section">
+             {isLoading && <Spinner />}
                <MessageBox
                 show={modalShow}
                 onHide={() => setModalShow(false)}
@@ -124,17 +137,11 @@ function LoginView (props){
                           
                           <div className="sign-up-link">
                            {/* <Link className="btn-dark" to="/dashboard" size="lg">Sign Up</Link>{' '} */}
-                           <Button disabled={props.loading} 
+                           <Button disabled={isLoading} 
                            className="btn-dark"
                            type="submit"
                            >
-                               {props.loading && <Spinner
-                              as="span"
-                              animation="grow"
-                              size="sm"
-                              role="status"
-                              aria-hidden="true"
-                              />}
+                              
                               Login
                           </Button>
                           <Link className="forgot-password" to="/forgotpassword" size="lg">Forgot Password?</Link>{' '}
