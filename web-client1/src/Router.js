@@ -34,7 +34,7 @@ export default class App extends React.Component {
         return (<div>
            <NotificationContainer/>
             <Router>
-              
+            <Header />
           
         
                 {/*
@@ -46,9 +46,9 @@ export default class App extends React.Component {
                 */}
                 <Switch>
                   <Route exact path="/">
-                  <Header />
+                  {/* <Header /> */}
                    <Home />
-                   <Footer />
+                  
                   </Route>
 
                   <Route path="/customers/:id/verify/:code" render={(props) => <VerifyEmail {...props} />} />
@@ -68,9 +68,7 @@ export default class App extends React.Component {
                    
                   </Route>
                   <Route path="/tutors">
-                    <Header />
                     <Tutors />
-                    <Footer />
                   </Route>
                   
                   <Route path="/dashboard">
@@ -81,32 +79,26 @@ export default class App extends React.Component {
                   
                   
                   <Route path="/contact-us">
-                    <Header />
                     <ContactUs />
-                    <Footer />
                    
                   </Route>
                  
                  
                   <Route path="/webrtc">
-                    <Header />
                     <WebrtcApp />
-                    <Footer />
-                   
+                  </Route>
+                  
+                  
+                  <Route path="/profile/:id">
+                    <ViewProfile />
+                    {/* </ViewProfile> */}
                   </Route>
 
-                  {/* <Route path="/ViewProfile" component={Dashboard} /> */}
-                  {/* <Route path="/profile/:id" render={
-                      
-                    (props) => 
-                    <ViewProfile {...props} /> 
-                    
-                  }/> */}
 
                  
                 </Switch>
              
-        
+                <Footer />
            
             </Router>
             </div>
