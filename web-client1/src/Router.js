@@ -18,7 +18,8 @@ import  {Home, Tutors, Register,
   VerifyEmail,
   ResetPassword,
   ViewProfile,
-  ContactUs
+  ContactUs,
+  StudentRequest
  }  from "./pages";
 
  import Dashboard2 from "./pages/Dashboard/Dashboard";
@@ -89,9 +90,12 @@ export default class App extends React.Component {
                   </Route>
                   
                   
-                  <Route path="/profile/:id">
-                    <ViewProfile />
-                    {/* </ViewProfile> */}
+                  <Route path="/profile/:id" render={(props) => <ViewProfile {...props} />} >
+                                        
+                  </Route>
+                  
+                  <Route path="/request/to/:id" render={(props) => <StudentRequest {...props} />} >
+                                        
                   </Route>
 
 

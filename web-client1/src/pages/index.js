@@ -8,6 +8,7 @@ import Dashboard  from "./Dashboard";
 import VerifyEmail  from "./VerifyEmail";
 import ResetPassword  from "./ResetPassword";
 import ViewProfile  from "./ViewProfile";
+import StudentRequest  from "./StudentRequest";
 
 export {
     Home,
@@ -19,4 +20,5 @@ export {
     ResetPassword,
     ViewProfile,
     ContactUs,
+    StudentRequest,
 }

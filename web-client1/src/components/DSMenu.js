@@ -29,7 +29,7 @@ export default function DSMenu () {
                 <Row>
                     <Col md={12}>
               <div id="dashboar-menu-heading">
-              <img src={customerImage &&'/images/tutor4-740x792.jpg'} alt="user profile image" />
+              <img src={customerImage ? customerImage : '/images/tutor4-740x792.jpg'} alt="user profile image" />
               <h4>{customerName} </h4>
               {/* <p>
                   <i className="fa fa-user">

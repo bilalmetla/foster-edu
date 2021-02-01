@@ -1,5 +1,5 @@
 
-import React, {  } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
     Link
   } from "react-router-dom";
@@ -8,7 +8,40 @@ import { Container, Row, Col, Badge,
      } from 'react-bootstrap';
 
 
-export default function ViewProfile (){
+
+import { getCustomerById } from "../services";
+
+
+export default function ViewProfile (props){
+    if(!props.match || !props.match.params){
+        window.location.href = "/"
+    }
+   // console.log('props.match.params:', props.match.params)
+   const [tutor, settutor] = useState({});
+
+   useEffect(() => {
+    getCustomerById(props.match.params.id)
+    .then(result=>{
+        console.log(result)
+        settutor(result)
+        settutor(prevState =>{
+            return {
+                ...prevState,
+                teachingSubjects: result.teachingSubjects || [],
+                teachingGrades: result.teachingGrades || [],
+                education: result.education || []
+            }
+        })
+
+        console.log('tutor.teachingSubjects ', tutor.teachingSubjects)
+   
+
+    }).catch(error=>{
+        console.log(error)
+    })
+      
+   }, []);
+
     return (
         <div style={{marginTop:'50px', marginBottom:'50px'}} className="section">
 
@@ -16,10 +49,12 @@ export default function ViewProfile (){
                 <Row>
                     <Col md={{span: 8}}>
                     <div style={{display:'flex'}}>
-                        <img src="images/" alt="user profile image"></img>
-                        <span className="user-profile-title">
-                            <h2>Muhammad Bilal</h2>
-                            <p><strong>Experienced Tutor for Math, Statistics, and Computer Science</strong></p>
+                    <img className="profile-img" src={tutor.imageUrl ?tutor.imageUrl : "/images/tutor2-280x300.jpg"}alt="user profile image"></img>
+                        <span style={{marginLeft:'20px'}} className="user-profile-title">
+                            <h2>{tutor.firstName} {tutor.lastName}</h2>
+                            <p><strong>
+                                {tutor.tagLine}
+                                </strong></p>
                             <p>
                                   <i className="fa fa-star"> </i>
                                   <i className="fa fa-star"> </i>
@@ -33,7 +68,7 @@ export default function ViewProfile (){
                     </div>
 
                     <div className="bio">
-                        <h4>About Bilal</h4>
+                        <h4>About {tutor.lastName}</h4>
                         <hr></hr>
                                               
                         <span style={{display:'flex'}}>
@@ -41,7 +76,12 @@ export default function ViewProfile (){
                             <p>Bio</p>
                             </Col>
                             <Col md={10}>
-                            <p  >I was a graduate student in mathematics at Caltech and a postdoc at Columbia University. I left academia to work in industry, but I enjoy teaching. I have written dozens of articles and a book on applying mathematics for general audiences. I'm working on a parent's guide to algebra and book on applying economics to improve environmentalism. I've tutored mathematics, statistics, economics, computer science, and programming since 2013 on other sites.</p>
+                            <p>
+                                {tutor.greateTutorLine}
+                                </p>
+                                <p>
+                                {tutor.teachingExperienceLine}
+                                </p>
                             </Col>
 
                         </span>
@@ -56,9 +96,20 @@ export default function ViewProfile (){
                             <p>Education</p>
                             </Col>
                             <Col md={10}>
+                               
+                            { tutor.education &&
+                            tutor.education.map(edu=>  <span>
+                                <p>{edu.institute}</p>
+                                <p>{edu.degree}</p>
+                                <p>Passing year <strong>{edu.passingYear}</strong></p>
+                                </span>)
+                            }
+                            {/* <p >
+                                {tutor.education.institute}
+                            </p>
                             <p >
-                                I was a graduate student in mathematics at Caltech and a postdoc at Columbia University. I left academia to work in industry, but I enjoy teaching. I have written dozens of articles and a book on applying mathematics for general audiences. I'm working on a parent's guide to algebra and book on applying economics to improve environmentalism. I've tutored mathematics, statistics, economics, computer science, and programming since 2013 on other sites.
-                                </p>
+                                {tutor.education.institute}
+                            </p> */}
                             </Col>
                         </span>
 
@@ -71,7 +122,7 @@ export default function ViewProfile (){
                                 <p>Policies</p>
                             </Col>
                             <Col md={10}>
-                            <p>Teaching Rate: Rs500/Month</p>
+                            <p>Teaching Rate: <strong>Rs{tutor.fees}</strong>/{tutor.feesPer}</p>
                             </Col>
                         </span>
                        
@@ -81,11 +132,11 @@ export default function ViewProfile (){
                         <hr></hr>
                         <span style={{display:'flex'}}>
                             <Col md={2}>
-                            <p>Schedule</p>
+                            <p>Schedule</p> 
                             </Col>
                             <Col md={10}>
-                            <p>Teaches Online</p>
-                                <p>Teaches In person</p>
+                            {tutor.isOnlineTeaching && <p>Teaches Online</p> }
+                            {tutor.isOfflineTeaching && <p>Teaches In person</p> }
                             </Col>
                         </span>
                        
@@ -98,9 +149,11 @@ export default function ViewProfile (){
                             <p>Subjects</p>
                             </Col>
                             <Col md={10}>
-                            <Badge  style={{marginRight:'5px'}} variant="success">Math</Badge>
-                            <Badge  style={{marginRight:'5px'}} variant="success">Physics</Badge>
-                            <Badge  style={{marginRight:'5px'}} variant="success">BIo</Badge>
+                                
+                            {/* {teachingSubjects} */}
+                            { tutor.teachingSubjects &&
+                            tutor.teachingSubjects.map(subject=> <Badge key={subject} style={{marginRight:'5px'}} variant="success">{subject}</Badge>  ) }
+                            
                             </Col>
                         </span>
 
@@ -113,9 +166,10 @@ export default function ViewProfile (){
                             <p>Teaching Grades</p>
                             </Col>
                             <Col md={10}>
-                            <Badge  style={{marginRight:'5px'}} variant="success">Math</Badge>
-                            <Badge  style={{marginRight:'5px'}} variant="success">Physics</Badge>
-                            <Badge  style={{marginRight:'5px'}} variant="success">BIo</Badge>
+                                <p>
+                                { tutor.teachingGrades &&
+                                tutor.teachingGrades.map(grade=> <Badge key={grade} style={{marginRight:'5px'}} variant="success">{grade}</Badge>  )}
+                                </p>
                             </Col>
                         </span>
 
@@ -167,7 +221,7 @@ export default function ViewProfile (){
                     </Col>
                         <Col md={{span: 4}}>
                         <Card style={{ width: '18rem', marginTop:'70px' }} className="sticky">
-                        <Card.Header>Fees Rs 100/hour</Card.Header>
+                        <Card.Header style={{background:'#e74c3c', color:'#fff'}}>Fees Rs{tutor.fees}/{tutor.feesPer}</Card.Header>
                             <Card.Body>
                             
                                 <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
@@ -177,15 +231,16 @@ export default function ViewProfile (){
                                 <Card.Text>Find the right fit, or your first hour is free</Card.Text>
                                 
                                 <Link
-                                to="/request"
+                                to={`/request/to/${props.match.params.id}`}
                                 className="btn-dark"
+                                style={{marginLeft:'10%',}}
                                 >
-                                    Connect Bilal
+                                    Connect to {tutor.lastName}
                                 </Link> 
                                 {/* <Card.Link href="#">Card Link</Card.Link>
                                 <Card.Link href="#">Another Link</Card.Link> */}
                             </Card.Body>
-                            <Card.Footer className="text-muted">Response Time: 24 hours</Card.Footer>
+                            <Card.Footer  className="text-muted">Response Time: 24 hours</Card.Footer>
                         </Card>
                             
                         </Col>
