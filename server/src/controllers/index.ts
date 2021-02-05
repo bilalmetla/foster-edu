@@ -49,3 +49,4 @@ export * from './static-data.controller';
 export * from './orders-user.controller';
 export * from './configurations.controller';
 export * from './shopping.controller';
+export * from './study-requests.controller';

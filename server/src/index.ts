@@ -9,16 +9,16 @@ export {Kello};
 export async function main(options: ApplicationConfig = {}) {
   const app = new Kello(options);
   await app.boot();
-  //await app.start();
+  await app.start();
 
- app.io = require('socket.io')(await app.start());
- app.io.on('connection', async function (socket: any) {
+//  app.io = require('socket.io')(await app.start());
+//  app.io.on('connection', async function (socket: any) {
 
-  logger.info('connected', socket.id)
-      socket.on('disconnect', function () {
-        logger.info('user disconnected');
-      });
-  });
+//   logger.info('connected', socket.id)
+//       socket.on('disconnect', function () {
+//         logger.info('user disconnected');
+//       });
+//   });
 
   const url = app.restServer.url;
   console.log(`Server is running at ${url}`);

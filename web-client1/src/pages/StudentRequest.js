@@ -11,7 +11,9 @@ import Spinner from '../components/common/Spinner';
 import {useForm} from 'react-hook-form';
 import { NotificationManager } from 'react-notifications';
 
-import { getCustomerById } from "../services";
+import { studyRequests } from "../services";
+
+
 
 
 export default function StudentRequest (props){
@@ -24,9 +26,33 @@ export default function StudentRequest (props){
     const [isSuccessModal, setisSuccessModal] = useState(false);
 
 
+    const onSubbmit = (data)=>{
+        data.from = '01'
+        data.to = props.match.params.tutorId
+        if(data.message){
+            data.messages = []
+            data.messages.push({from: data.from, to: data.to, text: data.message}) 
+        }
+        delete data.message
+        setIsLoading(true)
+        studyRequests(data)
+        .then(result => {
+            setIsLoading(false)
+            console.log('study requests', result)
+            NotificationManager.success(result.message, 'Successful!', 2000);
+
+        })
+        .catch(error => {
+            setIsLoading(false)
+            NotificationManager.error(error.toString(), 'Error!', 2000);
+
+        })
+    }
+
     return (
             <div style={{ marginBottom:'50px'}} className="section">
-    
+            {isLoading && <Spinner />}
+
                 <Container>
                     <Row>
                     <Col md={7}  id="register-signup">
@@ -39,23 +65,23 @@ export default function StudentRequest (props){
                         </p>
                         {/* <Row> */}
                             {/* <Col md={{span:10, offset:2}}> */}
-                        <Form  onSubmit={handleSubmit()}>
+                        <Form  onSubmit={handleSubmit(onSubbmit)}>
                         
                         
-                        <Form.Label htmlFor="subject" >
+                        <Form.Label htmlFor="subjects" >
                             Subject
                           </Form.Label>
                           <InputGroup>
                               
                               <FormControl size="lg"
-                               name="subject" 
+                               name="subjects" 
                                placeholder="subject" 
                                ref={register({required: 'subject is required'}) } 
                                
                                />
                               
                           </InputGroup>
-                          {errors.subject && <p>{errors.subject.message}</p> }
+                          {errors.subjects && <p>{errors.subjects.message}</p> }
 
                           <Form.Row>
                               <Col>
@@ -85,15 +111,15 @@ export default function StudentRequest (props){
                               </Col>
 
                               <Col>
-                              <Form.Label htmlFor="time" >
-                            Availability Time
+                              <Form.Label htmlFor="timeFrom" >
+                            Availability From
                           </Form.Label>
                           <InputGroup>
                               
                               <FormControl size="lg" 
                               as="select"
                                
-                               name="time" 
+                               name="timeFrom" 
                                ref={register({
                                    required: 'Select a time',
                                    
@@ -107,9 +133,35 @@ export default function StudentRequest (props){
                                 <option value="1:00 PM">1:00 PM</option>
                                 </FormControl>
                           </InputGroup>
-                          {errors.time && <p>{errors.time.message}</p> }
+                          {errors.timeFrom && <p>{errors.timeFrom.message}</p> }
 
                               </Col>
+
+                              <Col>
+                              <Form.Label htmlFor="timeTo" >
+                            Availability To
+                          </Form.Label>
+                          <InputGroup>
+                              
+                              <FormControl size="lg" 
+                              as="select"
+                               
+                               name="timeTo" 
+                               ref={register({
+                                   required: 'Select a time',
+                                   
+                                }) }
+                               
+                                >
+                                    <option value="" />
+                                <option value="10:00 AM">10:00 AM</option>
+                                <option value="11:00 AM">11:00 AM</option>
+                                <option value="12:00 AM">12:00 AM</option>
+                                <option value="1:00 PM">1:00 PM</option>
+                                </FormControl>
+                          </InputGroup>
+                          {errors.timeTo && <p>{errors.timeTo.message}</p> }
+                          </Col>
                           </Form.Row>
                                                 
 

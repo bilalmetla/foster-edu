@@ -7,6 +7,8 @@ import { signUp, verifyEmail, login,
      getCustomerById,
      getTutors,
      sendContactUs,
+     studyRequests,
+     getStudentRequests
     } from "./User";
 
 export {
@@ -20,4 +22,6 @@ export {
     getCustomerById,
     getTutors,
     sendContactUs,
+    studyRequests,
+    getStudentRequests
 }

@@ -1,10 +1,12 @@
 import {Entity, model, property, hasMany} from '@loopback/repository';
 import {Orders} from './orders.model';
+//import {StudyRequests} from './study-requests.model';
 
 // export interface location {
 //   [key: string]: [];
 // }
-@model({settings: {strict: false,strictObjectIDCoercion: true}})
+ //@model({settings: {strict: false,strictObjectIDCoercion: true}})
+ @model({settings: {strict: false}})
 export class Customers extends Entity {
   @property({
     type: 'string',
@@ -224,7 +226,11 @@ export class Customers extends Entity {
 
 
   @hasMany(() => Orders)
-  orders: Orders[];
+  orders?: Orders[];
+
+  // @hasMany(() => StudyRequests, {keyTo: 'from'})
+  // studyRequests: StudyRequests[];
+
   // Define well-known properties here
 
   // Indexer property to allow additional data

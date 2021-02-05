@@ -16,6 +16,7 @@ import {
   AuthenticationBindings,
   AuthenticateFn,
   AuthenticationStrategy,
+  
 } from '@loopback/authentication';
 import {UserProfile, securityId} from '@loopback/security';
 import {StrategyAdapter} from '@loopback/authentication-passport';
@@ -72,7 +73,7 @@ export class MyAuthMetadataProvider extends AuthMetadataProvider {
     super(_controllerClass, _methodName);
   }
 
-  value(): MyAuthenticationMetadata | undefined {
+  value1(): MyAuthenticationMetadata | undefined {
     if (!this._controllerClass || !this._methodName) return;
     return MetadataInspector.getMethodMetadata<MyAuthenticationMetadata>(
       AUTHENTICATION_METADATA_KEY,
@@ -206,7 +207,7 @@ export class MyAuthAuthenticationStrategyProvider implements Provider<Authentica
 export class MyAuthActionProvider implements Provider<AuthenticateFn> {
   constructor(
     @inject.getter(MyAuthBindings.STRATEGY) readonly getStrategy: Getter<AuthenticationStrategy>,
-    @inject.setter(AuthenticationBindings.CURRENT_USER) readonly setCurrentUser: Setter<UserProfile>,
+    @inject.setter(AuthenticationBindings.CURRENT_USER) readonly setCurrentUser: Setter<any>,
     @inject.getter(AuthenticationBindings.METADATA) readonly getMetadata: Getter<MyAuthenticationMetadata>,
   ) {}
 
@@ -214,7 +215,7 @@ export class MyAuthActionProvider implements Provider<AuthenticateFn> {
     return request => this.action(request);
   }
 
-  async action(request: Request): Promise<UserProfile | undefined> {
+  async action(request: Request): Promise<UserProfile | any > {
     const metadata = await this.getMetadata();
     if (metadata && metadata.type === SecuredType.PERMIT_ALL) return;
 

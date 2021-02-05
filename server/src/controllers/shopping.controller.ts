@@ -269,7 +269,7 @@ export class ShoppingController {
     firebase.sendNotification(hawker.deviceToken, payload);
    }
 
-   delete createdOrder.items;
+   //delete createdOrder.items;
    return {order: createdOrder}
       
     

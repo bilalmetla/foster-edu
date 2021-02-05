@@ -39,6 +39,12 @@ export class User extends Entity {
   })
   email?: string;
 
+  @property({
+    type: 'string',
+    required: false,
+  })
+  securityId?: string;
+
 
 
   constructor(data?: Partial<User>) {

@@ -94,7 +94,7 @@ export default class App extends React.Component {
                                         
                   </Route>
                   
-                  <Route path="/request/to/:id" render={(props) => <StudentRequest {...props} />} >
+                  <Route path="/request/to/:tutorId" render={(props) => <StudentRequest {...props} />} >
                                         
                   </Route>
 

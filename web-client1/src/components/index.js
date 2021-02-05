@@ -16,6 +16,8 @@ import DSContact from "./DSContact";
 import DSExpertise from "./DSExpertise";
 import DSEducation from "./DSEducation";
 import DSMediums from "./DSMediums";
+import DSNewRequests from "./DSNewRequests";
+import DSChatBox from "./DSChatBox";
 
 export {
     Header,
@@ -34,4 +36,6 @@ export {
     DSExpertise,
     DSEducation,
     DSMediums,
+    DSNewRequests,
+    DSChatBox,
 }

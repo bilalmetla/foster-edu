@@ -46,3 +46,19 @@ export function signUp(data) {
   export function sendContactUs(data) {
    return post(data, `/web/contact-us`)
   }
+ 
+  export function studyRequests(data) {
+   return post(data, `/study-requests`)
+  }
+ 
+  export function getStudentRequests(filterParams= {}) {
+   
+      let filter = {
+        where:{
+           and:[]
+        }
+     }
+     filter.where.and.push(filterParams)
+      // filter.where = filterParams
+      return get(`/study-requests?filter=${JSON.stringify(filter)}`)
+  }

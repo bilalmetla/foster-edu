@@ -2,6 +2,7 @@ import {
   Count,
   CountSchema,
   Filter,
+  FilterExcludingWhere,
   repository,
   Where,
 } from '@loopback/repository';
@@ -166,8 +167,11 @@ export class CustomersController {
   })
   async findById(
     @param.path.string('id') id: string,
+    
     @param.query.object('filter', getFilterSchemaFor(Customers)) filter?: Filter<Customers>
-  ): Promise<Customers> {
+   // @param.filter(Customers, {exclude: 'where'}) filter?: FilterExcludingWhere<Customers>
+
+  ): Promise<Customers | any> {
     // const session = (this.customersRepository.dataSource.connector as any).client.startSession();
     // session.startTransaction();
     // const customers = this.customersRepository.find(filter, {session});
@@ -179,8 +183,10 @@ export class CustomersController {
       filter = {}
     }
     //filter.fields = {id: true, name: true, phone: true, isActivated: true, isWebRegistered: true, deviceToken: true};
-    filter.fields = {password:false, access_token: false}
+    //filter.fields = {password:false, access_token: false}
     return this.customersRepository.findById(id, filter);
+   // return this.customersRepository.findOne({"where":{id}});
+   //return this.customersRepository.find({id}, );
   }
 
 
@@ -296,7 +302,7 @@ export class CustomersController {
             await this.activationsRepository.create({ phone, smsCode: smsCode, expiry: tomorrow.toString() });
             const createdCustomer = await this.customersRepository.create(customers);
             let user = await this.userRepository.create({username: phone});
-            delete createdCustomer.access_token;
+            //delete createdCustomer.access_token;
             
             sendPk.sendOTP(smsCode, createdCustomer.phone);
             return createdCustomer;
@@ -310,7 +316,7 @@ export class CustomersController {
                 await this.activationsRepository.create({ phone, smsCode: smsCode });
                 sendPk.sendOTP(smsCode, phone);
 
-                delete foundCust[0].access_token;
+                //delete foundCust[0].access_token;
               }
 
               return foundCust[0];
@@ -326,7 +332,7 @@ export class CustomersController {
             await this.customersRepository.updateAll(foundCust[0], { phone });
              
             sendPk.sendOTP(smsCode, foundCust[0].phone);
-            delete foundCust[0].access_token;
+           // delete foundCust[0].access_token;
             return foundCust[0];
             
         }
@@ -565,7 +571,7 @@ export class CustomersController {
         if(foundCust[0].password !== password){
           return CONSTANTS.CREDIENTIALS_MISMATCHED
         }
-        delete foundCust[0].password
+       // delete foundCust[0].password
         return foundCust[0];
          
   }

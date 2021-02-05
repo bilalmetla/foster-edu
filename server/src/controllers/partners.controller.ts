@@ -254,7 +254,7 @@ export class PartnersController {
             logger.debug('sending authentication otp to partner');
             sendPk.sendOTP(smsCode, partners.phone);
 
-            delete created_partner.access_token;
+           // delete created_partner.access_token;
             return created_partner;
             
         }
@@ -274,7 +274,7 @@ export class PartnersController {
             await this.partnersRepository.updateAll(foundCust[0], { phone });
 
             sendPk.sendOTP(smsCode, foundCust[0].phone);
-            delete foundCust[0].access_token;
+           // delete foundCust[0].access_token;
             
             return foundCust[0];
         }

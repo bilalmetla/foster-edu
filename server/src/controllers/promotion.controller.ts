@@ -60,7 +60,7 @@ export class PromotionController {
     promotion: Omit<Promotion, 'id'>,
   ): Promise<Promotion> {
     promotion.imageUrl = await this.convertbase64image(promotion.title, promotion.image);
-    delete promotion.image;
+    //delete promotion.image;
     return this.promotionRepository.create(promotion);
   }
 
@@ -189,7 +189,7 @@ export class PromotionController {
    if(promotion.image){
      promotion.imageUrl = await this.convertbase64image(promotion.title, promotion.image);
     }
-    delete promotion.image;
+    //delete promotion.image;
     await this.promotionRepository.replaceById(id, promotion);
   }
 

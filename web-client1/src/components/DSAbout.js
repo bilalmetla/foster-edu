@@ -31,7 +31,7 @@ function DSAbout  (props){
     })
     .catch(error=>{
         setIsLoading(false)
-        console.log(error)
+       // console.log(error)
         NotificationManager.error(error.toString(), 'Error!', 2000);
 
     })

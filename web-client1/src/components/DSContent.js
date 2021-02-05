@@ -7,6 +7,8 @@ import {
 import { DSAbout, DSContact, DSExpertise,
   DSEducation,
   DSMediums,
+  DSNewRequests,
+  DSChatBox
  } from "../components";
 
 export default class DSContent extends React.Component {
@@ -33,6 +35,14 @@ export default class DSContent extends React.Component {
                  
                   <Route path="/dashboard/mediums">
                   <DSMediums />
+                  </Route>
+                 
+                  <Route path="/dashboard/new-requests">
+                  <DSNewRequests />
+                  </Route>
+                  
+                  <Route path="/dashboard/chat-box">
+                  <DSChatBox />
                   </Route>
 
             </Switch>

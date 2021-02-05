@@ -48,23 +48,23 @@ export default function DSMenu () {
                 <Card.Body>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link class="nav-link active" to="/dashboard/about">About</Link>
+                        <Link className="nav-link active" to="/dashboard/about">About</Link>
                     </p>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link class="nav-link active" to="/dashboard/contact">Contact Info</Link>
+                        <Link className="nav-link active" to="/dashboard/contact">Contact Info</Link>
                     </p>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link class="nav-link active" to="/dashboard/expertise">Expertise</Link>
+                        <Link className="nav-link active" to="/dashboard/expertise">Expertise</Link>
                     </p>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link class="nav-link active" to="/dashboard/education">Education</Link>
+                        <Link className="nav-link active" to="/dashboard/education">Education</Link>
                     </p>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link class="nav-link active" to="/dashboard/mediums">Teaching Mediums</Link>
+                        <Link className="nav-link active" to="/dashboard/mediums">Teaching Mediums</Link>
                     </p>
                     </Card.Body>
                 </Accordion.Collapse>
@@ -79,19 +79,19 @@ export default function DSMenu () {
                 <Card.Body>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                    <Link class="nav-link" to="/">Messages</Link>
+                    <Link className="nav-link" to="/dashboard/new-requests">New Requests</Link>
+                    </p>
+                    {/* <p>
+                    <i className="fa fa-user"> </i>
+                    <Link className="nav-link" to="/">Online Classes</Link>
                     </p>
                     <p>
-                    {/* <i className="fa fa-user"> </i> */}
-                    <Link class="nav-link" to="/">Online Classes</Link>
-                    </p>
+                    <i className="fa fa-user"> </i>
+                        <Link className="nav-link" to="#">Get Verified</Link>
+                    </p> */}
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link class="nav-link" to="#">Get Verified</Link>
-                    </p>
-                    <p>
-                    {/* <i className="fa fa-user"> </i> */}
-                        <Link class="nav-link" to="/">Student Reviews</Link>
+                        <Link className="nav-link" to="#">Student Reviews</Link>
                     </p>
                     <p>
 
@@ -102,10 +102,10 @@ export default function DSMenu () {
 
             </Accordion>
             
-            <ul class="nav flex-column">
+            <ul className="nav flex-column">
               
-                <li class="nav-item">
-                    <Link class="nav-link " to="/login" onClick={()=> localStorage.clear()}>Log Out</Link>
+                <li className="nav-item">
+                    <Link className="nav-link " to="/login" onClick={()=> localStorage.clear()}>Log Out</Link>
                 </li>
                 </ul>
            

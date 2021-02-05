@@ -57,7 +57,7 @@ export class ProductsController {
   ): Promise<Products> {
     
     products.imageUrl = await this.convertbase64image(products.displayName, products.image);
-    delete products.image;
+    //delete products.image;
     return this.productsRepository.create(products);
   }
 
@@ -191,7 +191,7 @@ export class ProductsController {
       products.imageUrl = await this.convertbase64image(products.displayName, products.image);
     }
     
-    delete products.image;
+    //delete products.image;
     await this.productsRepository.replaceById(id, products);
   }
 

@@ -213,7 +213,7 @@ export class CustomersOrdersController {
       //session.endSession();
       //let partnerInfo =  {id: nearestPartner.id, name: nearestPartner.name, location: nearestPartner.location, phone: nearestPartner.phone }
       //return { orderId: createdOrder.id, partner: partnerInfo  };
-      delete createdOrder.items;
+      //delete createdOrder.items;
       //send a notification to hawker. currently send it to kellostore default hawker.
    logger.debug('sending notification to device token ', nearestPartner.deviceToken);
    if(nearestPartner.deviceToken){
