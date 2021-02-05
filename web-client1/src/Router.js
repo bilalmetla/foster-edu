@@ -22,6 +22,7 @@ import  {Home, Tutors, Register,
   StudentRequest
  }  from "./pages";
 
+ import { DSChatBox } from "./components";
  import Dashboard2 from "./pages/Dashboard/Dashboard";
 // React Notification
 import 'react-notifications/lib/notifications.css';
@@ -98,6 +99,7 @@ export default class App extends React.Component {
                                         
                   </Route>
 
+                  
 
                  
                 </Switch>

@@ -11,11 +11,15 @@ import { DSAbout, DSContact, DSExpertise,
   DSChatBox
  } from "../components";
 
+ import Socket from "../components/common/Socket.js";
+
 export default class DSContent extends React.Component {
  
   render(){
     return (
-      
+        <div>
+          <Socket />
+
             <Switch>
                   <Route path="/dashboard/about">
                   <DSAbout />
@@ -41,12 +45,12 @@ export default class DSContent extends React.Component {
                   <DSNewRequests />
                   </Route>
                   
-                  <Route path="/dashboard/chat-box">
-                  <DSChatBox />
-                  </Route>
+                  <Route path="/dashboard/chat-box/:to?" render={(props) => <DSChatBox {...props} />} >
+                                                          
+                                                          </Route>
 
             </Switch>
-        
+        </div>
     )
   }
 }

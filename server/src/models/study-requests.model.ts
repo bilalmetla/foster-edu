@@ -76,6 +76,18 @@ export class StudyRequests extends Entity {
   })
   messages?: object[];
 
+  @property({
+    type: 'date',
+    default: new Date(),
+  })
+  createdDate?: Date;
+
+  @property({
+    type: 'date',
+    default: new Date(),
+  })
+  updatedDate?: Date;
+
   // Define well-known properties here
 
   // Indexer property to allow additional data

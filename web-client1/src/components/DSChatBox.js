@@ -4,7 +4,7 @@ import {
   } from "react-router-dom";
 import { Container, Row, Col,Form, Button, Table, InputGroup, FormControl } from 'react-bootstrap';
 import {useForm} from 'react-hook-form';
-import {  getStudentRequests } from "../services"
+import {  getMessages } from "../services"
 import Spinner from '../components/common/Spinner';
 import { NotificationManager } from 'react-notifications';
 
@@ -14,8 +14,67 @@ function DSChatBox  (props){
     
     const [isLoading, setIsLoading] = useState(false);
     const { register, handleSubmit, setValue, errors, } = useForm();
-    const [requests, setrequests] = useState([]);
+    const [chatWith, setchatWith] = useState(props.match.params.to ? props.match.params.to : '' );
+   const [messagesList, setmessagesList] = useState([]);
+   const [message, setmessage] = useState('');
     let userId = localStorage.getItem('userId')
+   //const socket =  localStorage.getItem('currentSocket')
+   //console.log('local storage socket', socket)
+   //socket = JSON.parse(socket)
+   //console.log('local storage socket', socket)
+    // if(props.match && props.match.params){
+    //     console.log(props.match.params)
+    //     setchatWith(props.match.params.to)
+    // }
+
+    useEffect(() => {
+        if(chatWith){
+            getMessages({to:chatWith, from: userId})
+            .then(result=>{
+                console.log(result)
+                setmessagesList(result)
+                console.log(messagesList)
+
+                window.currentSocket.on('message', (data)=>{
+                    console.log('received new message..', data)
+                    let newMessages = messagesList.slice()
+                    newMessages.push(data)
+                    setmessagesList(newMessages)
+                })
+                //messagesList.concat({to:'1', from: '2', message:'hi'})
+            })
+            .catch(error=>{
+                console.log(error)
+            })
+        }
+       
+        
+
+    }, []);
+
+    const changeHandler = (event)=>{
+        let {name, value} = event.target;
+        setmessage(value)
+    }
+    const sendMessage = ()=>{
+        if(!message) return
+
+        let data = {
+            from:userId,
+            to: chatWith,
+            message: message,
+        }
+        let newMessages = messagesList.slice()
+        newMessages.push(data)
+        setmessagesList(newMessages)
+
+        window.currentSocket.emit('message', data)
+       
+        setmessage('')
+    }
+
+   
+
 
 
     return (
@@ -23,40 +82,34 @@ function DSChatBox  (props){
         {isLoading && <Spinner />}
         <Container>
             <Row> 
-                <Col md={{span:8, offset:0}} style={{marginBottom:'10%', marginTop:'50%', }}>
+                <Col md={{span:8, offset:0}} style={{marginBottom:'20%', marginTop:'40%', width:'100%' }}>
                 {/* <h2 className="section-heading"></h2> */}
-                <div  style={{display: 'flex',  background:'#e8eae7', margin:'10px'}}>
-                    <img  src="" alt="user image" />
-                    <p>
-                        Hello how are you popopopo lkklklklklk
-                        Hello how are you popopopo lkklklklklk
-                        Hello how are you popopopo lkklklklklk
-                        Hello how are you popopopo lkklklklklk
-                    </p>
-                </div>
+                {messagesList &&
+                messagesList.map((msg, index)=>{
+                    if(msg.from == userId){
+                       return <div key={index} className="message-from">
+                            
+                            <p >
+                                {msg.message}
+                            </p>
+                            <img src="" alt="user image"  />
+                        </div>
 
-                <div style={{display: 'flex', background:'#e74c3c', float:'right',margin:'10px'}}>
-                   
-                    <p >
-                        I am fine.
-                        I am fine.
-                        I am fine.
-                        I am fine.
-                        I am fine.
-                        I am fine.
-                        I am fine.
-                        I am fine.
-                        I am fine.
-                        I am fine.
-                        I am fine.
-                        I am fine.
-                        I am fine.
-                    </p>
-                    <img src="" alt="user image"  />
-                </div>
-                {/* <div style={{width:'100%', }}> <hr /> </div> */}
-                <div style={{display:'block', width:'100%', marginTop:'100px'}}>
-                <Form>
+                    }
+                    else{
+                       return <div key={index} className="message-to">
+                                <img  src="" alt="user image" />
+                                <p>
+                                    {msg.message}
+                                </p>
+                            </div>
+                    }
+                })
+                }
+                
+                
+                <div >
+                <Form >
                     <Form.Row className="align-items-center">
                         
                         <Col xs="auto" md="10">
@@ -68,15 +121,17 @@ function DSChatBox  (props){
                             <InputGroup.Text>@</InputGroup.Text>
                             </InputGroup.Prepend>
                             <FormControl 
-                            id="inlineFormInputGroup"
                              placeholder="type your message" 
                              as="textarea"
+                             name="message"
+                             value={message}
+                             onChange={changeHandler}
                              />
                         </InputGroup>
                         </Col>
                        
                         <Col xs="auto">
-                        <Button type="submit" className="mb-2">
+                        <Button onClick={handleSubmit(sendMessage)} className="mb-2">
                             Send
                         </Button>
                         </Col>
@@ -86,12 +141,12 @@ function DSChatBox  (props){
 
                 </Col>
                 <Col md={{span:4, offset:0}}>
-                <h2 className="">Connected Users</h2>
+                <h4 className="">Connected Users</h4>
 
                     <div style={{display:'flex'}}>
                         <img width="59px" src="" alt="user image" />
                         <span>
-                            <p><strong>bilal </strong></p>
+                            <p style={{marginBottom:'0'}}><strong>bilal </strong></p>
                             <p>from: karachi</p>
                         </span>
                         <span style={{background:'red', height:'30px', width:'30px',textAlign:'center', borderRadius:'50%', color:'#fff' }}> 1 </span>

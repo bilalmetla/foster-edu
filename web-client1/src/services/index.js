@@ -8,7 +8,8 @@ import { signUp, verifyEmail, login,
      getTutors,
      sendContactUs,
      studyRequests,
-     getStudentRequests
+     getStudentRequests,
+     getMessages,
     } from "./User";
 
 export {
@@ -23,5 +24,6 @@ export {
     getTutors,
     sendContactUs,
     studyRequests,
-    getStudentRequests
+    getStudentRequests,
+    getMessages,
 }

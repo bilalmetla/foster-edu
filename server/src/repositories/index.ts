@@ -25,3 +25,4 @@ export * from './price-plan-types.repository';
 export * from './price-plan.repository';
 export * from './configurations.repository';
 export * from './study-requests.repository';
+export * from './messages.repository';

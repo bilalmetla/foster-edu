@@ -62,3 +62,15 @@ export function signUp(data) {
       // filter.where = filterParams
       return get(`/study-requests?filter=${JSON.stringify(filter)}`)
   }
+  
+  export function getMessages(filterParams= {}) {
+   
+      let filter = {
+        where:{
+           and:[]
+        }
+     }
+     filter.where.and.push(filterParams)
+      // filter.where = filterParams
+      return get(`/messages?filter=${JSON.stringify(filter)}`)
+  }

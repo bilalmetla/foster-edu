@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, Suspense } from 'react';
-import io from "socket.io-client";
+//import io from "socket.io-client";
 import './index.css';
 import Peer from "simple-peer";
 import Rodal from 'rodal'
@@ -83,36 +83,36 @@ function WebrtcApp() {
     {/* <Footer/> */}
   </>
 
-  useEffect(() => {
+  // useEffect(() => {
   
-    socket.current = io.connect("http://127.0.0.1:8000");
+  //   socket.current = io.connect("http://127.0.0.1:8000");
    
-    socket.current.on('connect_error', function(error) {
-      console.log("connect_error to WS server", error);
+  //   socket.current.on('connect_error', function(error) {
+  //     console.log("connect_error to WS server", error);
     
-    });
+  //   });
    
-    socket.current.on('disconnect', function() {
-      console.log('Client disconnected.');
-    });
+  //   socket.current.on('disconnect', function() {
+  //     console.log('Client disconnected.');
+  //   });
 
-    //console.log('socket.current ', socket.current)
+  //   //console.log('socket.current ', socket.current)
 
-    socket.current.on("yourID", (id) => {
-      console.log('received userid: ', id)
-      setYourID(id);
-    })
-    socket.current.on("allUsers", (users) => {
-      setUsers(users);
-    })
+  //   socket.current.on("yourID", (id) => {
+  //     console.log('received userid: ', id)
+  //     setYourID(id);
+  //   })
+  //   socket.current.on("allUsers", (users) => {
+  //     setUsers(users);
+  //   })
 
-    socket.current.on("hey", (data) => {
-      setReceivingCall(true);
-      ringtoneSound.play();
-      setCaller(data.from);
-      setCallerSignal(data.signal);
-    })
-  }, []);
+  //   socket.current.on("hey", (data) => {
+  //     setReceivingCall(true);
+  //     ringtoneSound.play();
+  //     setCaller(data.from);
+  //     setCallerSignal(data.signal);
+  //   })
+  // }, []);
 
   function callPeer(id) {
     console.log('callPeer id: ', id)

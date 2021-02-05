@@ -10,7 +10,7 @@ const io = socket(server)
 //     }
 //     callback(null, true);
 //   });
-const username = require('username-generator')
+//const username = require('username-generator')
 const path = require('path')
 //const { AwakeHeroku } = require('awake-heroku');
 
@@ -29,20 +29,24 @@ const users={}
 io.on('connection', socket => {
     //generate username against a socket connection and store it
    // console.log('connection ..', socket)
-    const userid=username.generateUsername('-')
-    if(!users[userid]){
-        users[userid] = socket.id
-    }
-    //send back username
-    console.log('userid: ',userid )
+    //const userid=username.generateUsername('-')
+    socket.on('session', (data)=>{
+        let userid = data.userId;
+        if(!users[userid]){
+            users[userid] = socket.id
+        }
+        //send back username
+        console.log('userid: ',userid )
+    
+        socket.emit('yourID', userid)
+    })
+   
 
-    socket.emit('yourID', userid)
-
-    io.sockets.emit('allUsers', users)
+  //  io.sockets.emit('allUsers', users)
     
     socket.on('disconnect', ()=>{
-        console.log('connection disconnect ', userid)
-        delete users[userid]
+        console.log('connection disconnect ', socket.id)
+       // delete users[userid]
     })
 
     socket.on('callUser', (data)=>{
@@ -61,6 +65,13 @@ io.on('connection', socket => {
     socket.on('rejected', (data)=>{
         io.to(users[data.to]).emit('rejected')
     })
+    
+    socket.on('message', (data)=>{
+        console.log(data)
+        
+        io.to(users[data.to]).emit('message')
+    })
+    
 })
 
 const port = process.env.PORT || 8000

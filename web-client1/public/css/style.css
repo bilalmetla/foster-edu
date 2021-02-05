@@ -495,3 +495,21 @@ form label{
     padding: 10px;
 
 }
+.message-to {
+    display: flex;
+      background:#e8eae7;
+       margin: 10px;
+        color:'';
+         padding: 5px;
+          border-radius: 10px;
+}
+
+.message-from{
+    display: flex;
+     background:#e74c3c;
+      float:right;
+      margin:10px;
+       color:#fff;
+        padding:5px;
+         border-radius:10px; 
+}

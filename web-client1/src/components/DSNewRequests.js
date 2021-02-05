@@ -54,7 +54,7 @@ function DSNewRequests  (props){
                         </tr>
                     </thead>
                     <tbody>
-                        {requests.map((r => <tr> 
+                        {requests.map(((r, index) => <tr key={index}> 
                             <td>{r.from}</td>
                             <td>{r.to}</td>
                             <td>{r.timeFrom}</td>
@@ -62,7 +62,7 @@ function DSNewRequests  (props){
                             <td>{r.lessonType}</td>
                             <td>{r.subjects}</td>
                             {/* <td>{r.status}</td> */}
-                            <td><Link to="/dashboard/chat-box"> Reply </Link> </td>
+                            <td><Link to={`/dashboard/chat-box/${r.to}`} > Chat </Link> </td>
                              </tr>
                              )) }
                         

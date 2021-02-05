@@ -1,5 +1,5 @@
 
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {
   Link
 } from "react-router-dom";
@@ -12,16 +12,20 @@ export default function DSMenu () {
     const [customerName, setcustomerName] = useState('');
     const [customerImage, setcustomerImage] = useState('');
 
-   useEffect(() => {
-       let user = localStorage.getItem('user')
-       if(!user){
-           window.location.href = '/'
-       }
-       user = JSON.parse(user)
-     setcustomerName(user.firstName +' '+ user.lastName)
-     setcustomerImage(user.imageUrl)
+  
       
-   }, []);
+  useEffect(() => {
+  
+    let user = localStorage.getItem('user')
+    if(!user){
+        window.location.href = '/'
+        return
+    }
+    user = JSON.parse(user)
+    setcustomerName(user.firstName +' '+ user.lastName)
+    setcustomerImage(user.imageUrl)
+   
+  }, []);
 
       return (
           <div id="dashboar-menu">
