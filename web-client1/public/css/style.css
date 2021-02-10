@@ -507,9 +507,24 @@ form label{
 .message-from{
     display: flex;
      background:#e74c3c;
-      float:right;
+      /* float:right; */
       margin:10px;
        color:#fff;
         padding:5px;
          border-radius:10px; 
 }
+
+.chat-box-right {
+    background: #e74c3c;
+    color: #fff;
+    padding-top: 25px;
+    margin-top: 15px;
+}
+
+.chat-box-right h4 {
+    padding-bottom: 25px;
+}
+.chat-users:hover{
+    background: #cc2d1c;
+}
+

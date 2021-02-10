@@ -172,21 +172,13 @@ export class CustomersController {
    // @param.filter(Customers, {exclude: 'where'}) filter?: FilterExcludingWhere<Customers>
 
   ): Promise<Customers | any> {
-    // const session = (this.customersRepository.dataSource.connector as any).client.startSession();
-    // session.startTransaction();
-    // const customers = this.customersRepository.find(filter, {session});
-    // const commit = await session.commitTransaction();
-    // logger.debug('transaction commit', commit);
-    // session.endSession();
-    //  return customers;
+
     if(!filter){
       filter = {}
     }
     //filter.fields = {id: true, name: true, phone: true, isActivated: true, isWebRegistered: true, deviceToken: true};
-    //filter.fields = {password:false, access_token: false}
+    filter.fields = {password:false, access_token: false}
     return this.customersRepository.findById(id, filter);
-   // return this.customersRepository.findOne({"where":{id}});
-   //return this.customersRepository.find({id}, );
   }
 
 

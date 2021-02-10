@@ -29,3 +29,4 @@ export * from './price-plan-types.model';
 export * from './configurations.model';
 export * from './study-requests.model';
 export * from './messages.model';
+export * from './classes.model';

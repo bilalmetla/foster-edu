@@ -93,13 +93,13 @@ export default function DSMenu () {
                     <i className="fa fa-user"> </i>
                         <Link className="nav-link" to="#">Get Verified</Link>
                     </p> */}
-                    <p>
-                    {/* <i className="fa fa-user"> </i> */}
+                    {/* <p>
                         <Link className="nav-link" to="#">Student Reviews</Link>
-                    </p>
+                    </p> */}
                     <p>
-
+                        <Link className="nav-link" to="/dashboard/classes">Classes</Link>
                     </p>
+                    
                     </Card.Body>
                 </Accordion.Collapse>
             </Card>

@@ -18,6 +18,9 @@ import DSEducation from "./DSEducation";
 import DSMediums from "./DSMediums";
 import DSNewRequests from "./DSNewRequests";
 import DSChatBox from "./DSChatBox";
+import DSClasses from "./DSClasses";
+import DSClassesDetails from "./DSClassesDetails";
+import AcceptStudentRequest from "./AcceptStudentRequest";
 
 export {
     Header,
@@ -38,4 +41,7 @@ export {
     DSMediums,
     DSNewRequests,
     DSChatBox,
+    DSClasses,
+    DSClassesDetails,
+    AcceptStudentRequest,
 }

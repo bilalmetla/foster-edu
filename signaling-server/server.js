@@ -4,6 +4,7 @@ const app = express()
 const server = http.createServer(app)
 const socket = require('socket.io')
 const io = socket(server)
+const apis = require('./clients/api')
 // io.origins((origin, callback) => {
 //     if (origin !== 'http://localhost:3001') {
 //         return callback('origin not allowed', false);
@@ -67,8 +68,15 @@ io.on('connection', socket => {
     })
     
     socket.on('message', (data)=>{
-        console.log(data)
-        
+        console.log(data)       
+        apis.post('/messages', data) 
+        .then(res=>{
+            console.log('message posted', res)
+        })
+        .catch(err=>{
+            console.log('message posted', err)
+
+        })
         io.to(users[data.to]).emit('message')
     })
     

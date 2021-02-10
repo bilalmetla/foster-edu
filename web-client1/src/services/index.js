@@ -10,6 +10,10 @@ import { signUp, verifyEmail, login,
      studyRequests,
      getStudentRequests,
      getMessages,
+     getConnectedUsers,
+     getMyClasses,
+     getStudentRequestById,
+     createClassRequest,
     } from "./User";
 
 export {
@@ -26,4 +30,8 @@ export {
     studyRequests,
     getStudentRequests,
     getMessages,
+    getConnectedUsers,
+    getMyClasses,
+    getStudentRequestById,
+    createClassRequest
 }

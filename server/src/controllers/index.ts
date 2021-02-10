@@ -51,3 +51,4 @@ export * from './configurations.controller';
 export * from './shopping.controller';
 export * from './study-requests.controller';
 export * from './messages.controller';
+export * from './classes.controller';

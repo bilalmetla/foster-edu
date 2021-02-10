@@ -74,3 +74,36 @@ export function signUp(data) {
       // filter.where = filterParams
       return get(`/messages?filter=${JSON.stringify(filter)}`)
   }
+  
+  export function getConnectedUsers(filterParams= {}) {
+   
+      let filter = {
+        where:{
+           and:[]
+        }
+     }
+     filter.where.and.push(filterParams)
+      // filter.where = filterParams
+      return get(`/connections?filter=${JSON.stringify(filter)}`)
+  }
+
+  export function getMyClasses(filterParams= {}) {
+   
+      let filter = {
+        where:{
+           ...filterParams
+        }
+     }
+    // filter.where.and.push(filterParams)
+      // filter.where = filterParams
+      return get(`/classes?filter=${JSON.stringify(filter)}`)
+  }
+
+  export function getStudentRequestById(id) {
+  
+   return get(`/study-requests/${id}`)
+}
+
+export function createClassRequest(data) {
+   return post(data, `/classes`)
+  }

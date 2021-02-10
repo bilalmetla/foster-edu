@@ -4,7 +4,7 @@ import {
   } from "react-router-dom";
 import { Container, Row, Col,Form, Button, Table, InputGroup, FormControl } from 'react-bootstrap';
 import {useForm} from 'react-hook-form';
-import {  getMessages } from "../services"
+import {  getMessages, getConnectedUsers } from "../services"
 import Spinner from '../components/common/Spinner';
 import { NotificationManager } from 'react-notifications';
 
@@ -48,6 +48,13 @@ function DSChatBox  (props){
             })
         }
        
+        getConnectedUsers({id: userId})
+        .then(connections => {
+
+        })
+        .catch(error=>{
+            console.log(error)
+        })
         
 
     }, []);
@@ -78,12 +85,13 @@ function DSChatBox  (props){
 
 
     return (
-        <div className="section">
+        <div className="">
         {isLoading && <Spinner />}
         <Container>
-            <Row> 
-                <Col md={{span:8, offset:0}} style={{marginBottom:'20%', marginTop:'40%', width:'100%' }}>
+            <Row style={{width:'150%'}}> 
+                <Col md={{span:8, offset:0}} style={{marginBottom:'20%', marginTop:'40%' }}>
                 {/* <h2 className="section-heading"></h2> */}
+                <div>
                 {messagesList &&
                 messagesList.map((msg, index)=>{
                     if(msg.from == userId){
@@ -106,7 +114,7 @@ function DSChatBox  (props){
                     }
                 })
                 }
-                
+                </div>
                 
                 <div >
                 <Form >
@@ -130,7 +138,7 @@ function DSChatBox  (props){
                         </InputGroup>
                         </Col>
                        
-                        <Col xs="auto">
+                        <Col xs="auto" >
                         <Button onClick={handleSubmit(sendMessage)} className="mb-2">
                             Send
                         </Button>
@@ -140,16 +148,16 @@ function DSChatBox  (props){
                 </div>
 
                 </Col>
-                <Col md={{span:4, offset:0}}>
+                <Col md={{span:4, offset:0}} className="chat-box-right">
                 <h4 className="">Connected Users</h4>
 
-                    <div style={{display:'flex'}}>
+                    <div style={{display:'flex'}} className="chat-users">
                         <img width="59px" src="" alt="user image" />
                         <span>
                             <p style={{marginBottom:'0'}}><strong>bilal </strong></p>
                             <p>from: karachi</p>
                         </span>
-                        <span style={{background:'red', height:'30px', width:'30px',textAlign:'center', borderRadius:'50%', color:'#fff' }}> 1 </span>
+                        <span style={{background:'#cc2d1c', height:'30px', width:'30px',textAlign:'center', borderRadius:'50%', color:'#fff' }}> 1 </span>
                     </div>
                 </Col>
             </Row>
