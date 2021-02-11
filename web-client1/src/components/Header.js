@@ -1,12 +1,25 @@
 
-import React from "react";
+import React, {useState,useEffect } from "react";
 import {
   Link
 } from "react-router-dom";
 import { Container, Row, Col } from 'react-bootstrap';
-export default class Header extends React.Component {
- 
-    render(){
+
+
+
+export default function Header (){
+
+  const [userid, setuserid] = useState('');
+     
+      
+
+      useEffect(() => {
+        let userId = localStorage.getItem('userId')
+        setuserid(userId)
+
+      }, []);
+     
+
       return (
           <div id="header" className="sticky">
             <Container>
@@ -18,7 +31,8 @@ export default class Header extends React.Component {
               <ul id="menu" className="float-md-right">
                 <li> <Link to="/">Home</Link> </li>
                 <li> <Link to="/tutors">Find A Tutor</Link> </li>
-                <li> <Link to="/register">Join Us</Link> </li>
+                {!userid && <li> <Link to="/register">Join Us</Link> </li> }
+                {userid && <li> <Link to="/dashboard/about">Dashboard</Link> </li> }
                 {/* <li> <Link to="/register">Register</Link> </li> */}
               </ul>
             </Col>
@@ -26,5 +40,5 @@ export default class Header extends React.Component {
         </Container>
       </div>
       )
-    }
+
 }

@@ -190,13 +190,13 @@ export default function ViewProfile (props){
                                   <i className="fa fa-star"> </i>
                                   <i className="fa fa-star"> </i>
                               <strong> 5 </strong>
-                              (4 ratings)
+                              {/* (4 ratings) */}
                               </p>
-                              <p><strong>5 stars</strong> ================================ (100)</p>
+                              {/* <p><strong>5 stars</strong> ================================ (100)</p>
                               <p><strong>4 stars</strong> ================================ (80)</p>
                               <p><strong>3 stars</strong> ================================ (80)</p>
                               <p><strong>2 stars</strong> ================================ (80)</p>
-                              <p><strong>1 stars</strong> ================================ (80)</p>
+                              <p><strong>1 stars</strong> ================================ (80)</p> */}
                             </Col>
                         </span>
 
@@ -207,13 +207,13 @@ export default function ViewProfile (props){
                         <hr></hr>
                         <span style={{display:'flex'}}>
                             <p>Reviews</p>
-                            <span style={{marginLeft:'100px'}}>
+                            {/* <span style={{marginLeft:'100px'}}>
                             <p><strong>Greate Experience</strong></p>
                             <p>
                             Douglas is an amazing teacher and I recommend asking for his help!!!! I told him I needed him on Monday morning and I had an appointment scheduled for Tuesday afternoon! I thought the assignment I needed help on was going to take multiple sessions but Douglas helped me.
                             </p>
                             <p> <em>bilal</em></p>
-                            </span>
+                            </span> */}
                         </span>
 
                     </div>

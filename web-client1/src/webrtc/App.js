@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, Suspense } from 'react';
-//import io from "socket.io-client";
+import io from "socket.io-client";
 import './index.css';
 import Peer from "simple-peer";
 import Rodal from 'rodal'
@@ -28,7 +28,7 @@ const ringtoneSound = new Howl({
   preload: true
 })
 
-function WebrtcApp() {
+function WebrtcApp(props) {
   const [yourID, setYourID] = useState("");
   const [users, setUsers] = useState({});
   const [stream, setStream] = useState();
@@ -53,29 +53,29 @@ function WebrtcApp() {
 
   let landingHTML=<>
     {/* <Navigation/> */}
-    <main>
+    <main >
       <div className="u-margin-top-xxlarge u-margin-bottom-xxlarge">
     <div className="o-wrapper-l">
         <div className="hero flex flex-column">
             <div>
-                <div className="welcomeText">
-                    Anonymous Video Calls
-                </div>
+                {/* <div className="welcomeText">
+                    Welcome To Online Session
+                </div> */}
                 <div className="descriptionText">
-                    across the world for free
+                    Start your session here.
                 </div>
             </div>
-            <div>
+            {/* <div>
                 <div className="actionText">Who do you want to call, <span className={copied?"username highlight copied":"username highlight"} onClick={()=>{showCopiedMessage()}}>{yourID}</span>?</div>
-            </div>
+            </div> */}
             <div className="callBox flex">
-                <input type="text" placeholder="Friend ID" value={receiverID} onChange={e => setReceiverID(e.target.value)} className="form-input"/>
+                {/* <input type="text" placeholder="Friend ID" value={receiverID} onChange={e => setReceiverID(e.target.value)} className="form-input"/> */}
                 <button onClick={() => callPeer(receiverID.toLowerCase().trim())} className="primaryButton">Call</button>
             </div>
-            <div>
+            {/* <div>
                 To call your friend, ask them to open Cuckoo in their browser. <br/>
                 Send your username (<span className="username">{yourID}</span>) and wait for their call <span style={{fontWeight: 600}}>OR</span> enter their username and hit call!
-            </div>
+            </div> */}
         </div>
     </div>
     </div>
@@ -83,40 +83,41 @@ function WebrtcApp() {
     {/* <Footer/> */}
   </>
 
-  // useEffect(() => {
-  
-  //   socket.current = io.connect("http://127.0.0.1:8000");
+  useEffect(() => {
+    setReceiverID(props.match.params.receiverId)
+    socket.current = io.connect("http://127.0.0.1:8000");
    
-  //   socket.current.on('connect_error', function(error) {
-  //     console.log("connect_error to WS server", error);
+    socket.current.on('connect_error', function(error) {
+      console.log("connect_error to WS server", error);
     
-  //   });
+    });
    
-  //   socket.current.on('disconnect', function() {
-  //     console.log('Client disconnected.');
-  //   });
+    socket.current.on('disconnect', function() {
+      console.log('Client disconnected.');
+    });
 
-  //   //console.log('socket.current ', socket.current)
+    //console.log('socket.current ', socket.current)
 
-  //   socket.current.on("yourID", (id) => {
-  //     console.log('received userid: ', id)
-  //     setYourID(id);
-  //   })
-  //   socket.current.on("allUsers", (users) => {
-  //     setUsers(users);
-  //   })
+    socket.current.on("yourID", (id) => {
+      console.log('received userid: ', id)
+      setYourID(id);
+    })
+    socket.current.on("allUsers", (users) => {
+      setUsers(users);
+    })
 
-  //   socket.current.on("hey", (data) => {
-  //     setReceivingCall(true);
-  //     ringtoneSound.play();
-  //     setCaller(data.from);
-  //     setCallerSignal(data.signal);
-  //   })
-  // }, []);
+    socket.current.on("hey", (data) => {
+      setReceivingCall(true);
+      ringtoneSound.play();
+      setCaller(data.from);
+      setCallerSignal(data.signal);
+    })
+  }, []);
 
   function callPeer(id) {
     console.log('callPeer id: ', id)
-    if(id!=='' && users[id] && id!==yourID){
+    //if(id!=='' && users[id] && id!==yourID){
+    if(id){
       console.log('callPeer users found: ', id)
       navigator
       .mediaDevices

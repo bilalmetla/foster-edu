@@ -64,7 +64,7 @@ function DSEducation  (props){
             {isLoading && <Spinner />}
         <Container>
             <Row>
-                <Col md={{span:12, offset:2}}>
+                <Col md={{span:12, offset:0}}>
                 <h2 className="section-heading">Your Last Education Degree</h2>
                 <Form >
                     <Form.Row>

@@ -88,8 +88,8 @@ function DSChatBox  (props){
         <div className="">
         {isLoading && <Spinner />}
         <Container>
-            <Row style={{width:'150%'}}> 
-                <Col md={{span:8, offset:0}} style={{marginBottom:'20%', marginTop:'40%' }}>
+            <Row style={{}}> 
+                <Col md={{span:12, offset:2}} style={{marginBottom:'20%', marginTop:'40%' }}>
                 {/* <h2 className="section-heading"></h2> */}
                 <div>
                 {messagesList &&
@@ -148,7 +148,7 @@ function DSChatBox  (props){
                 </div>
 
                 </Col>
-                <Col md={{span:4, offset:0}} className="chat-box-right">
+                {/* <Col md={{span:4, offset:0}} className="chat-box-right">
                 <h4 className="">Connected Users</h4>
 
                     <div style={{display:'flex'}} className="chat-users">
@@ -159,7 +159,7 @@ function DSChatBox  (props){
                         </span>
                         <span style={{background:'#cc2d1c', height:'30px', width:'30px',textAlign:'center', borderRadius:'50%', color:'#fff' }}> 1 </span>
                     </div>
-                </Col>
+                </Col> */}
             </Row>
         </Container>
     </div>

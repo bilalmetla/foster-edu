@@ -14,6 +14,8 @@ import { DSAbout, DSContact, DSExpertise,
   AcceptStudentRequest,
  } from "../components";
 
+ import  WebrtcApp  from "../webrtc/App";
+
  import Socket from "../components/common/Socket.js";
 
 export default class DSContent extends React.Component {
@@ -62,6 +64,10 @@ export default class DSContent extends React.Component {
                   </Route>
                   
                   <Route path="/dashboard/accept-request/:requestId/from/:requestFrom" render={(props) => <AcceptStudentRequest {...props} />} >
+                                                          
+                  </Route>
+                 
+                  <Route path="/dashboard/calling-route/:receiverId" render={(props) => <WebrtcApp {...props} />} >
                                                           
                   </Route>
                  

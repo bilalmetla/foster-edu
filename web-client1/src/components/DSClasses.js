@@ -10,6 +10,7 @@ import { NotificationManager } from 'react-notifications';
 
 
 
+
 function DSClasses (props){
     
     const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +40,7 @@ function DSClasses (props){
         <Container>
             <Row> 
                 <Col md={{span:12, offset:0}}>
-                <h2 className="section-heading">Classes/Sessions</h2>
+                <h2 className="section-heading">My Sessions</h2>
                 {classes.length === 0 ? <p>No Classes Yet.</p> : <p>Your Classes</p>}
                 <Table striped bordered hover  responsive  size="md" >
                     <thead>
@@ -62,7 +63,7 @@ function DSClasses (props){
                             <td>{r.fees}/{r.feesPer}</td>
                             {/* <td>{r.lessonType}</td>
                             <td>{r.subjects}</td> */}
-                            <td><Link to={`/dashboard/class/detail/${r.studentId}`} > View Details </Link> </td>
+                            <td><Link to={`/dashboard/calling-route/${r.studentId}`} > View Details </Link> </td>
                              </tr>
                              )) }
                         

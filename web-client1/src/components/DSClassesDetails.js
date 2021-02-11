@@ -7,7 +7,6 @@ import {useForm} from 'react-hook-form';
 import {  getMyClasses } from "../services"
 import Spinner from '../components/common/Spinner';
 import { NotificationManager } from 'react-notifications';
-import  WebrtcApp from "../webrtc/App";
 
 export default function DSClassesDetails (){
 
@@ -39,7 +38,7 @@ export default function DSClassesDetails (){
             <Container>
                 <Row> 
                     <Col md={{span:12, offset:0}}>
-                    <h2 className="section-heading">Classes/Sessions</h2>
+                    <h2 className="section-heading">Sessions</h2>
 
                     </Col>
                 </Row>

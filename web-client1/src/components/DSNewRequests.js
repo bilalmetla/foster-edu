@@ -20,7 +20,7 @@ function DSNewRequests  (props){
     
     useEffect(() => {
             setIsLoading(true)
-            getStudentRequests({to: '60166cf606ea483ed889951b'}).then(requests => {
+            getStudentRequests({to: userId}).then(requests => {
                 setIsLoading(false)
                 setrequests(requests);
 
@@ -43,8 +43,8 @@ function DSNewRequests  (props){
                 <Table striped bordered hover  responsive  size="md" >
                     <thead>
                         <tr> 
-                        <th>From</th>
-                        <th>To</th>
+                        {/* <th>From</th> */}
+                        {/* <th>To</th> */}
                         <th>Availability From</th>
                         <th>Availability To</th>
                         <th>Lesson Type</th>
@@ -55,8 +55,8 @@ function DSNewRequests  (props){
                     </thead>
                     <tbody>
                         {requests.map(((r, index) => <tr key={index}> 
-                            <td>{r.from}</td>
-                            <td>{r.to}</td>
+                            {/* <td>{r.from}</td> */}
+                            {/* <td>{r.to}</td> */}
                             <td>{r.timeFrom}</td>
                             <td>{r.timeTo}</td>
                             <td>{r.lessonType}</td>

@@ -16,7 +16,7 @@ exports.post = async (url, data)=>{
       })
       .catch(function (error) {
         console.log(error);
-        return Promise.rejected(error)
+        return Promise.reject(error)
 
       });
     

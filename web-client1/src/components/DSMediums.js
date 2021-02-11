@@ -15,12 +15,13 @@ function DSMediums  (props){
     const [isOfflineTeaching, setIsOfflineTeaching] = useState(false);
     const [teachingCity, setTeachingCity] = useState(false);
     const [teachingArea, setTeachingArea] = useState(false);
+    let userId = localStorage.getItem('userId')
 
     const onSubmit = (data) => {
      
        let postData = {...customer, ...data};
        setIsLoading(true)
-    updateCustomerInfo(postData, {customerId: '600f23da7234a142acc51963'})
+    updateCustomerInfo(postData, {customerId: userId})
     .then(result =>{
         setIsLoading(false)
         console.log(result)
@@ -38,7 +39,7 @@ function DSMediums  (props){
     useEffect(() => {
             // get user and set form fields
             setIsLoading(true)
-            getCustomerById('600f23da7234a142acc51963').then(customer => {
+            getCustomerById(userId).then(customer => {
                 setIsLoading(false)
                 const fields = [
                  'isOnlineTeaching',

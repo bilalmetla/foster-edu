@@ -12,7 +12,7 @@ import {useForm} from 'react-hook-form';
 import { NotificationManager } from 'react-notifications';
 
 import { studyRequests } from "../services";
-
+import Socket from "../components/common/Socket.js";
 
 
 
@@ -24,16 +24,18 @@ export default function StudentRequest (props){
     const [modalHeading, setModalHeading] = useState('Error!');
     const [modalMessage, setModalMessage] = useState('');
     const [isSuccessModal, setisSuccessModal] = useState(false);
-
+    let userId = localStorage.getItem('userId')
 
     const onSubbmit = (data)=>{
-        data.from = '01'
+        data.from = userId
         data.to = props.match.params.tutorId
-        if(data.message){
-            data.messages = []
-            data.messages.push({from: data.from, to: data.to, text: data.message}) 
-        }
-        delete data.message
+        let req_message = {from: data.from, to: data.to, message: data.message}
+        window.currentSocket.emit('message', req_message)
+        // if(data.message){
+        //     data.messages = []
+        //     data.messages.push() 
+        // }
+        //delete data.message
         setIsLoading(true)
         studyRequests(data)
         .then(result => {
@@ -51,6 +53,7 @@ export default function StudentRequest (props){
 
     return (
             <div style={{ marginBottom:'50px'}} className="section">
+                <Socket />
             {isLoading && <Spinner />}
 
                 <Container>
