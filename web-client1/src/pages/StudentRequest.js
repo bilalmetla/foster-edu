@@ -27,8 +27,16 @@ export default function StudentRequest (props){
     let userId = localStorage.getItem('userId')
 
     const onSubbmit = (data)=>{
+        if(!userId){
+            NotificationManager.error('Sign Up is required!', 'Error!', 2000);    
+            return
+        }
         data.from = userId
         data.to = props.match.params.tutorId
+        if(data.from === data.to){
+            NotificationManager.error('Yourself Request Is Not Allowed!', 'Error!', 2000);
+            return
+        }
         let req_message = {from: data.from, to: data.to, message: data.message}
         window.currentSocket.emit('message', req_message)
         // if(data.message){
