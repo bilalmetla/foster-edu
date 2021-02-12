@@ -38,19 +38,17 @@ export default function StudentRequest (props){
             return
         }
         let req_message = {from: data.from, to: data.to, message: data.message}
-        window.currentSocket.emit('message', req_message)
-        // if(data.message){
-        //     data.messages = []
-        //     data.messages.push() 
-        // }
-        //delete data.message
+        if(window.currentSocket){
+            window.currentSocket.emit('message', req_message)
+        }
+        
         setIsLoading(true)
         studyRequests(data)
         .then(result => {
             setIsLoading(false)
             console.log('study requests', result)
-            NotificationManager.success(result.message, 'Successful!', 2000);
-
+            NotificationManager.success('Request Sent!', 'Successful!', 2000);
+            window.location.href = 'dashboard/new-requests'
         })
         .catch(error => {
             setIsLoading(false)

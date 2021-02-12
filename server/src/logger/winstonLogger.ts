@@ -5,10 +5,10 @@ const uuid = require("uuid");
 let requestId: string = uuid.v4();
 
 const logConfig = {
-  filename: `${appRoot}/logs/debug.log`,
+  filename: `${appRoot}/logs/traces.log`,
     datePattern: "YYYY-MM-DD-HH",
     zippedArchive: false,
-    maxSize: "2g",
+    maxSize: "5g",
     maxFiles: "14d",
     level: "silly",
     json: true,
@@ -98,12 +98,12 @@ const options = {
   },
   errorLog: {
     name: "Error Logs",
-    filename: `${appRoot}/logs/error.log`, //logConfig.filename,
+    filename: logConfig.filename, //logConfig.filename,
     datePattern: logConfig.datePattern,
     zippedArchive: logConfig.zippedArchive,
     maxSize: logConfig.maxSize,
     maxFiles: logConfig.maxFiles,
-    level: 'error',//logConfig.level,
+    level: logConfig.level,
     json: logConfig.json,
     colorize: false,
     format: winston.format.combine(

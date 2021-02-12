@@ -26,6 +26,11 @@ function DSAbout  (props){
     .then(result =>{
         setIsLoading(false)
         //console.log(result)
+        if(result.error){
+            NotificationManager.error(result.error.message, 'Error!', 2000);
+
+            return
+        }
         NotificationManager.success(result.message, 'Successful!', 2000);
 
     })
@@ -68,7 +73,7 @@ function DSAbout  (props){
         {isLoading && <Spinner />}
         <Container>
             <Row>
-                <Col md={{span:12, offset:4}}>
+                <Col md={{span:12, offset:2}}>
                 <h2 className="section-heading">Personal Information</h2>
                 <Form >
                     <Form.Row>
@@ -103,7 +108,7 @@ function DSAbout  (props){
                         <Form.Control placeholder="Tagline"
                         name="tagLine"
                         value={props.tagLine}
-                        ref={register()}
+                        ref={register({required: 'Tag Line is required'})}
                         />
                     </Form.Group>
                    
@@ -115,7 +120,7 @@ function DSAbout  (props){
                         placeholder="fees"
                         name="fees"
                         value={props.fees}
-                        ref={register()}
+                        ref={register({required: 'Fees is required'})}
                         />
                         </Form.Group>
 
@@ -125,7 +130,7 @@ function DSAbout  (props){
                         defaultValue="Month"
                         name="feesPer"
                         value={props.feesPer}
-                        ref={register()}
+                        ref={register({required: 'fees as per is requried'})}
                         >
                             {/* <option  /> */}
                             <option value="month" >Month</option>
@@ -162,7 +167,7 @@ function DSAbout  (props){
                         as="textarea"
                         name="greateTutorLine"
                         value={props.greateTutorLine}
-                        ref={register()}
+                        ref={register({required: 'Description is required'})}
                         />
                     </Form.Group>
 
@@ -173,7 +178,7 @@ function DSAbout  (props){
                         as="textarea"
                         name="teachingExperienceLine"
                         value={props.teachingExperienceLine}
-                        ref={register()}
+                        ref={register({required: 'teaching experience is required'})}
                         />
                     </Form.Group>
 

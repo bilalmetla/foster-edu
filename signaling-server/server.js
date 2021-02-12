@@ -38,6 +38,7 @@ io.on('connection', socket => {
         }
         //send back username
         console.log('userid: ',userid )
+        console.log('socket.id: ', socket.id )
     
         socket.emit('yourID', userid)
     })

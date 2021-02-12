@@ -10,13 +10,15 @@ export default function Socket () {
 
     useEffect(() => {
   
-        let user = localStorage.getItem('user')
-           
+        let userId = localStorage.getItem('userId')
+           if(!userId){
+             return
+           }
         socket.current = io.connect("http://127.0.0.1:8000");
        
         //window.currentSocket = socket.current;
         socket.current.on('connect', () => {
-            socket.current.emit('session', {userId: user.id})
+            socket.current.emit('session', {userId})
             window.currentSocket = socket.current;
             //localStorage.setItem('currentSocket', JSON.stringify(socket.current))
            // console.log(socket.current)

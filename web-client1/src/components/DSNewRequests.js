@@ -20,7 +20,7 @@ function DSNewRequests  (props){
     
     useEffect(() => {
             setIsLoading(true)
-            getStudentRequests({to: userId}).then(requests => {
+            getStudentRequests([{ to: userId},{ from: userId}]).then(requests => {
                 setIsLoading(false)
                 setrequests(requests);
 
@@ -51,6 +51,7 @@ function DSNewRequests  (props){
                         <th>Subjects</th>
                         {/* <th>Status</th> */}
                         <th>Reply</th>
+                        <th>Accept</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,7 +64,15 @@ function DSNewRequests  (props){
                             <td>{r.subjects}</td>
                             {/* <td>{r.status}</td> */}
                             <td><Link to={`/dashboard/chat-box/${r.to}`} > Chat </Link> </td>
-                            <td><Link to={`/dashboard/accept-request/${r.id}/from/${r.from}`} > Accept </Link> </td>
+                            {userId !== r.from ? 
+                        <td>
+                        <Link to={`/dashboard/accept-request/${r.id}/from/${r.from}`} >
+                             Accept 
+                        </Link> 
+                        </td>:
+                        null    
+                        }
+                            
                              </tr>
                              )) }
                         

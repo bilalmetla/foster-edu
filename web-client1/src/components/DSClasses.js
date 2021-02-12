@@ -20,7 +20,7 @@ function DSClasses (props){
 
     useEffect(() => {
             setIsLoading(true)
-            getMyClasses({instructorId:{like : userId} })
+            getMyClasses([{instructorId:{like : userId} }, {studentId:{like : userId} }])
             .then(cls => {
                 setIsLoading(false)
                 setclasses(cls);
@@ -63,7 +63,11 @@ function DSClasses (props){
                             <td>{r.fees}/{r.feesPer}</td>
                             {/* <td>{r.lessonType}</td>
                             <td>{r.subjects}</td> */}
+                            {userId !== r.studentId ? 
                             <td><Link to={`/dashboard/calling-route/${r.studentId}`} > View Details </Link> </td>
+                            : null
+                            }
+                            
                              </tr>
                              )) }
                         

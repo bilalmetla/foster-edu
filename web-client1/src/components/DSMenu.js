@@ -109,7 +109,7 @@ export default function DSMenu () {
             <ul className="nav flex-column">
               
                 <li className="nav-item">
-                    <Link className="nav-link " to="/login" onClick={()=> localStorage.clear()}>Log Out</Link>
+                    <Link className="nav-link " to="/" onClick={()=> { localStorage.clear(); window.location.reload(); } }>Log Out</Link>
                 </li>
                 </ul>
            

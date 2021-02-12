@@ -112,12 +112,14 @@ export class CustomersController {
   ): Promise<Customers[]> {
 
     if(filter){
-      filter.order = ['createdDate Desc']
+    //  filter.order = ['createdDate Desc']
     }else{
       filter = {};
-      filter.order = ['createdDate Desc']
+     // filter.order = ['createdDate Desc']
     }
-
+    // if(filter.userType === 'tutor'){
+    //   filter.tagLine
+    // }
    // filter.userType='tutor'
     filter.limit = 100;
     //filter.skip = 0;

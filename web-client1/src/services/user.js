@@ -55,11 +55,11 @@ export function signUp(data) {
    
       let filter = {
         where:{
-           and:[]
+          // or:[]
         }
      }
-     filter.where.and.push(filterParams)
-      // filter.where = filterParams
+     filter.where.or = filterParams
+       //filter.where = filterParams
       return get(`/study-requests?filter=${JSON.stringify(filter)}`)
   }
   
@@ -91,10 +91,10 @@ export function signUp(data) {
    
       let filter = {
         where:{
-           ...filterParams
+          // ...filterParams
         }
      }
-    // filter.where.and.push(filterParams)
+     filter.where.or = filterParams
       // filter.where = filterParams
       return get(`/classes?filter=${JSON.stringify(filter)}`)
   }
