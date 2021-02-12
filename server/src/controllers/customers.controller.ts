@@ -29,7 +29,7 @@ const signAsync = promisify(sign);
 import {SendPk} from '../sms/sendpk'
 import { constants } from 'os';
 import { winstonLogger as logger } from "../logger";
-
+import { GMailService } from '../email/nodemailer'; 
 
 export class CustomersController {
   constructor(
@@ -123,7 +123,7 @@ export class CustomersController {
     //filter.skip = 0;
 
     //filter.fields = {id: true, name: true, phone: true, isActivated: true, isWebRegistered: true, deviceToken: true};
-    filter.fields = {password: false, access_token: false};
+    filter.fields = {userPassword: false, access_token: false};
     console.log('customer filter ', JSON.stringify(filter))
     return this.customersRepository.find(filter);
   }
@@ -177,7 +177,7 @@ export class CustomersController {
       filter = {}
     }
     //filter.fields = {id: true, name: true, phone: true, isActivated: true, isWebRegistered: true, deviceToken: true};
-    filter.fields = {password:false, access_token: false}
+    filter.fields = {userPassword:false, access_token: false}
     return this.customersRepository.findById(id, filter);
   }
 
@@ -440,6 +440,8 @@ export class CustomersController {
     customers: Omit<Customers, 'id'>,
   ): Promise< User | Customers | any> {
    
+    logger.info('register request received');
+    logger.debug(customers);
    // let appVersion = customers.versionCode;
     let phone = customers.email
     if(!phone){
@@ -463,14 +465,27 @@ export class CustomersController {
           let token = await signAsync(tokenObject, JWT_SECRET);
           customers.access_token = token;
             customers.isActivated = false;
+            //customers.userPassword = customers.password;
+           // delete customers.password;
             customers.createdDate= new Date();
-            await this.createActivationRecord(phone)
+            let activationRecord = await this.createActivationRecord(phone)
             const createdCustomer = await this.customersRepository.create(customers);
             let user = await this.userRepository.create({username: phone});
            // delete createdCustomer.access_token;
-            //let verifyUrl = `/customers/${createdCustomer.id}/verify/${emailCode}`
+           let verifyUrl = `http://127.0.0.1:3001/customers/${createdCustomer.id}/verify/${activationRecord.emailCode}`
            // sendPk.sendOTP(smsCode, createdCustomer.phone);
-           //logger.info('verification link : '+ verifyUrl)
+           logger.info('verification link : '+ verifyUrl)
+           let gmailService = new GMailService();
+           gmailService.sendMail( 
+            createdCustomer.email,  
+            `${createdCustomer.lastName} Verify Your Email`,
+            
+            `Hi ${createdCustomer.lastName} \n
+            Thank you for your signup with Foster. Please verify your email by visiting below link. \n
+            ${verifyUrl}
+            `
+            ); 
+
             return {customerId: createdCustomer.id};
             
         }
@@ -549,7 +564,8 @@ export class CustomersController {
         let filter = {
             "where": { email },
             // "fields": {
-            //     "password": false,
+            //     "userPassword": true,
+            //     isActivated: true,
             // }
         };
         let foundCust = await this.customersRepository.find(filter);
@@ -560,9 +576,12 @@ export class CustomersController {
         if(!foundCust[0].isActivated){
           return CONSTANTS.USER_NOT_ACTIVATED
         }
-        if(foundCust[0].password !== password){
+        if(foundCust[0].userPassword !== password){
           return CONSTANTS.CREDIENTIALS_MISMATCHED
         }
+        // if(foundCust[0]){
+        //   delete foundCust[0].userPassword
+        // }
        // delete foundCust[0].password
         return foundCust[0];
          
@@ -644,7 +663,7 @@ export class CustomersController {
         
         if (actRecord) {
           logger.debug(JSON.stringify(actRecord));
-            let customer = { isActivated: true, password:newPassword};
+            let customer = { isActivated: true, userPassword:newPassword};
             await this.customersRepository.updateAll(customer, { id: customerId });
             await this.activationsRepository.deleteAll({ phone: foundCust[0].email });
             
@@ -661,7 +680,7 @@ export class CustomersController {
   async createActivationRecord (phone: string){
           let smsCode = Math.floor(Math.random() * 899999 + 100000);
             let emailCode = Math.floor(Math.random() * 899999 + 100000);
-            await this.activationsRepository.create({
+            return await this.activationsRepository.create({
                phone, smsCode: smsCode, emailCode: emailCode
               });
   }

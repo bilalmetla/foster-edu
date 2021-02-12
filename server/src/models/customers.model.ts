@@ -119,9 +119,9 @@ export class Customers extends Entity {
   
   @property({
     type: 'string',
-    required: false,
+    required: true,
   })
-  password: string;
+  userPassword: string;
   
   @property({
     type: 'string',

@@ -27,6 +27,7 @@ function RegisterView (props){
     const [isSuccessModal, setisSuccessModal] = useState(false);
 
     const onSubmit = (data) => {
+        
         setIsLoading(true)
         signUp(data)
         .then((responseJson) => {
@@ -189,15 +190,19 @@ function RegisterView (props){
                           </InputGroup>
                           {errors.email && <p>{errors.email.message}</p> }
 
-                          <Form.Label htmlFor="Password" srOnly>
+                          <Form.Label htmlFor="userPassword" srOnly>
                               Password
                           </Form.Label>
                           <InputGroup>
                               <InputGroup.Prepend>
                               <InputGroup.Text><i className="fa fa-user"></i></InputGroup.Text>
                               </InputGroup.Prepend>
-                              <FormControl size="lg" type="password" id="password" name="password" 
-                              value={props.password} placeholder="Password" 
+                              <FormControl size="lg"
+                               type="password"
+                               id="userPassword" 
+                               name="userPassword" 
+                              value={props.userPassword} 
+                              placeholder="Password" 
                               ref={register({
                                 required: "You must specify a password",
                                 minLength: {
@@ -208,7 +213,7 @@ function RegisterView (props){
                                title="password is required" 
                                />
                           </InputGroup>
-                          {errors.password && <p>{errors.password.message}</p>}
+                          {errors.userPassword && <p>{errors.userPassword.message}</p>}
                           
 
                           {/* <Form.Label htmlFor="confirmPassword" srOnly>
