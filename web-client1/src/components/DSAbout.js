@@ -28,7 +28,6 @@ function DSAbout  (props){
         //console.log(result)
         if(result.error){
             NotificationManager.error(result.error.message, 'Error!', 2000);
-
             return
         }
         NotificationManager.success(result.message, 'Successful!', 2000);

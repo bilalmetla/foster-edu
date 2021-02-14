@@ -9,8 +9,8 @@ export default class Dashboard extends React.Component {
     return (
 
       <div id="dashboard">
-          <DSHeader />
-          <div style={{display:'flex'}}>
+          {/* <DSHeader /> */}
+          <div style={{display:'flex', marginTop:'47px'}}>
           <DSMenu />
           <DSContent />
           </div>

@@ -26,6 +26,8 @@ export class CONSTANTS {
   public static readonly  CREDIENTIALS_MISMATCHED =  new ErrorResponse({resultCode: 'ER3004', name: "", code:"CREDIENTIALS_MISMATCHED", message: "Your credientials are wrong!"})  
   public static readonly  RESET_PASSWORD_LINK_SENT =  new ErrorResponse({resultCode: '2001', name: "", code:"RESET_PASSWORD_LINK_SENT", message: "Your reset password link is sent."})  
   public static readonly  RESET_PASSWORD_FAILED =  new ErrorResponse({resultCode: 'ER3005', name: "", code:"RESET_PASSWORD_FAILED", message: "Your reset password failed."})  
+  public static readonly  SUCCESS_RESPONSE =  {resultCode: '2001', name: "", code:"SUCCESS_RESPONSE", message: "Successfully Added!"}
+  public static readonly  BAD_REQUEST =  new ErrorResponse({resultCode: 'ER0400', name: "", code:"BAD_REQUEST", message: "Your Reques Is Not Valid!"} )
   
 
     

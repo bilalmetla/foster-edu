@@ -30,6 +30,7 @@ import {SendPk} from '../sms/sendpk'
 import { constants } from 'os';
 import { winstonLogger as logger } from "../logger";
 import { GMailService } from '../email/nodemailer'; 
+import { ConvertImage } from "../utilities/convertImage";
 
 export class CustomersController {
   constructor(
@@ -221,7 +222,8 @@ export class CustomersController {
     @param.path.string('id') id: string,
     @requestBody() customers: Customers,
   ): Promise<void | any> {
-    await this.customersRepository.replaceById(id, customers);
+   // await this.customersRepository.replaceById(id, customers);
+   await this.customersRepository.updateAll(customers, {id})
     return  {resultCode:2001, message:"Successfully Updated Information.."}
   }
 
@@ -687,6 +689,37 @@ export class CustomersController {
               });
   }
 
+
+
+  @post('/customers/upload/image', {
+    responses: {
+      '200': {
+        description: 'Upload Customer Image',
+        content: {'application/json': {schema: getModelSchemaRef(Customers)}},
+      },
+    },
+  })
+  async uploadCustomerImage(
+    @requestBody() data: any,
+  
+  ): Promise<any> {
+
+    if(!data.image || !data.customerId){
+      return CONSTANTS.BAD_REQUEST
+    }
+    let ci = new ConvertImage()
+    let imageUrl = await ci.convertbase64image(data.customerId, data.image, 'customers', data.extention)
+    await this.customersRepository.updateAll({imageUrl}, { id: data.customerId });
+    const response = {
+      ...CONSTANTS.SUCCESS_RESPONSE,
+      imageUrl
+    }
+    return response;
+         
+  }
+
+
+
    validatePhone (phone: string): string {
     phone = parseInt(phone, 10).toString();
     
@@ -729,6 +762,10 @@ export class CustomersController {
 //   })
 //   .catch( (error: any) => logger.debug(error))
 //   }
+
+
+
+
 
   }
 

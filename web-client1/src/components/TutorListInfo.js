@@ -25,7 +25,7 @@ export default function TutorListInfo (props) {
                               <Link to={`/profile/${props.tutor.id}`} style={{display:'flex',}}>
                                   <Col md={8}>
                               <div id="tutors-details-list" style={{display:'flex'}}>
-                              <img src={props.tutor.imageUrl ?props.tutor.imageUrl : "/images/tutor2-280x300.jpg"} alt="tutor image" />
+                              <img src={props.tutor.imageUrl} alt="tutor image" />
                               <div>
                               <h4>{props.tutor.firstName} {props.tutor.lastName}</h4>
                               <h6>{props.tutor.tagLine}</h6>

@@ -32,28 +32,9 @@ export class Kello extends BootMixin(
 
     // Set up default home page
     this.static('/', path.join(__dirname, '../public'));
+    this.static('/images/customers', path.join(__dirname, '../images/customers'));
     
-    this.static('/shopping', path.join(__dirname, '../public/customer_client'));
-    this.static('/customer_client/assets', path.join(__dirname, '../public/customer_client/customer_client/assets'));
-    this.static('/customer_client/runtime.js', path.join(__dirname, '../public/customer_client/runtime.js'));
-    this.static('/customer_client/polyfills.js', path.join(__dirname, '../public/customer_client/polyfills.js'));
-    this.static('/customer_client/styles.js', path.join(__dirname, '../public/customer_client/styles.js'));
-    this.static('/customer_client/vendor.js', path.join(__dirname, '../public/customer_client/vendor.js'));
-    this.static('/customer_client/vendor.js', path.join(__dirname, '../public/admin_client/vendor.js'));
-    this.static('/customer_client/main.js', path.join(__dirname, '../public/customer_client/main.js'));
-
-    this.static('/app', path.join(__dirname, '../public/admin_client'));
-    this.static('/assets', path.join(__dirname, '../public/admin_client/assets'));
-    this.static('/runtime.js', path.join(__dirname, '../public/admin_client/runtime.js'));
-    this.static('/polyfills.js', path.join(__dirname, '../public/admin_client/polyfills.js'));
-    this.static('/styles.js', path.join(__dirname, '../public/admin_client/styles.js'));
-    this.static('/vendor.js', path.join(__dirname, '../public/admin_client/vendor.js'));
-    this.static('/vendor.js', path.join(__dirname, '../public/admin_client/vendor.js'));
-    this.static('/main.js', path.join(__dirname, '../public/admin_client/main.js'));
-
-    this.static('/products/images', path.join(__dirname, '../public/products/images'));
-    this.static('/promotions/images', path.join(__dirname, '../public/promotions/images'));
-
+    
     // Customize @loopback/rest-explorer configuration here
     // this.bind(RestExplorerBindings.CONFIG).to({
     //   path: '/explorer',
@@ -112,5 +93,5 @@ setInterval(()=>{
   total product page: ${process.env.productPage}
   `);
 
-}, 1000*10);
+}, 1000*30);
 

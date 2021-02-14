@@ -1,7 +1,7 @@
 {
-  "name": "kello",
+  "name": "foster",
   "version": "1.0.0",
-  "description": "its online store for fresh vegitables and fruites",
+  "description": "its online education platform.",
   "keywords": [
     "loopback-application",
     "loopback"

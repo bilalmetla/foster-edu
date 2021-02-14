@@ -327,7 +327,7 @@ padding: 15px;
 #dashboar-menu {
     background-color: #e74c3c;
     color: #fff;
-    width: 300px;
+    width: 250px;
     margin-top: 15px;
     /* padding-left: 30px; */
     /* text-align: center; */
@@ -369,7 +369,7 @@ padding: 15px;
     background-color: #fff;
     content: "";
     display: block;
-    width: 250px;
+    width: 180px;
     height: 3px;
     margin: 20px auto;
 }

@@ -14,6 +14,7 @@ import { signUp, verifyEmail, login,
      getMyClasses,
      getStudentRequestById,
      createClassRequest,
+     uploadCustomerImage,
     } from "./User";
 
 export {
@@ -33,5 +34,6 @@ export {
     getConnectedUsers,
     getMyClasses,
     getStudentRequestById,
-    createClassRequest
+    createClassRequest,
+    uploadCustomerImage
 }

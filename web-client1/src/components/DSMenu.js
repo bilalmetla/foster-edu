@@ -4,28 +4,69 @@ import {
   Link
 } from "react-router-dom";
 import { Container, Row, Col, Accordion, Card } from 'react-bootstrap';
+import { uploadCustomerImage } from "../services";
+import { NotificationManager } from 'react-notifications';
 
 
-export default function DSMenu () {
 
+
+export default function DSMenu (props) {
+
+    const [profileImage, setprofileImage] = useState({});
+    const [fileupload, setfileupload] = useState('');
     const [customer, setcustomer] = useState({});
     const [customerName, setcustomerName] = useState('');
-    const [customerImage, setcustomerImage] = useState('');
-
-  
+   // const [customerImage, setcustomerImage] = useState('');
+   let userId = localStorage.getItem('userId')
+   let user = localStorage.getItem('user')
       
   useEffect(() => {
   
-    let user = localStorage.getItem('user')
+    
     if(!user){
         window.location.href = '/'
         return
     }
     user = JSON.parse(user)
     setcustomerName(user.firstName +' '+ user.lastName)
-    setcustomerImage(user.imageUrl)
+    setfileupload(user.imageUrl? user.imageUrl : '/images/default.jpg')
    
   }, []);
+
+  const changeHandler = (event) =>{
+      console.log('event.target.files[0]', event.target.files[0])
+      let file = event.target.files[0]
+      setfileupload(URL.createObjectURL(file ) )
+      var reader = new FileReader();
+      var baseString;
+      reader.onloadend = function () {
+        baseString = reader.result;
+   // console.log(baseString); 
+        uploadCustomerImage({image: baseString, extention: '.'+ file.name.split('.')[1], customerId: userId})
+        .then(result => {
+            if(result.resultCode == '2001'){
+                if(typeof user === 'string' ){
+                    user = JSON.parse(user)
+                }
+                user.imageUrl = result.imageUrl
+                localStorage.setItem('user', JSON.stringify(user) )
+                NotificationManager.success(result.message, 'Successful!', 2000);
+                return
+            }else {
+                NotificationManager.error(result.error.message, 'Error!', 2000);
+
+            }
+
+        })
+        .catch(error=>{
+            console.log(error)
+            NotificationManager.error(error.toString(), 'Error!', 2000);
+
+        })
+    }
+    reader.readAsDataURL(file);
+
+     }
 
       return (
           <div id="dashboar-menu">
@@ -33,7 +74,18 @@ export default function DSMenu () {
                 <Row>
                     <Col md={12}>
               <div id="dashboar-menu-heading">
-              <img src={customerImage ? customerImage : '/images/tutor4-740x792.jpg'} alt="user profile image" />
+              <input ref={input => setprofileImage(input) }
+               type="file" id="file1" name="image" accept="image/*" 
+               capture 
+               style={{display:"none" }}
+               onChange={ changeHandler }
+               />
+              <img src={fileupload}
+              id="upfile1" style={{cursor:"pointer"}}
+              alt="user profile image" 
+              onClick={ ()=>{ profileImage.click()} }
+             
+              />
               <h4>{customerName} </h4>
               {/* <p>
                   <i className="fa fa-user">
@@ -97,7 +149,7 @@ export default function DSMenu () {
                         <Link className="nav-link" to="#">Student Reviews</Link>
                     </p> */}
                     <p>
-                        <Link className="nav-link" to="/dashboard/classes">Classes</Link>
+                        <Link className="nav-link" to="/dashboard/classes">My Sessions</Link>
                     </p>
                     
                     </Card.Body>

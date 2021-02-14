@@ -32,6 +32,12 @@ export class Customers extends Entity {
     required: true,
   })
   lastName: string;
+  
+  @property({
+    type: 'string',
+    required: false,
+  })
+  imageUrl?: string;
 
   @property({
     type: 'string',

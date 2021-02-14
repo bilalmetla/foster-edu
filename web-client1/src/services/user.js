@@ -107,3 +107,7 @@ export function signUp(data) {
 export function createClassRequest(data) {
    return post(data, `/classes`)
   }
+
+  export function uploadCustomerImage(data) {
+   return post(data, `/customers/upload/image`)
+  }

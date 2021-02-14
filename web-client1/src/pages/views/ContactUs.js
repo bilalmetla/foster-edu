@@ -115,7 +115,7 @@ function ContactUs (props){
                 <Col md={7}  id="register-signup">
                     <div>
                         <h2>
-                            Send, Your Request
+                            Send, Your Query
                         </h2>
                         <p>
                            We will get back to you in short. 
