@@ -4,8 +4,13 @@
   "description": "Server for React video chat client",
   "main": "server.js",
   "license": "MIT",
+  "scripts": {
+   
+    "start": "node server.js"
+    
+   
+  },
   "dependencies": {
-    "awake-heroku": "^1.0.17",
     "axios": "^0.21.1",
     "express": "^4.17.1",
     "socket.io": "^2.3.0",
