@@ -33,9 +33,9 @@ io.on('connection', socket => {
     //const userid=username.generateUsername('-')
     socket.on('session', (data)=>{
         let userid = data.userId;
-        if(!users[userid]){
+        //if(!users[userid]){
             users[userid] = socket.id
-        }
+        //}
         //send back username
         console.log('userid: ',userid )
         console.log('socket.id: ', socket.id )
@@ -52,19 +52,24 @@ io.on('connection', socket => {
     })
 
     socket.on('callUser', (data)=>{
-        console.log('calling to ', data)
+        console.log('calling ....')
+        console.log('userToCall: ', data.userToCall)
+        console.log('from: ', data.from)
         io.to(users[data.userToCall]).emit('hey', {signal: data.signalData, from: data.from})
     })
 
     socket.on('acceptCall', (data)=>{
+        console.log('acceptCall', data.to)
         io.to(users[data.to]).emit('callAccepted', data.signal)
     })
 
     socket.on('close', (data)=>{
+        console.log('close', data.to)
         io.to(users[data.to]).emit('close')
     })
 
     socket.on('rejected', (data)=>{
+        console.log('rejected', data.to)
         io.to(users[data.to]).emit('rejected')
     })
     

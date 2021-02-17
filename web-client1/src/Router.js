@@ -5,7 +5,9 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  
 } from "react-router-dom";
+
 
 
 import './App.css';
@@ -35,7 +37,7 @@ export default class App extends React.Component {
 
         return (<div>
            <NotificationContainer/>
-            <Router>
+            <Router >
             <Header />
           
         

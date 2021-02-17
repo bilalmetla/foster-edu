@@ -20,8 +20,7 @@ export default function Socket () {
         socket.current.on('connect', () => {
             socket.current.emit('session', {userId})
             window.currentSocket = socket.current;
-            //localStorage.setItem('currentSocket', JSON.stringify(socket.current))
-           // console.log(socket.current)
+           
         })
     
         socket.current.on('connect_error', function(error) {

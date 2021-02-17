@@ -344,8 +344,12 @@ body {
 }
 
 .callContainer{
-  width: 100vw;
+  /* max-width: 800px; */
+  width: 700px;
   height: 100vh;
+margin-left: 20px;
+margin-top: 20px;
+  
 }
 
 .userVideoContainer{
@@ -356,6 +360,7 @@ body {
   position: absolute;
   top: var(--spacing-unit-micro);
   left: var(--spacing-unit-micro);
+  margin-top: 60px;
   z-index: 99;
 }
 
@@ -389,12 +394,12 @@ body {
   justify-content: space-around;
   height: 4rem;
   z-index: 999;
-  width: 100vw;
+  /* width: 100vw; */
   background-color: rgba(0,0,0,0.1);
 }
 
 .iconContainer{
-  padding: 10px;
+  /* padding: 10px;
   border-radius: 50%;
   border: 2px solid var(--primary-color);
   width: 1.25rem;
@@ -402,13 +407,19 @@ body {
   cursor: pointer;
   background-color: var(--primary-color-hover);
   box-shadow: var(--lift-shadow);
-  transition: background-color .2s cubic-bezier(.4,0,.2,1);
+  transition: background-color .2s cubic-bezier(.4,0,.2,1); */
 }
 
-.iconContainer:hover{
+/* .iconContainer:hover{
   background-color: rgba(var(--color-background),0.2);
-}
+} */
 
+.iconContainer {
+  text-align: center;
+}
+.iconContainer button {
+  margin: 5px;
+}
 .iconContainer img{
   width: 100%;
   height: auto;

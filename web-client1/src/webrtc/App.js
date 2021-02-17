@@ -11,6 +11,7 @@ import Footer from './Components/Footer/Footer'
 import  'rodal/lib/rodal.css'
 
 import camera from './Icons/camera.svg'
+import { ReactComponent as YourSvg } from './Icons/camera.svg'
 import camerastop from './Icons/camera-stop.svg'
 import microphone from './Icons/microphone.svg'
 import microphonestop from './Icons/microphone-stop.svg'
@@ -53,7 +54,7 @@ function WebrtcApp(props) {
 
   let landingHTML=<>
     {/* <Navigation/> */}
-    <main >
+    <main style={{opasity:'100'}}>
       <div className="u-margin-top-xxlarge u-margin-bottom-xxlarge">
     <div className="o-wrapper-l">
         <div className="hero flex flex-column">
@@ -69,11 +70,16 @@ function WebrtcApp(props) {
                 <div className="actionText">Who do you want to call, <span className={copied?"username highlight copied":"username highlight"} onClick={()=>{showCopiedMessage()}}>{yourID}</span>?</div>
             </div> */}
             <div className="callBox flex">
-                {/* <input type="text" placeholder="Friend ID" value={receiverID} onChange={e => setReceiverID(e.target.value)} className="form-input"/> */}
-                <button onClick={() => callPeer(receiverID.toLowerCase().trim())} className="primaryButton">Call</button>
+                <input type="text" disabled={receiverID? true: false} placeholder="Call Reveiver ID" value={receiverID} onChange={e => setReceiverID(e.target.value)} className="form-input"/>
+                {yourID === receiverID ?
+                  <button onClick={() => {} } className="primaryButton">Join</button>
+                  :
+                  <button onClick={() => callPeer(receiverID.toLowerCase().trim())} className="primaryButton">Call</button>  
+                }
+                {/* <button onClick={() => callPeer(receiverID.toLowerCase().trim())} className="primaryButton">Call</button> */}
             </div>
             {/* <div>
-                To call your friend, ask them to open Cuckoo in their browser. <br/>
+                To call your friend, ask them to open it in their browser. <br/>
                 Send your username (<span className="username">{yourID}</span>) and wait for their call <span style={{fontWeight: 600}}>OR</span> enter their username and hit call!
             </div> */}
         </div>
@@ -84,9 +90,21 @@ function WebrtcApp(props) {
   </>
 
   useEffect(() => {
-    setReceiverID(props.match.params.receiverId)
+    if(props && props.match && props.match.params){
+      setReceiverID(props.match.params.receiverId)
+    }
+    
     socket.current = io.connect("http://127.0.0.1:8000");
    
+    socket.current.on('connect', () => {
+      let userId = localStorage.getItem('userId')
+      if(userId){
+        socket.current.emit('session', {userId})
+        window.currentSocket = socket.current;
+      }
+      
+     
+  })
     socket.current.on('connect_error', function(error) {
       console.log("connect_error to WS server", error);
     
@@ -99,8 +117,10 @@ function WebrtcApp(props) {
     //console.log('socket.current ', socket.current)
 
     socket.current.on("yourID", (id) => {
-      console.log('received userid: ', id)
+      console.log('received yourID: ', id)
       setYourID(id);
+
+     
     })
     socket.current.on("allUsers", (users) => {
       setUsers(users);
@@ -112,12 +132,15 @@ function WebrtcApp(props) {
       setCaller(data.from);
       setCallerSignal(data.signal);
     })
+
+
   }, []);
 
   function callPeer(id) {
     console.log('callPeer id: ', id)
+    console.log('caller id: ', yourID)
     //if(id!=='' && users[id] && id!==yourID){
-    if(id){
+    if(id && id !== yourID ){
       console.log('callPeer users found: ', id)
       navigator
       .mediaDevices
@@ -185,7 +208,7 @@ function WebrtcApp(props) {
       })
       .catch((error)=>{
         console.log('error', error)
-        setModalMessage('You cannot place/ receive a call without granting video and audio permissions! Please change your settings to use Cuckoo.')
+        setModalMessage('You cannot place/ receive a call without granting video and audio permissions! Please change your settings to use.')
         setModalVisible(true)
       })
     } else {
@@ -227,11 +250,13 @@ function WebrtcApp(props) {
 
       socket.current.on('close', ()=>{
         console.log('socket closed')
-        window.location.reload()
+       // window.location.reload()
+       setModalMessage('Your call connection is closed!')
+        setModalVisible(true)
       })
     })
     .catch(()=>{
-      setModalMessage('You cannot place/ receive a call without granting video and audio permissions! Please change your settings to use Cuckoo.')
+      setModalMessage('You cannot place/ receive a call without granting video and audio permissions! Please change your settings.')
       setModalVisible(true)
     })
   }
@@ -241,12 +266,17 @@ function WebrtcApp(props) {
     setCallRejected(true)
     socket.current.emit('rejected', {to:caller})
     window.location.reload()
+   //setModalMessage('Your call is rejected!')
+    //setModalVisible(true)
   }
 
   function endCall(){
+    console.log('call ending..')
     myPeer.current.destroy()
     socket.current.emit('close',{to:caller})
     window.location.reload()
+   //setModalMessage('Your call is ended!')
+    //setModalVisible(true)
   }
 
   function shareScreen(){
@@ -337,44 +367,55 @@ function WebrtcApp(props) {
   let audioControl;
   if(audioMuted){
     audioControl=<span className="iconContainer" onClick={()=>toggleMuteAudio()}>
-      <img src={microphonestop} alt="Unmute audio"/>
+      {/* <img src={microphonestop} alt="Unmute audio"/> */}
+      <button>Unmute audio</button>
+
     </span>
   } else {
     audioControl=<span className="iconContainer" onClick={()=>toggleMuteAudio()}>
-      <img src={microphone} alt="Mute audio"/>
+      {/* <img src={microphone} alt="Mute audio"/> */}
+      <button>Mute audio</button>
     </span>
   }
 
   let videoControl;
   if(videoMuted){
     videoControl=<span className="iconContainer" onClick={()=>toggleMuteVideo()}>
-      <img src={camerastop} alt="Resume video"/>
+      
+      {/* <img src={camera} alt="Resume video"/> */}
+      <button>Resume Video</button>
     </span>
   } else {
     videoControl=<span className="iconContainer" onClick={()=>toggleMuteVideo()}>
-      <img src={camera} alt="Stop audio"/>
+      {/* <img src={camera} alt="Stop audio"/> */}
+      <button>Stop Video</button>
     </span>
   }
 
   let screenShare=<span className="iconContainer" onClick={()=>shareScreen()}>
-    <img src={share} alt="Share screen"/>
+    {/* <img src={share} alt="Share screen"/> */}
+    <button>Share Screen</button>
   </span>
   if(isMobileDevice()){
     screenShare=<></>
   }
 
   let hangUp=<span className="iconContainer" onClick={()=>endCall()}>
-    <img src={hangup} alt="End call"/>
+    {/* <img src={hangup} alt="End call"/> */}
+    <button>End Call</button>
   </span>
 
   let fullscreenButton;  
   if(isfullscreen){
     fullscreenButton=<span className="iconContainer" onClick={()=>{setFullscreen(false)}}>
-      <img src={minimize} alt="fullscreen"/>
+      {/* <img src={minimize} alt="fullscreen"/> */}
+      <button>minimize</button>
+
     </span>
   } else {
     fullscreenButton=<span className="iconContainer" onClick={()=>{setFullscreen(true)}}>
-      <img src={fullscreen} alt="fullscreen"/>
+      {/* <img src={fullscreen} alt="fullscreen"/> */}
+      <button>Full Screen</button>
     </span>
   }
 
@@ -396,7 +437,7 @@ function WebrtcApp(props) {
       </div>
       <div className="callContainer" style={{display: renderCall()}}>
         <Suspense fallback={<div>Loading...</div>}>
-          <Watermark/>
+          <Watermark />
         </Suspense>
         <div className="partnerVideoContainer">
           {PartnerVideo}

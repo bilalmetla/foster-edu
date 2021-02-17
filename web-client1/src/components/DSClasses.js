@@ -63,10 +63,10 @@ function DSClasses (props){
                             <td>{r.fees}/{r.feesPer}</td>
                             {/* <td>{r.lessonType}</td>
                             <td>{r.subjects}</td> */}
-                            {userId !== r.studentId ? 
-                            <td><Link to={`/dashboard/calling-route/${r.studentId}`} > View Details </Link> </td>
-                            : null
-                            }
+                            {/* {userId !== r.studentId ?  */}
+                            <td><Link to={`/dashboard/calling-route/${r.studentId}`} > Take The Session </Link> </td>
+                            {/* : null
+                            } */}
                             
                              </tr>
                              )) }
