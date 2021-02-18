@@ -7,7 +7,7 @@ import {Howl} from 'howler'
 
 import Navigation from './Components/Navigation/Navigation'
 import Footer from './Components/Footer/Footer'
-
+import { constants } from "../constants";
 import  'rodal/lib/rodal.css'
 
 import camera from './Icons/camera.svg'
@@ -22,12 +22,14 @@ import minimize from './Icons/minimize.svg'
 import ringtone from './Sounds/ringtone.mp3'
 
 const Watermark = React.lazy(()=>import('./Components/Watermark/Watermark'))
-
 const ringtoneSound = new Howl({
   src: [ringtone],
   loop: true,
   preload: true
 })
+
+
+
 
 function WebrtcApp(props) {
   const [yourID, setYourID] = useState("");
@@ -94,7 +96,11 @@ function WebrtcApp(props) {
       setReceiverID(props.match.params.receiverId)
     }
     
-    socket.current = io.connect("http://127.0.0.1:8000");
+    let instance = constants.dev_signalling_server
+    if(!constants.isDevelopment){
+     instance = constants.stg_signalling_server
+    }
+    socket.current = io.connect(instance);
    
     socket.current.on('connect', () => {
       let userId = localStorage.getItem('userId')
@@ -127,6 +133,7 @@ function WebrtcApp(props) {
     })
 
     socket.current.on("hey", (data) => {
+      console.log('socket.current on hey', data)
       setReceivingCall(true);
       ringtoneSound.play();
       setCaller(data.from);
@@ -141,7 +148,7 @@ function WebrtcApp(props) {
     console.log('caller id: ', yourID)
     //if(id!=='' && users[id] && id!==yourID){
     if(id && id !== yourID ){
-      console.log('callPeer users found: ', id)
+     
       navigator
       .mediaDevices
       .getUserMedia({ video: true, audio: true })
@@ -181,6 +188,7 @@ function WebrtcApp(props) {
         })
     
         peer.on("stream", stream => {
+          console.log('peer.on stream', stream)
           if (partnerVideo.current) {
             partnerVideo.current.srcObject = stream;
           }
@@ -192,18 +200,21 @@ function WebrtcApp(props) {
         })
     
         socket.current.on("callAccepted", signal => {
+          console.log('socket.current.on callAccepted', signal)
           setCallAccepted(true);
           peer.signal(signal);
         })
 
         socket.current.on('close', ()=>{
           console.log('socket closed')
-          window.location.reload()
+         // window.location.reload()
+          window.location.href = '/'
         })
   
         socket.current.on('rejected', ()=>{
           console.log('socket rejected')
-          window.location.reload()
+          //window.location.reload()
+          window.location.href = '/'
         })
       })
       .catch((error)=>{
@@ -235,14 +246,17 @@ function WebrtcApp(props) {
       myPeer.current=peer
 
       peer.on("signal", data => {
+        console.log('peer.on signal ', data)
         socket.current.emit("acceptCall", { signal: data, to: caller })
       })
 
       peer.on("stream", stream => {
+        console.log('peer.on stream | partnerVideo.current.srcObject', stream)
         partnerVideo.current.srcObject = stream;
       });
 
       peer.on('error', (err)=>{
+        console.log('peer.on error ', err)
         endCall()
       })
 
@@ -251,8 +265,10 @@ function WebrtcApp(props) {
       socket.current.on('close', ()=>{
         console.log('socket closed')
        // window.location.reload()
+       
        setModalMessage('Your call connection is closed!')
         setModalVisible(true)
+        window.location.href = '/'
       })
     })
     .catch(()=>{
@@ -265,7 +281,8 @@ function WebrtcApp(props) {
     ringtoneSound.unload();
     setCallRejected(true)
     socket.current.emit('rejected', {to:caller})
-    window.location.reload()
+    //window.location.reload()
+    window.location.href = '/'
    //setModalMessage('Your call is rejected!')
     //setModalVisible(true)
   }
@@ -274,7 +291,8 @@ function WebrtcApp(props) {
     console.log('call ending..')
     myPeer.current.destroy()
     socket.current.emit('close',{to:caller})
-    window.location.reload()
+    //window.location.reload()
+    window.location.href = '/'
    //setModalMessage('Your call is ended!')
     //setModalVisible(true)
   }

@@ -1,6 +1,7 @@
 
 import React, {useState, useEffect, useRef} from "react";
 import io from "socket.io-client";
+import { constants } from "../../constants";
 
 export default function Socket () {
 
@@ -14,7 +15,11 @@ export default function Socket () {
            if(!userId){
              return
            }
-        socket.current = io.connect("http://127.0.0.1:8000");
+           let instance = constants.dev_signalling_server
+           if(!constants.isDevelopment){
+            instance = constants.stg_signalling_server
+           }
+        socket.current = io.connect(instance);
        
         //window.currentSocket = socket.current;
         socket.current.on('connect', () => {

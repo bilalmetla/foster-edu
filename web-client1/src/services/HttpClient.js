@@ -1,5 +1,8 @@
 
-var  REACT_APP_API_BASE_URL = 'http://127.0.0.1:3000';
+import { constants } from "../constants";
+
+
+var  REACT_APP_API_BASE_URL = constants.isDevelopment ? constants.dev_api_server : constants.stg_api_server
 
 
 export function get(url) {
