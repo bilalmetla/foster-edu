@@ -54,6 +54,7 @@ function LoginView (props){
             localStorage.setItem('access_token', responseJson.access_token);
             localStorage.setItem('userType', responseJson.userType);
             localStorage.setItem('user', JSON.stringify(responseJson));
+            localStorage.setItem('userImage', responseJson.imageUrl)
            // window.location.href ='/dashboard/about';
            window.location.href = '/'
         

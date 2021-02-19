@@ -15,10 +15,14 @@ export default function DSMenu (props) {
     const [profileImage, setprofileImage] = useState({});
     const [fileupload, setfileupload] = useState('');
     const [customer, setcustomer] = useState({});
+    const [activeLinkClass, setactiveLinkClass] = useState('active');
+    const [activeAccordionsClass, setactiveAccordionsClass] = useState('accordions-active');
     const [customerName, setcustomerName] = useState('');
    // const [customerImage, setcustomerImage] = useState('');
    let userId = localStorage.getItem('userId')
    let user = localStorage.getItem('user')
+   let userImage = localStorage.getItem('userImage')
+   
       
   useEffect(() => {
   
@@ -29,6 +33,7 @@ export default function DSMenu (props) {
     }
     user = JSON.parse(user)
     setcustomerName(user.firstName +' '+ user.lastName)
+    user.imageUrl = userImage ? userImage : user.imageUrl 
     setfileupload(user.imageUrl? user.imageUrl : '/images/default.jpg')
    
   }, []);
@@ -49,7 +54,7 @@ export default function DSMenu (props) {
                     user = JSON.parse(user)
                 }
                 user.imageUrl = result.imageUrl
-                localStorage.setItem('user', JSON.stringify(user) )
+                localStorage.setItem('userImage', result.imageUrl )
                 NotificationManager.success(result.message, 'Successful!', 2000);
                 return
             }else {
@@ -67,6 +72,16 @@ export default function DSMenu (props) {
     reader.readAsDataURL(file);
 
      }
+
+     const changeActiveClass = (event) => {
+         document.getElementsByClassName('active')[0].classList.remove(activeLinkClass) ;
+          event.target.classList.add(activeLinkClass) 
+        }
+     
+        const changeActiveAccordionsClass = (event) => {
+         document.getElementsByClassName('accordions-active')[0].classList.remove(activeAccordionsClass) ;
+          event.target.classList.add(activeAccordionsClass) 
+        }
 
       return (
           <div id="dashboar-menu">
@@ -97,30 +112,30 @@ export default function DSMenu (props) {
               
             <Accordion defaultActiveKey="0" id="menue-accordion">
             <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="0" >
+                <Accordion.Toggle as={Card.Header} eventKey="0" onClick={changeActiveAccordionsClass} className="accordions-active" >
                 Profile
                 </Accordion.Toggle>
-                <Accordion.Collapse eventKey="0" className="accordions-links">
+                <Accordion.Collapse eventKey="0" className="accordions-links ">
                 <Card.Body>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link className="nav-link active" to="/dashboard/about">About</Link>
+                        <Link className={`nav-link ${activeLinkClass}`} onClick={changeActiveClass} to="/dashboard/about">About</Link>
                     </p>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link className="nav-link active" to="/dashboard/contact">Contact Info</Link>
+                        <Link className="nav-link " onClick={changeActiveClass} to="/dashboard/contact">Contact Info</Link>
                     </p>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link className="nav-link active" to="/dashboard/expertise">Expertise</Link>
+                        <Link className="nav-link " onClick={changeActiveClass} to="/dashboard/expertise">Expertise</Link>
                     </p>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link className="nav-link active" to="/dashboard/education">Education</Link>
+                        <Link className="nav-link " onClick={changeActiveClass} to="/dashboard/education">Education</Link>
                     </p>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link className="nav-link active" to="/dashboard/mediums">Teaching Mediums</Link>
+                        <Link className="nav-link " onClick={changeActiveClass} to="/dashboard/mediums">Teaching Mediums</Link>
                     </p>
                     </Card.Body>
                 </Accordion.Collapse>
@@ -128,14 +143,14 @@ export default function DSMenu (props) {
             
 
             <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="1" >
+                <Accordion.Toggle as={Card.Header} eventKey="1" onClick={changeActiveAccordionsClass} >
                 Account
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="1" className="accordions-links">
                 <Card.Body>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                    <Link className="nav-link" to="/dashboard/new-requests">New Requests</Link>
+                    <Link className="nav-link" onClick={changeActiveClass} to="/dashboard/new-requests">New Requests</Link>
                     </p>
                     {/* <p>
                     <i className="fa fa-user"> </i>
@@ -149,7 +164,7 @@ export default function DSMenu (props) {
                         <Link className="nav-link" to="#">Student Reviews</Link>
                     </p> */}
                     <p>
-                        <Link className="nav-link" to="/dashboard/classes">My Sessions</Link>
+                        <Link className="nav-link" onClick={changeActiveClass} to="/dashboard/classes">My Sessions</Link>
                     </p>
                     
                     </Card.Body>

@@ -500,18 +500,22 @@ form label{
       background:#e8eae7;
        margin: 10px;
         color:'';
-         padding: 5px;
+         padding: 20px;
           border-radius: 10px;
+          width: 80%;
 }
 
 .message-from{
     display: flex;
      background:#e74c3c;
-      /* float:right; */
+      float:right;
       margin:10px;
        color:#fff;
-        padding:5px;
+        padding:20px;
          border-radius:10px; 
+         width: 80%;
+         /* padding-left: 100px; */
+
 }
 
 .chat-box-right {
@@ -527,4 +531,14 @@ form label{
 .chat-users:hover{
     background: #cc2d1c;
 }
+/* .active {
+    background-color: #c0392b;
+} */
 
+.active {
+    background: #c0392b;
+  }
+.accordions-active {
+    background: #c0392b;
+    color: #fff;
+  }

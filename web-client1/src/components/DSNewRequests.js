@@ -63,7 +63,7 @@ function DSNewRequests  (props){
                             <td>{r.lessonType}</td>
                             <td>{r.subjects}</td>
                             {/* <td>{r.status}</td> */}
-                            <td><Link to={`/dashboard/chat-box/${r.to}`} > Chat </Link> </td>
+                            <td><Link to={`/dashboard/chat-box/${r.to === userId ? r.from : r.to  }`} > Chat </Link> </td>
                             {userId !== r.from ? 
                         <td>
                         <Link to={`/dashboard/accept-request/${r.id}/from/${r.from}`} >

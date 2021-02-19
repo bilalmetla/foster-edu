@@ -83,7 +83,7 @@ io.on('connection', socket => {
             console.log('message posted', err)
 
         })
-        io.to(users[data.to]).emit('message')
+        io.to(users[data.to]).emit('message', data)
     })
     
 })
