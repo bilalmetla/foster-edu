@@ -332,6 +332,8 @@ padding: 15px;
     /* padding-left: 30px; */
     /* text-align: center; */
     text-decoration: none;
+    margin-bottom: 50px;
+    padding-bottom: 10px;
 }
 #dashboar-menu li a{
     color: #fff;
@@ -471,7 +473,7 @@ padding: 15px;
 
 
 #contact-us-social-links i.fa {
-    /* color: #34495e; */
+    color: #fff;
     margin: 10px;
     font-size: 25px;
     

@@ -1,8 +1,28 @@
 
 export const constants =  {
-    isDevelopment: true,
-    dev_api_server: 'http://127.0.0.1:3000',
-    stg_api_server: 'https://foster-dev.herokuapp.com',
-    dev_signalling_server: 'http://127.0.0.1:8000',
-    stg_signalling_server: 'https://foster-signalling.herokuapp.com',
+    isStaging: false,
+    isProductionDeployment: true,
+    
+   
+    
+}
+
+constants.api_server = function (){
+    if(this.isProductionDeployment){
+        return 'https://foster-dev.herokuapp.com'
+    }else if(this.isStaging){
+        return 'https://foster-dev.herokuapp.com'
+    }else {
+        return 'http://127.0.0.1:3000'
+    }
+}
+
+constants.signalling_server = function (){
+    if(this.isProductionDeployment){
+        return 'https://foster-signalling.herokuapp.com'
+    }else if(this.isStaging){
+        return 'https://foster-signalling.herokuapp.com'
+    }else {
+        return 'http://127.0.0.1:8000'
+    }
 }

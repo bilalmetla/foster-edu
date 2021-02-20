@@ -4,7 +4,7 @@ import {
   Link
 } from "react-router-dom";
 import { Container, Row, Col, Accordion, Card } from 'react-bootstrap';
-import { uploadCustomerImage } from "../services";
+import { uploadCustomerImage, getCustomerImage } from "../services";
 import { NotificationManager } from 'react-notifications';
 
 
@@ -34,7 +34,15 @@ export default function DSMenu (props) {
     user = JSON.parse(user)
     setcustomerName(user.firstName +' '+ user.lastName)
     user.imageUrl = userImage ? userImage : user.imageUrl 
-    setfileupload(user.imageUrl? user.imageUrl : '/images/default.jpg')
+    getCustomerImage(user.imageUrl)
+    .then(result => {
+        console.log('image loading', result)
+    })
+    .catch(error => {
+        console.log('error', error)
+    })
+
+   // setfileupload(user.imageUrl? user.imageUrl : '/images/customers/default.jpg')
    
   }, []);
 

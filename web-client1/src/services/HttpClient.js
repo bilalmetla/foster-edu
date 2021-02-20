@@ -2,7 +2,7 @@
 import { constants } from "../constants";
 
 
-var  REACT_APP_API_BASE_URL = constants.isDevelopment ? constants.dev_api_server : constants.stg_api_server
+var  REACT_APP_API_BASE_URL = constants.api_server()
 
 
 export function get(url) {
@@ -56,4 +56,9 @@ export function get(url) {
     })
     
 
+  }
+
+  export function loadImage(url) {
+
+    return fetch(`${REACT_APP_API_BASE_URL}${url}`).then(response => response)
   }

@@ -15,7 +15,10 @@ export default class Footer extends React.Component {
                       <Col md={4}>
                           <div id="logo">
                               <h2>Foster</h2>
-                              <p>Et scaevola delicata vix, mea ei invidunt quodsi eripuit definiebas at pri. Placerat voluptaria meleos malis civibus an dolor</p>
+                              <p>
+                              Foster connects people who need to know with the experts who can teach them.
+
+                              </p>
                           </div>
                       </Col>
                       <Col md={4}>
@@ -47,22 +50,29 @@ export default class Footer extends React.Component {
                         <div id="footer-contact">
                             <p>
                                 <i className="fa fa-user"></i>
-                                Evacuee Trust Complex, Islamabad Pakistan
+                                Evacuee Trust Complex.
                             </p>
 
                             <p>
                                 <i className="fa fa-envelope"></i>
-                                info@foster.com
+                                info@thefoster.life
                             </p>
                             <p>
                                 <i className="fa fa-phone"></i>
-                                +92-313-6604801
+                                +92-301-5339780
                             </p>
 
                         </div>
                         <div id="social-links" >
-                            <i className="fa fa-facebook"></i>
-                            <i className="fa fa-twitter"></i>
+                           
+                                <a target="_blank" href="https://www.facebook.com/The-Foster-112666314196501/?view_public_for=112666314196501">
+                                <i className="fa fa-facebook">
+                                </i>
+                                </a>
+                                
+                                {/* <a target="_blank" href="">
+                                <i className="fa fa-twitter"></i>
+                                </a> */}
                         </div>
                       </Col>
                   </Row>

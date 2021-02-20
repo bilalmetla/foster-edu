@@ -32,7 +32,7 @@ export class Kello extends BootMixin(
 
     // Set up default home page
     this.static('/', path.join(__dirname, '../public'));
-    this.static('/images/customers', path.join(__dirname, '../images/customers'));
+    //this.static('/images/customers', path.join(__dirname, '../images/customers'));
     
     
     // Customize @loopback/rest-explorer configuration here

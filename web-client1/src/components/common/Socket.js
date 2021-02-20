@@ -15,10 +15,8 @@ export default function Socket () {
            if(!userId){
              return
            }
-           let instance = constants.dev_signalling_server
-           if(!constants.isDevelopment){
-            instance = constants.stg_signalling_server
-           }
+           let instance = constants.signalling_server()
+          
         socket.current = io.connect(instance);
        
         //window.currentSocket = socket.current;

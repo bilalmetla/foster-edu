@@ -1,5 +1,5 @@
 
-import {post, put, get} from "./HttpClient";
+import {post, put, get, loadImage} from "./HttpClient";
 
 export function signUp(data) {
    return post(data, '/customers/register')
@@ -111,4 +111,8 @@ export function createClassRequest(data) {
 
   export function uploadCustomerImage(data) {
    return post(data, `/customers/upload/image`)
+  }
+
+  export function getCustomerImage(url) {
+   return loadImage(url)
   }

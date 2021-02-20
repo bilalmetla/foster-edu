@@ -91,24 +91,29 @@ function ContactUs (props){
                             <p>
                                <strong>Address: </strong> 
                                {/* <i className="fa fa-user"></i> */}
-                                Evacuee Trust Complex, Islamabad Pakistan
+                                Evacuee Trust Complex.
                             </p>
 
                             <p>
                             <strong>Email: </strong> 
                                 <i className="fa fa-envelope"></i>
-                                info@foster.com
+                                info@thefoster.life
                             </p>
                             <p>
                             <strong>Phone: </strong> 
                                 <i className="fa fa-phone"></i> 
-                                +92-313-6604801
+                                +92-301-5339780
                             </p>
 
                         </div>
                         <div id="contact-us-social-links"  style={{float:'right', marginRight:'25px'}} >
-                            <i className="fa fa-facebook"></i>
-                            <i className="fa fa-twitter"></i>
+                            <a target="_blank" href="https://www.facebook.com/The-Foster-112666314196501/?view_public_for=112666314196501">
+                                <i className="fa fa-facebook"></i>
+                                </a>
+                                
+                                {/* <a target="_blank" href="">
+                                <i className="fa fa-twitter"></i>
+                                </a> */}
                         </div>
                 </Col>
 
