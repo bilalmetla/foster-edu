@@ -7,6 +7,8 @@ import { Container, Row, Col,
     Form, InputGroup, FormControl,
     Button, Badge
   } from 'react-bootstrap';
+import { constants } from "../constants";
+import { RatingStars } from "../components";
 
 
 export default function TutorListInfo (props) {
@@ -25,7 +27,7 @@ export default function TutorListInfo (props) {
                               <Link to={`/profile/${props.tutor.id}`} style={{display:'flex',}}>
                                   <Col md={8}>
                               <div id="tutors-details-list" style={{display:'flex'}}>
-                              <img src={props.tutor.imageUrl} alt="tutor image" />
+                              <img src={constants.api_server() + props.tutor.imageUrl} alt="tutor image" />
                               <div>
                               <h4>{props.tutor.firstName} {props.tutor.lastName}</h4>
                               <h6>{props.tutor.tagLine}</h6>
@@ -49,7 +51,7 @@ export default function TutorListInfo (props) {
                           <Col md={3} style={{float:'right'}}  >
                           <div  id="tutor-scoring-board" className="float-md-right">
                               <p><strong>Rs {props.tutor.fees}/{props.tutor.feesPer}</strong></p>
-                              <p>
+                              {/* <p>
                                   <i className="fa fa-star"> </i>
                                   <i className="fa fa-star"> </i>
                                   <i className="fa fa-star"> </i>
@@ -57,7 +59,8 @@ export default function TutorListInfo (props) {
                                   <i className="fa fa-star"> </i>
                               <strong> 5 </strong>
                               (4)
-                              </p>
+                              </p> */}
+                             <RatingStars.profileListingStars stars={4}> </RatingStars.profileListingStars>
                               <p className="Offers-margin">
                               Offers 
                               </p>

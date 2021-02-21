@@ -12,6 +12,7 @@ import { DSAbout, DSContact, DSExpertise,
   DSClasses,
   DSClassesDetails,
   AcceptStudentRequest,
+  DSFeedback
  } from "../components";
 
  import  WebrtcApp  from "../webrtc/App";
@@ -71,6 +72,9 @@ export default class DSContent extends React.Component {
                                                           
                   </Route>
                  
+                  <Route path="/dashboard/feedback">
+                  <DSFeedback />
+                  </Route>
 
             </Switch>
         </div>

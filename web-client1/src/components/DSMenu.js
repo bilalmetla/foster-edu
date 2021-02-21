@@ -6,7 +6,7 @@ import {
 import { Container, Row, Col, Accordion, Card } from 'react-bootstrap';
 import { uploadCustomerImage, getCustomerImage } from "../services";
 import { NotificationManager } from 'react-notifications';
-
+import { constants } from "../constants";
 
 
 
@@ -34,15 +34,9 @@ export default function DSMenu (props) {
     user = JSON.parse(user)
     setcustomerName(user.firstName +' '+ user.lastName)
     user.imageUrl = userImage ? userImage : user.imageUrl 
-    getCustomerImage(user.imageUrl)
-    .then(result => {
-        console.log('image loading', result)
-    })
-    .catch(error => {
-        console.log('error', error)
-    })
-
-   // setfileupload(user.imageUrl? user.imageUrl : '/images/customers/default.jpg')
+    
+    let image = user.imageUrl? user.imageUrl : '/images/customers/default.jpg'
+    setfileupload(constants.api_server()+image)
    
   }, []);
 
@@ -121,7 +115,7 @@ export default function DSMenu (props) {
             <Accordion defaultActiveKey="0" id="menue-accordion">
             <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="0" onClick={changeActiveAccordionsClass} className="accordions-active" >
-                Profile
+                My Profile
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0" className="accordions-links ">
                 <Card.Body>
@@ -152,7 +146,7 @@ export default function DSMenu (props) {
 
             <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="1" onClick={changeActiveAccordionsClass} >
-                Account
+                My Network
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="1" className="accordions-links">
                 <Card.Body>
@@ -174,6 +168,9 @@ export default function DSMenu (props) {
                     <p>
                         <Link className="nav-link" onClick={changeActiveClass} to="/dashboard/classes">My Sessions</Link>
                     </p>
+                    <p>  
+                        <Link className="nav-link " to="/dashboard/feedback" onClick={changeActiveClass} >Feed Back</Link>
+                    </p>
                     
                     </Card.Body>
                 </Accordion.Collapse>
@@ -186,6 +183,7 @@ export default function DSMenu (props) {
                 <li className="nav-item">
                     <Link className="nav-link " to="/" onClick={()=> { localStorage.clear(); window.location.reload(); } }>Log Out</Link>
                 </li>
+                
                 </ul>
            
                 </Col>

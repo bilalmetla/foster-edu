@@ -10,9 +10,19 @@ import { Container, Row, Col, Badge,
 
 
 import { getCustomerById } from "../services";
-
+import { constants } from "../constants";
+import { RatingStars } from "../components";
 
 export default function ViewProfile (props){
+
+    const [feedbackMessage, setfeedbackMessage] = useState('');
+    const [feedbackstars, setfeedbackstars] = useState(5);
+    const [sharefeedback, setsharefeedback] = useState(false);
+    const [feedbackreason, setfeedbackreason] = useState('');
+
+    
+    let userId = localStorage.getItem('userId')
+
     if(!props.match || !props.match.params){
         window.location.href = "/"
     }
@@ -42,6 +52,12 @@ export default function ViewProfile (props){
       
    }, []);
 
+const submitRating = ()=>{
+    console.log('submitRating clicked feedbackMessage', feedbackMessage)
+    console.log('submitRating clicked feedbackstars', feedbackstars)
+}
+
+
     return (
         <div style={{marginTop:'50px', marginBottom:'50px'}} className="section">
 
@@ -49,13 +65,13 @@ export default function ViewProfile (props){
                 <Row>
                     <Col md={{span: 8}}>
                     <div style={{display:'flex'}}>
-                    <img className="profile-img" src={tutor.imageUrl ?tutor.imageUrl : "/images/tutor2-280x300.jpg"}alt="user profile image"></img>
+                    <img className="profile-img" src={constants.api_server() + tutor.imageUrl || "/images/tutor2-280x300.jpg"}alt="user profile image"></img>
                         <span style={{marginLeft:'20px'}} className="user-profile-title">
                             <h2>{tutor.firstName} {tutor.lastName}</h2>
                             <p><strong>
                                 {tutor.tagLine}
                                 </strong></p>
-                            <p>
+                            {/* <p>
                                   <i className="fa fa-star"> </i>
                                   <i className="fa fa-star"> </i>
                                   <i className="fa fa-star"> </i>
@@ -63,7 +79,8 @@ export default function ViewProfile (props){
                                   <i className="fa fa-star"> </i>
                               <strong> 5 </strong>
                               (4)
-                              </p>
+                              </p> */}
+                              <RatingStars.profileListingStars stars={4}> </RatingStars.profileListingStars>
                         </span>
                     </div>
 
@@ -98,7 +115,7 @@ export default function ViewProfile (props){
                             <Col md={10}>
                                
                             { tutor.education &&
-                            tutor.education.map(edu=>  <span>
+                            tutor.education.map((edu, index)=>  <span key={index}>
                                 <p>{edu.institute}</p>
                                 <p>{edu.degree}</p>
                                 <p>Passing year <strong>{edu.passingYear}</strong></p>
@@ -183,15 +200,24 @@ export default function ViewProfile (props){
                             <p>ratings</p>
                             </Col>
                             <Col md={10}>
-                            <p>
+                            {/* <p>
                                   <i className="fa fa-star"> </i>
                                   <i className="fa fa-star"> </i>
                                   <i className="fa fa-star"> </i>
                                   <i className="fa fa-star"> </i>
                                   <i className="fa fa-star"> </i>
                               <strong> 5 </strong>
-                              {/* (4 ratings) */}
+                              (4 ratings)
+                              </p> */}
+                              <p style={{display:'flex'}}>
+                              <RatingStars.profileView stars={4} > 
+                              </RatingStars.profileView >
+                              <strong> {" 4 (10 ratings)" } </strong>
+                              
                               </p>
+                             {!sharefeedback && <a className="feedback-link" href="javascript:void(0)" onClick={()=>setsharefeedback(true)}>Share Your Feedback </a>}
+                              
+                             {sharefeedback && <a className="feedback-link" href="javascript:void(0)" onClick={()=>setsharefeedback(false)}>Hide Feedback </a> }
                               {/* <p><strong>5 stars</strong> ================================ (100)</p>
                               <p><strong>4 stars</strong> ================================ (80)</p>
                               <p><strong>3 stars</strong> ================================ (80)</p>
@@ -201,6 +227,61 @@ export default function ViewProfile (props){
                         </span>
 
                     </div>
+
+                    {sharefeedback && 
+                    
+                    <div className="ratings">
+                        <h4>Share Your Feedback </h4>
+                        <hr></hr>
+                        <span style={{display:'flex'}}>
+                            <Col md={2}>
+                            {/* <p>Feed Back</p> */}
+                            </Col>
+                            <Col md={10}>
+                            <RatingStars>
+                              <RatingStars.rating
+                                onChange={value=>{setfeedbackstars(value) }}
+                               >
+                             </RatingStars.rating >
+                             
+                             {feedbackstars <= 3 ? 
+                             <RatingStars.feedbackReasons
+                                className="feedback-select"
+                                label="Choose Your Reason"
+                                onChange={(event)=>setfeedbackreason(event.target.value)}
+
+                             >
+                                 
+                                 </RatingStars.feedbackReasons>
+                                 : null
+                             }
+                              
+                              
+                              <RatingStars.messageBox 
+                              placeholder="Enter Your Feedback"
+                              value={feedbackMessage}
+                              rows={4}
+                              cols={50}
+                              onChange={event => {setfeedbackMessage(event.target.value)}}
+                              > 
+                              </RatingStars.messageBox >
+
+                              <RatingStars.ratingSubmit
+                              className="btn-dark" 
+                              style={{margin:'0px auto'}}
+                              onClick={submitRating}
+
+                              >{"Feedback"}
+                                  </RatingStars.ratingSubmit>
+
+                              </RatingStars>
+                              
+                            </Col>
+                        </span>
+
+                    </div>
+                    
+                    }
 
 
                     <div className="reviews">

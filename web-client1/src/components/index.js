@@ -21,6 +21,8 @@ import DSChatBox from "./DSChatBox";
 import DSClasses from "./DSClasses";
 import DSClassesDetails from "./DSClassesDetails";
 import AcceptStudentRequest from "./AcceptStudentRequest";
+import {RatingStars} from "./RatingStars";
+import DSFeedback from "./DSFeedBack";
 
 export {
     Header,
@@ -44,4 +46,6 @@ export {
     DSClasses,
     DSClassesDetails,
     AcceptStudentRequest,
+    RatingStars,
+    DSFeedback,
 }
