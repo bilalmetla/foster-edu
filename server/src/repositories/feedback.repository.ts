@@ -19,14 +19,14 @@ export class FeedbackRepository extends DefaultCrudRepository<
   public readonly partners: BelongsToAccessor<Partners, typeof Feedback.prototype.id>;
 
   constructor(
-    @inject('datasources.killo') dataSource: KilloDataSource, @repository.getter('CustomersRepository') protected customersRepositoryGetter: Getter<CustomersRepository>, @repository.getter('FeedbacktypesRepository') protected feedbacktypesRepositoryGetter: Getter<FeedbacktypesRepository>, @repository.getter('PartnersRepository') protected partnersRepositoryGetter: Getter<PartnersRepository>,
+    @inject('datasources.killo') dataSource: KilloDataSource, @repository.getter('FeedbacktypesRepository') protected feedbacktypesRepositoryGetter: Getter<FeedbacktypesRepository>, 
   ) {
     super(Feedback, dataSource);
-    this.partners = this.createBelongsToAccessorFor('partners', partnersRepositoryGetter,);
-    this.registerInclusionResolver('partners', this.partners.inclusionResolver);
+    //this.partners = this.createBelongsToAccessorFor('partners', partnersRepositoryGetter,);
+   // this.registerInclusionResolver('partners', this.partners.inclusionResolver);
     this.feedbacktypes = this.createBelongsToAccessorFor('feedbacktypes', feedbacktypesRepositoryGetter,);
     this.registerInclusionResolver('feedbacktypes', this.feedbacktypes.inclusionResolver);
-    this.customers = this.createBelongsToAccessorFor('customers', customersRepositoryGetter,);
-    this.registerInclusionResolver('customers', this.customers.inclusionResolver);
+   // this.customers = this.createBelongsToAccessorFor('customers', customersRepositoryGetter,);
+    //this.registerInclusionResolver('customers', this.customers.inclusionResolver);
   }
 }

@@ -26,15 +26,21 @@ export class Feedback extends Entity {
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
   })
-  phone: string;
+  phone?: string;
 
   @property({
     type: 'string',
     required: true,
   })
   message: string;
+ 
+  @property({
+    type: 'string',
+    required: false,
+  })
+  feedbackreason?: string;
 
   @property({
     type: 'boolean',
@@ -51,44 +57,35 @@ export class Feedback extends Entity {
 
   @property({
     type: 'string',
-    required: false,
-    default: ''
+    required: true,
   })
-  image1: string;
-
-  @property({
-    type: 'string',
-    required: false,
-    default: ''
-  })
-  image2: string;
-
-  @property({
-    type: 'string',
-    required: false,
-    default: ''
-  })
-  image3: string;
-
-  @property({
-    type: 'string',
-    required: false,
-    default: ''
-  })
-  image4: string;
+  byId: string;
   
+  
+  @property({
+    type: 'string',
+    required: false
+  })
+  toId?: string;
+ 
+ 
+  @property({
+    type: 'string',
+    required: false
+  })
+  reviewedById?: string;
 
-  @belongsTo(() => Customers)
-  customersId: string;
 
+  @property({
+    type: 'number',
+    required: true
+  })
+  stars: number;
+
+  
   @belongsTo(() => Feedbacktypes)
   feedbacktypesId: string;
 
-  @belongsTo(() => Partners)
-  partnersId: string;
-
-  @belongsTo(() => Partners)
-  reviewedById: string;
   // Define well-known properties here
 
   // Indexer property to allow additional data

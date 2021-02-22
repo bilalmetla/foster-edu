@@ -229,6 +229,19 @@ export class Customers extends Entity {
   })
   teachingCity?: string;
 
+  @property({
+    type: 'number',
+    required: false,
+    default: 0
+  })
+  stars?: number;
+  
+  @property({
+    type: 'number',
+    required: false,
+    default: 0
+  })
+  totalRatings?: number;
 
 
   @hasMany(() => Orders)

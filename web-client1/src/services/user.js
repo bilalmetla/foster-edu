@@ -116,3 +116,17 @@ export function createClassRequest(data) {
   export function getCustomerImage(url) {
    return loadImage(url)
   }
+
+  export function sendFeedback(data) {
+   return post(data, `/feedbacks`)
+  }
+
+  export function getProfilerReviewsById(filterParams) {
+  
+   let filter = {
+      where:{
+      }
+   }
+   filter.where = filterParams
+    return get(`/feedbacks?filter=${JSON.stringify(filter)}`)
+}

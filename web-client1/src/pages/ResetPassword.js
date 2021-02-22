@@ -48,7 +48,7 @@ function ResetPassword (props){
                 return
             }
 
-            NotificationManager.error(responseJson.message, 'Error!', 2000);
+            NotificationManager.success(responseJson.message, 'Success!', 2000);
 
                 setTimeout(() => {
                     window.location.href = '/login'
@@ -56,7 +56,7 @@ function ResetPassword (props){
             
         })
         .catch( error => {
-            setIsLoading(true)
+            setIsLoading(false)
             console.log(error)
             NotificationManager.error(error.toString(), 'Error!', 2000);
                 return

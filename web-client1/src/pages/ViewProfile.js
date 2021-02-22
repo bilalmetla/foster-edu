@@ -4,35 +4,53 @@ import {
     Link
   } from "react-router-dom";
 import { Container, Row, Col, Badge,
-     Button, Spinner,Card
+     Button, Card
      } from 'react-bootstrap';
 
 
 
-import { getCustomerById } from "../services";
+import { getCustomerById, sendFeedback, getProfilerReviewsById } from "../services";
 import { constants } from "../constants";
 import { RatingStars } from "../components";
+import Spinner from '../components/common/Spinner';
+import { NotificationManager } from 'react-notifications';
+
+
+
 
 export default function ViewProfile (props){
-
+    const [isLoading, setIsLoading] = useState(false);
     const [feedbackMessage, setfeedbackMessage] = useState('');
     const [feedbackstars, setfeedbackstars] = useState(5);
     const [sharefeedback, setsharefeedback] = useState(false);
     const [feedbackreason, setfeedbackreason] = useState('');
-
-    
-    let userId = localStorage.getItem('userId')
+    const [profilerId, setprofilerId] = useState('');
+    const [profileRating, setprofileRating] = useState('');
+    const [totalRating, settotalRating] = useState('');
+    const [tutor, settutor] = useState({});
+    const [reviews, setreviews] = useState({});
+   
 
     if(!props.match || !props.match.params){
         window.location.href = "/"
     }
-   // console.log('props.match.params:', props.match.params)
-   const [tutor, settutor] = useState({});
+    let userId = '';
+    let user = {};
+    try{
+        userId = localStorage.getItem('userId')
+        user = localStorage.getItem('user')
+        user = JSON.parse(user)
+    }catch(e){
+        console.log(e)
+    }
+   
+
 
    useEffect(() => {
+    setprofilerId(props.match.params.id)
     getCustomerById(props.match.params.id)
     .then(result=>{
-        console.log(result)
+       // console.log(result)
         settutor(result)
         settutor(prevState =>{
             return {
@@ -43,8 +61,10 @@ export default function ViewProfile (props){
             }
         })
 
-        console.log('tutor.teachingSubjects ', tutor.teachingSubjects)
-   
+        setprofileRating(result.stars)
+        settotalRating(result.totalRatings) //totalRatings
+        loadReviews(props.match.params.id)
+
 
     }).catch(error=>{
         console.log(error)
@@ -52,15 +72,61 @@ export default function ViewProfile (props){
       
    }, []);
 
-const submitRating = ()=>{
-    console.log('submitRating clicked feedbackMessage', feedbackMessage)
-    console.log('submitRating clicked feedbackstars', feedbackstars)
-}
+
+   function loadReviews(profilerId) {
+        getProfilerReviewsById({toId :{like:profilerId}})
+        .then(result=>{
+           // console.log(result)
+            setreviews(result)
+            
+        })
+        .catch(result=>{
+            console.log(result)
+        })
+   }
+
+    const submitRating = ()=>{
+    if(profilerId === userId){
+        return NotificationManager.error('Not allowed to self rating.', 'Error!', 2000);
+
+    }
+        if(!feedbackMessage || !feedbackreason || feedbackstars === 0){
+            return NotificationManager.error('Required More Info.', 'Error!', 2000);
+
+        }
+        
+        let data = {
+            message:feedbackMessage,
+            stars:feedbackstars,
+            byId: userId,
+            fullname: `${user.firstName}  ${user.lastName}`,
+            toId: profilerId,
+            feedbackreason: feedbackreason,
+        }
+        sendFeedback(data)
+        .then(result=>{
+            console.log(result)
+            if(result.ok === false){
+                NotificationManager.error(result.statusText, 'Error!', 2000);
+
+                return
+            }
+
+            NotificationManager.success(result.message || 'Successfully Created!', 'Success!', 2000);
+            setfeedbackreason('')
+            setfeedbackMessage('')
+        })
+        .catch(result=>{
+            console.log(result)
+            NotificationManager.error(result.toString(), 'Error!', 2000);
+
+        })
+    }
 
 
     return (
         <div style={{marginTop:'50px', marginBottom:'50px'}} className="section">
-
+            {isLoading && <Spinner />}
             <Container>
                 <Row>
                     <Col md={{span: 8}}>
@@ -71,16 +137,11 @@ const submitRating = ()=>{
                             <p><strong>
                                 {tutor.tagLine}
                                 </strong></p>
-                            {/* <p>
-                                  <i className="fa fa-star"> </i>
-                                  <i className="fa fa-star"> </i>
-                                  <i className="fa fa-star"> </i>
-                                  <i className="fa fa-star"> </i>
-                                  <i className="fa fa-star"> </i>
-                              <strong> 5 </strong>
-                              (4)
-                              </p> */}
-                              <RatingStars.profileListingStars stars={4}> </RatingStars.profileListingStars>
+                                {profileRating &&
+                                
+                                <RatingStars.profileListingStars stars={parseInt(profileRating)}> </RatingStars.profileListingStars>
+                                }
+                              
                         </span>
                     </div>
 
@@ -209,15 +270,18 @@ const submitRating = ()=>{
                               <strong> 5 </strong>
                               (4 ratings)
                               </p> */}
-                              <p style={{display:'flex'}}>
-                              <RatingStars.profileView stars={4} > 
-                              </RatingStars.profileView >
-                              <strong> {" 4 (10 ratings)" } </strong>
+                              <div style={{display:'flex'}}>
+                                  {profileRating &&
+                                  <RatingStars.profileView stars={parseInt(profileRating)} > </RatingStars.profileView >
+                                  }
                               
-                              </p>
-                             {!sharefeedback && <a className="feedback-link" href="javascript:void(0)" onClick={()=>setsharefeedback(true)}>Share Your Feedback </a>}
                               
-                             {sharefeedback && <a className="feedback-link" href="javascript:void(0)" onClick={()=>setsharefeedback(false)}>Hide Feedback </a> }
+                              <strong> { `${profileRating} (${totalRating} ratings)` } </strong>
+                              
+                              </div>
+                             {!sharefeedback && userId && <button className="btn float-right"  onClick={()=>setsharefeedback(true)}>Share Your Feedback </button>}
+                              
+                             {sharefeedback && <button className="btn float-right"  onClick={()=>setsharefeedback(false)}>Hide Feedback </button> }
                               {/* <p><strong>5 stars</strong> ================================ (100)</p>
                               <p><strong>4 stars</strong> ================================ (80)</p>
                               <p><strong>3 stars</strong> ================================ (80)</p>
@@ -244,17 +308,18 @@ const submitRating = ()=>{
                                >
                              </RatingStars.rating >
                              
-                             {feedbackstars <= 3 ? 
+                             {/* {feedbackstars <= 3 ?  */}
                              <RatingStars.feedbackReasons
                                 className="feedback-select"
                                 label="Choose Your Reason"
+                                stars={feedbackstars}
                                 onChange={(event)=>setfeedbackreason(event.target.value)}
 
                              >
                                  
                                  </RatingStars.feedbackReasons>
-                                 : null
-                             }
+                                 {/* : null
+                             } */}
                               
                               
                               <RatingStars.messageBox 
@@ -288,13 +353,25 @@ const submitRating = ()=>{
                         <hr></hr>
                         <span style={{display:'flex'}}>
                             <p>Reviews</p>
-                            {/* <span style={{marginLeft:'100px'}}>
-                            <p><strong>Greate Experience</strong></p>
-                            <p>
-                            Douglas is an amazing teacher and I recommend asking for his help!!!! I told him I needed him on Monday morning and I had an appointment scheduled for Tuesday afternoon! I thought the assignment I needed help on was going to take multiple sessions but Douglas helped me.
-                            </p>
-                            <p> <em>bilal</em></p>
-                            </span> */}
+                            <span style={{marginLeft:'100px'}}>
+                            {reviews && reviews.length > 0 ?
+                            reviews.map((item, index)=>{
+                                return <span key={index}>
+                                        <p><strong>{item.feedbackreason}</strong></p>
+                                        <em>Given Stars {item.stars}</em>
+                                        <p>
+                                        {item.message}
+                                        </p>
+                                        <p> <em><a href={`/profile/${item.byId}`}>{item.fullname}</a></em></p>
+                                       </span>
+                            })
+                           
+
+                            :
+                            null    
+                            }
+                            </span>
+
                         </span>
 
                     </div>

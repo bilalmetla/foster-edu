@@ -18,7 +18,7 @@ import {
   requestBody,
 } from '@loopback/rest';
 import {Feedback} from '../models';
-import {FeedbackRepository} from '../repositories';
+import {FeedbackRepository, CustomersRepository} from '../repositories';
 import {secured, SecuredType} from '../auth';
 import fs from 'fs';
 import util from 'util';
@@ -30,9 +30,13 @@ export class FeedbackController {
   constructor(
     @repository(FeedbackRepository)
     public feedbackRepository : FeedbackRepository,
+
+    @repository(CustomersRepository)
+    public customersRepository : CustomersRepository,
+    
   ) {}
 
-  @secured(SecuredType.IS_AUTHENTICATED)
+  //@secured(SecuredType.IS_AUTHENTICATED)
   @post('/feedbacks', {
     responses: {
       '200': {
@@ -55,20 +59,32 @@ export class FeedbackController {
     feedback: Omit<Feedback, 'id'>,
   ): Promise<Feedback> {
     
-    if(feedback.image1){
-      feedback.image1 = await this.convertbase64image(feedback.fullname, feedback.image1);
-    }
-    if(feedback.image2){
-      feedback.image2 = await this.convertbase64image(feedback.fullname, feedback.image2);
-    }
-    if(feedback.image3){
-      feedback.image3 = await this.convertbase64image(feedback.fullname, feedback.image3);
-    }
-    if(feedback.image4){
-      feedback.image4 = await this.convertbase64image(feedback.fullname, feedback.image4);
-    }
+    // if(feedback.image1){
+    //   feedback.image1 = await this.convertbase64image(feedback.fullname, feedback.image1);
+    // }
+    // if(feedback.image2){
+    //   feedback.image2 = await this.convertbase64image(feedback.fullname, feedback.image2);
+    // }
+    // if(feedback.image3){
+    //   feedback.image3 = await this.convertbase64image(feedback.fullname, feedback.image3);
+    // }
+    // if(feedback.image4){
+    //   feedback.image4 = await this.convertbase64image(feedback.fullname, feedback.image4);
+    // }
+
     
     feedback.createdDate = new Date();
+    if(feedback.toId){
+      let customer = await this.customersRepository.findById(feedback.toId)
+      if(customer){
+        let overAllrating = customer.stars || 0
+        let totalRating = customer.totalRatings || 0
+        let newRating = feedback.stars
+        let totalStars = ((overAllrating * totalRating) + newRating) / (totalRating + 1)
+        await this.customersRepository.updateAll({ stars: totalStars, totalRatings: totalRating + 1 }, { id: feedback.toId });
+      }
+      
+    }
     
     //delete feedback.image;
     return this.feedbackRepository.create(feedback);
@@ -89,7 +105,7 @@ export class FeedbackController {
     return this.feedbackRepository.count(where);
   }
 
-  @secured(SecuredType.IS_AUTHENTICATED)
+  //@secured(SecuredType.IS_AUTHENTICATED)
   @get('/feedbacks', {
     responses: {
       '200': {
@@ -108,12 +124,12 @@ export class FeedbackController {
   async find(
     @param.query.object('filter', getFilterSchemaFor(Feedback)) filter?: Filter<Feedback>,
   ): Promise<Feedback[]> {
-    if(filter){
-      filter.order = ['createdDate Desc']
-    }else{
-      filter = {};
-      filter.order = ['createdDate Desc']
-    }
+    // if(filter){
+    //   filter.order = ['createdDate Desc']
+    // }else{
+    //   filter = {};
+    //   filter.order = ['createdDate Desc']
+    // }
     return this.feedbackRepository.find(filter);
   }
 

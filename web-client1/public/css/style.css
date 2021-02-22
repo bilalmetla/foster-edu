@@ -559,3 +559,10 @@ form label{
 .feedback-link:hover{
     color: #cc2d1c;
 }
+
+.logo {
+    width: 160px;
+}
+.float-right{
+    float: right;
+}

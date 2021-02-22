@@ -9,6 +9,7 @@ const setRatingStars = {
     activeColor: "",
     value: 0,
     a11y: true,
+    char: "★",
     isHalf: false,
     emptyIcon: <i className="far fa-star" />,
     halfIcon: <i className="fa fa-star-half-alt" />,
@@ -22,11 +23,12 @@ const setRatingStars = {
 const profileStars = {
     size: 30,
     count: 5,
-    color: "black",
-    activeColor: "yellow",
+    color: "",
+    activeColor: "",
     value: 0,
     edit: false,
     a11y: true,
+    char: "★",
     isHalf: true,
     emptyIcon: <i className="far fa-star" />,
     halfIcon: <i className="fa fa-star-half-alt" />,
@@ -40,11 +42,12 @@ const profileStars = {
   const profileListingStars = {
     size: 20,
     count: 5,
-    color: "black",
-    activeColor: "yellow",
+    color: "",
+    activeColor: "",
     value: 0,
     edit: false,
     a11y: true,
+    char: "★",
     isHalf: true,
     emptyIcon: <i className="far fa-star" />,
     halfIcon: <i className="fa fa-star-half-alt" />,
@@ -102,10 +105,17 @@ RatingStars.ratingSubmit = function({children, ...restProps}){
     
 }
 
-const reasons = [{title:"Bad call quality"}, 
+const badReasons = [{title:"Bad call quality"}, 
 {title:"Bad service quality"}]
-RatingStars.feedbackReasons = function ({children, label, ...restProps}){
-    return < >
+const goodReasons = [{title:"Awesom Teacher"}, 
+{title:"Nice Platform"}]
+
+RatingStars.feedbackReasons = function ({children, label, stars, ...restProps}){
+   let reasons = goodReasons;
+   if(stars <= 3){
+    reasons = badReasons;
+   }
+   return < >
     <label>{label}</label>
     <select {...restProps} style={{display: 'block'}}>
         <option value="">Select a reason</option>

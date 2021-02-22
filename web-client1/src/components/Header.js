@@ -25,7 +25,8 @@ export default function Header (){
             <Container>
             <Row>
             <Col xs={4}>
-                <h1 id="logo"> Foster </h1>
+                {/* <h1 id="logo"> Foster </h1> */}
+                <img className="logo" src="/header_logo.png" alt="Foster" />
             </Col>
             <Col xs={8}>
               <ul id="menu" className="float-md-right">

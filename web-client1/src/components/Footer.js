@@ -14,7 +14,9 @@ export default class Footer extends React.Component {
                   <Row>
                       <Col md={4}>
                           <div id="logo">
-                              <h2>Foster</h2>
+                              {/* <h2>Foster</h2> */}
+                              <img className="logo" src="/footer_logo.png" alt="Foster" />
+
                               <p>
                               Foster connects people who need to know with the experts who can teach them.
 
