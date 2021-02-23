@@ -64,7 +64,7 @@ function DSClasses (props){
                             {/* <td>{r.lessonType}</td>
                             <td>{r.subjects}</td> */}
                             {/* {userId !== r.studentId ?  */}
-                            <td><Link to={`/dashboard/calling-route/${r.studentId}`} > Take The Session </Link> </td>
+                            <td><Link target="_blank" to={`/calling-route/${userId === r.studentId ? r.instructorId : r.studentId }`} > Take The Session </Link> </td>
                             {/* : null
                             } */}
                             

@@ -11,7 +11,7 @@ const apis = require('./clients/api')
 //     }
 //     callback(null, true);
 //   });
-//const username = require('username-generator')
+const username = require('username-generator')
 const path = require('path')
 //const { AwakeHeroku } = require('awake-heroku');
 
@@ -29,10 +29,15 @@ const users={}
 
 io.on('connection', socket => {
     //generate username against a socket connection and store it
-   // console.log('connection ..', socket)
-    //const userid=username.generateUsername('-')
+    console.log('connection socket.id ..', socket.id)
     socket.on('session', (data)=>{
-        let userid = data.userId;
+        let userid = ''
+        if(!data || !data.userId){
+            userid=username.generateUsername('-')
+        }else {
+            userid = data.userId; 
+        }
+        
         //if(!users[userid]){
             users[userid] = socket.id
         //}
@@ -48,7 +53,12 @@ io.on('connection', socket => {
     
     socket.on('disconnect', ()=>{
         console.log('connection disconnect ', socket.id)
-       // delete users[userid]
+    })
+   
+    socket.on('remove-disconnected', (data)=>{
+        console.log('remove-disconnected:', data)
+        console.log('user info:', users[data.userId])
+        delete users[data.userId]
     })
 
     socket.on('callUser', (data)=>{

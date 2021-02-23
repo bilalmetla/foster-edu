@@ -76,7 +76,6 @@ export default function ViewProfile (props){
    function loadReviews(profilerId) {
         getProfilerReviewsById({toId :{like:profilerId}})
         .then(result=>{
-           // console.log(result)
             setreviews(result)
             
         })
@@ -86,10 +85,9 @@ export default function ViewProfile (props){
    }
 
     const submitRating = ()=>{
-    if(profilerId === userId){
-        return NotificationManager.error('Not allowed to self rating.', 'Error!', 2000);
-
-    }
+        if(profilerId === userId){
+            return NotificationManager.error('Not allowed to self rating.', 'Error!', 2000);
+        }
         if(!feedbackMessage || !feedbackreason || feedbackstars === 0){
             return NotificationManager.error('Required More Info.', 'Error!', 2000);
 

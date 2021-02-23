@@ -1,15 +1,28 @@
-import React from "react";
+import React, {useState,useEffect } from "react";
 import {
     Link
   } from "react-router-dom";
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 
-export default class Footer extends React.Component {
- 
-    render(){
+export default function Footer () {
+    const [enableLinks, setenableLinks] = useState(true);
+
+
+    useEffect(() => {
+        
+        let pathname = window.location.pathname
+        if(pathname.includes('calling-route') || pathname.includes('calling')){ 
+          setenableLinks(false)
+        }
+
+      }, []);
+
       return (
+          <>
+        {enableLinks ?
           <div id="footer">
+              
               <Container>
                   <Row>
                       <Col md={4}>
@@ -23,6 +36,7 @@ export default class Footer extends React.Component {
                               </p>
                           </div>
                       </Col>
+                      
                       <Col md={4}>
                       <h4>Quick Links</h4>
                           <div style={{display: 'flex'}}>
@@ -32,6 +46,9 @@ export default class Footer extends React.Component {
                                  </p>
                                  <p>
                                 <Link to="/contact-us">Contact Us </Link>
+                                </p>
+                                <p>
+                                <Link to="/calling" target="_blank">Video Lecture </Link>
                                 </p>
                              </div>
 
@@ -79,7 +96,13 @@ export default class Footer extends React.Component {
                       </Col>
                   </Row>
               </Container>
+             
           </div>
+          :
+          null
+          
+        }
+        </>
       )
-    }
+    
 }

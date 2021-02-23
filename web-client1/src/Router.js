@@ -88,9 +88,11 @@ export default class App extends React.Component {
                   </Route>
                  
                  
-                  <Route path="/webrtc">
+                  <Route path="/calling">
                     <WebrtcApp />
                   </Route>
+                   <Route path="/calling-route/:receiverId" render={(props) => <WebrtcApp {...props} />} >
+                   </Route>
                   
                   
                   <Route path="/profile/:id" render={(props) => <ViewProfile {...props} />} >

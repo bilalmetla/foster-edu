@@ -48,6 +48,9 @@ function WebrtcApp(props) {
   const [videoMuted, setVideoMuted] = useState(false)
   const [isfullscreen, setFullscreen] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [linkcopied, setLinkCopied] = useState(false)
+  const [callingLink, setcallingLink] = useState('')
+  const [disableusernameinputfield, setdisableusernameinputfield] = useState(false);
   
   const userVideo = useRef();
   const partnerVideo = useRef();
@@ -68,18 +71,35 @@ function WebrtcApp(props) {
                     Start your session here.
                 </div>
             </div>
-            {/* <div>
-                <div className="actionText">Who do you want to call, <span className={copied?"username highlight copied":"username highlight"} onClick={()=>{showCopiedMessage()}}>{yourID}</span>?</div>
-            </div> */}
+            <div>
+                <div className="actionText">Share your id: 
+                 <span className={copied?"username highlight copied":"username highlight"} onClick={()=>{showCopiedMessage()}}>{yourID}</span> ?  OR</div>
+            </div>
+
+            <div>
+                <div className="actionText">Share your call link: 
+                 <span className={linkcopied?"username highlight copied":"username highlight"} onClick={()=>{showLinkCopiedMessage()}}>{callingLink}</span> ?</div>
+            </div>
+
+
             <div className="callBox flex">
-                <input type="text" disabled={receiverID? true: false} placeholder="Call Reveiver ID" value={receiverID} onChange={e => setReceiverID(e.target.value)} className="form-input"/>
-                {yourID === receiverID ?
+                <input type="text"  placeholder="Call Reveiver ID" value={receiverID} onChange={e => setReceiverID(e.target.value)} className="form-input"/>
+                {/* {yourID === receiverID ?
                   <button onClick={() => {} } className="primaryButton">Join</button>
                   :
                   <button onClick={() => callPeer(receiverID.toLowerCase().trim())} className="primaryButton">Call</button>  
-                }
+                } */}
+                <button onClick={() => callPeer(receiverID.toLowerCase().trim())} className="primaryButton">Call</button>  
+
                 {/* <button onClick={() => callPeer(receiverID.toLowerCase().trim())} className="primaryButton">Call</button> */}
             </div>
+            {receiverID &&
+            
+            <div>
+                <div className="actionText">Call receiver id: 
+                 <span className="username highlight" >{receiverID}</span></div>
+            </div>
+            }
             {/* <div>
                 To call your friend, ask them to open it in their browser. <br/>
                 Send your username (<span className="username">{yourID}</span>) and wait for their call <span style={{fontWeight: 600}}>OR</span> enter their username and hit call!
@@ -94,6 +114,8 @@ function WebrtcApp(props) {
   useEffect(() => {
     if(props && props.match && props.match.params){
       setReceiverID(props.match.params.receiverId)
+      
+      setdisableusernameinputfield(true)
     }
     
     let instance = constants.signalling_server()
@@ -102,10 +124,10 @@ function WebrtcApp(props) {
    
     socket.current.on('connect', () => {
       let userId = localStorage.getItem('userId')
-      if(userId){
+      //if(userId){
         socket.current.emit('session', {userId})
         window.currentSocket = socket.current;
-      }
+      //}
       
      
   })
@@ -116,6 +138,7 @@ function WebrtcApp(props) {
    
     socket.current.on('disconnect', function() {
       console.log('Client disconnected.');
+      socket.current.emit('remove-disconnected', {userId : yourID})
     });
 
     //console.log('socket.current ', socket.current)
@@ -123,7 +146,7 @@ function WebrtcApp(props) {
     socket.current.on("yourID", (id) => {
       console.log('received yourID: ', id)
       setYourID(id);
-
+      setcallingLink(`${window.location.origin}/calling-route/${id}`)
      
     })
     socket.current.on("allUsers", (users) => {
@@ -289,8 +312,8 @@ function WebrtcApp(props) {
     console.log('call ending..')
     myPeer.current.destroy()
     socket.current.emit('close',{to:caller})
-    //window.location.reload()
-    window.location.href = '/'
+    window.location.reload()
+   // window.location.href = '/'
    //setModalMessage('Your call is ended!')
     //setModalVisible(true)
   }
@@ -347,6 +370,14 @@ function WebrtcApp(props) {
     },1000)
   }
 
+  function showLinkCopiedMessage(){
+    navigator.clipboard.writeText(callingLink)
+    setLinkCopied(true)
+    setInterval(()=>{
+      setLinkCopied(false)
+    },1000)
+  }
+
   let UserVideo;
   if (stream) {
     UserVideo = (
@@ -384,13 +415,13 @@ function WebrtcApp(props) {
   if(audioMuted){
     audioControl=<span className="iconContainer" onClick={()=>toggleMuteAudio()}>
       {/* <img src={microphonestop} alt="Unmute audio"/> */}
-      <button>Unmute audio</button>
+      <button className="btn" >Unmute audio</button>
 
     </span>
   } else {
     audioControl=<span className="iconContainer" onClick={()=>toggleMuteAudio()}>
       {/* <img src={microphone} alt="Mute audio"/> */}
-      <button>Mute audio</button>
+      <button className="btn" >Mute audio</button>
     </span>
   }
 
@@ -399,18 +430,18 @@ function WebrtcApp(props) {
     videoControl=<span className="iconContainer" onClick={()=>toggleMuteVideo()}>
       
       {/* <img src={camera} alt="Resume video"/> */}
-      <button>Resume Video</button>
+      <button className="btn" >Resume Video</button>
     </span>
   } else {
     videoControl=<span className="iconContainer" onClick={()=>toggleMuteVideo()}>
       {/* <img src={camera} alt="Stop audio"/> */}
-      <button>Stop Video</button>
+      <button className="btn" >Stop Video</button>
     </span>
   }
 
   let screenShare=<span className="iconContainer" onClick={()=>shareScreen()}>
     {/* <img src={share} alt="Share screen"/> */}
-    <button>Share Screen</button>
+    <button className="btn" >Share Screen</button>
   </span>
   if(isMobileDevice()){
     screenShare=<></>
@@ -418,20 +449,20 @@ function WebrtcApp(props) {
 
   let hangUp=<span className="iconContainer" onClick={()=>endCall()}>
     {/* <img src={hangup} alt="End call"/> */}
-    <button>End Call</button>
+    <button className="btn" >End Call</button>
   </span>
 
   let fullscreenButton;  
   if(isfullscreen){
     fullscreenButton=<span className="iconContainer" onClick={()=>{setFullscreen(false)}}>
       {/* <img src={minimize} alt="fullscreen"/> */}
-      <button>minimize</button>
+      <button className="btn" >minimize</button>
 
     </span>
   } else {
     fullscreenButton=<span className="iconContainer" onClick={()=>{setFullscreen(true)}}>
       {/* <img src={fullscreen} alt="fullscreen"/> */}
-      <button>Full Screen</button>
+      <button className="btn" >Full Screen</button>
     </span>
   }
 

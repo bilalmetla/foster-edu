@@ -68,9 +68,9 @@ export default class DSContent extends React.Component {
                                                           
                   </Route>
                  
-                  <Route path="/dashboard/calling-route/:receiverId" render={(props) => <WebrtcApp {...props} />} >
+                  {/* <Route path="/dashboard/calling-route/:receiverId" render={(props) => <WebrtcApp {...props} />} >
                                                           
-                  </Route>
+                  </Route> */}
                  
                   <Route path="/dashboard/feedback">
                   <DSFeedback />

@@ -23,6 +23,7 @@ import DSClassesDetails from "./DSClassesDetails";
 import AcceptStudentRequest from "./AcceptStudentRequest";
 import {RatingStars} from "./RatingStars";
 import DSFeedback from "./DSFeedBack";
+import CallingDemo from "./CallingDemo";
 
 export {
     Header,
@@ -48,4 +49,5 @@ export {
     AcceptStudentRequest,
     RatingStars,
     DSFeedback,
+    CallingDemo,
 }

@@ -2,7 +2,7 @@
 import React from "react";
 
 import {  Banner, Services,
-   Testimonials,StartTutoringBanner, 
+   Testimonials,StartTutoringBanner, CallingDemo,
    HaveQuestion} from "./../components";
 
 class Home extends React.Component {
@@ -13,6 +13,7 @@ class Home extends React.Component {
       <div>
         <Banner />
         <Services />
+        <CallingDemo />
         <Testimonials />
         <StartTutoringBanner />
         <HaveQuestion />

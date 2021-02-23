@@ -178,7 +178,7 @@ export default function DSMenu (props) {
 
             </Accordion>
             
-            <ul className="nav flex-column">
+            <ul className="nav flex-column" style={{marginTop:'50px'}}>
               
                 <li className="nav-item">
                     <Link className="nav-link " to="/" onClick={()=> { localStorage.clear(); window.location.reload(); } }>Log Out</Link>

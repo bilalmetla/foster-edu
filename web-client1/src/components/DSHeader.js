@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, {setState} from "react";
 import {
   Link
 } from "react-router-dom";
@@ -12,8 +12,6 @@ export default class DSHeader extends React.Component {
   
 
     render(){
-
-      
 
       return (
           <div id="header" className="">

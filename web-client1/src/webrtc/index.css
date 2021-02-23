@@ -345,10 +345,9 @@ body {
 
 .callContainer{
   /* max-width: 800px; */
-  width: 700px;
+  width: 100vw;
   height: 100vh;
-margin-left: 20px;
-margin-top: 20px;
+
   
 }
 
@@ -394,7 +393,7 @@ margin-top: 20px;
   justify-content: space-around;
   height: 4rem;
   z-index: 999;
-  /* width: 100vw; */
+  width: 100vw;
   background-color: rgba(0,0,0,0.1);
 }
 
@@ -418,9 +417,13 @@ margin-top: 20px;
   text-align: center;
 }
 .iconContainer button {
-  margin: 5px;
+  margin-left: 5px;
+  background: #e74c3c;
+  color: #fff;
 }
 .iconContainer img{
   width: 100%;
   height: auto;
 }
+
+
