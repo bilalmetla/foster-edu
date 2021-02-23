@@ -61,8 +61,11 @@ export default function ViewProfile (props){
             }
         })
 
-        setprofileRating(result.stars)
-        settotalRating(result.totalRatings) //totalRatings
+        if(result.stars){
+            setprofileRating(result.stars)
+        }
+       
+        settotalRating(result.totalRatings) 
         loadReviews(props.match.params.id)
 
 
@@ -103,7 +106,6 @@ export default function ViewProfile (props){
         }
         sendFeedback(data)
         .then(result=>{
-            console.log(result)
             if(result.ok === false){
                 NotificationManager.error(result.statusText, 'Error!', 2000);
 
@@ -136,8 +138,10 @@ export default function ViewProfile (props){
                                 {tutor.tagLine}
                                 </strong></p>
                                 {profileRating &&
-                                
                                 <RatingStars.profileListingStars stars={parseInt(profileRating)}> </RatingStars.profileListingStars>
+                                }
+                                {!profileRating &&
+                                <RatingStars.profileListingStars stars={0}> </RatingStars.profileListingStars>
                                 }
                               
                         </span>
@@ -259,18 +263,15 @@ export default function ViewProfile (props){
                             <p>ratings</p>
                             </Col>
                             <Col md={10}>
-                            {/* <p>
-                                  <i className="fa fa-star"> </i>
-                                  <i className="fa fa-star"> </i>
-                                  <i className="fa fa-star"> </i>
-                                  <i className="fa fa-star"> </i>
-                                  <i className="fa fa-star"> </i>
-                              <strong> 5 </strong>
-                              (4 ratings)
-                              </p> */}
+                            
                               <div style={{display:'flex'}}>
                                   {profileRating &&
-                                  <RatingStars.profileView stars={parseInt(profileRating)} > </RatingStars.profileView >
+                                    
+                                   <RatingStars.profileView stars={parseInt(profileRating)} > </RatingStars.profileView >
+                                  }
+                                  { !profileRating &&
+                                    <RatingStars.profileView stars={0} > </RatingStars.profileView >
+
                                   }
                               
                               

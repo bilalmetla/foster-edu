@@ -448,6 +448,8 @@ export class CustomersController {
     logger.debug(customers);
    // let appVersion = customers.versionCode;
     let phone = customers.email
+    let origion = customers.origion
+
     if(!phone){
       return CONSTANTS.INVALID_EMAIL_ADDRESS
     }
@@ -476,7 +478,7 @@ export class CustomersController {
             const createdCustomer = await this.customersRepository.create(customers);
             let user = await this.userRepository.create({username: phone});
            // delete createdCustomer.access_token;
-           let verifyUrl = `http://127.0.0.1:3001/customers/${createdCustomer.id}/verify/${activationRecord.emailCode}`
+           let verifyUrl = `${origion}/customers/${createdCustomer.id}/verify/${activationRecord.emailCode}`
            // sendPk.sendOTP(smsCode, createdCustomer.phone);
            logger.info('verification link : '+ verifyUrl)
            let gmailService = new GMailService();
@@ -622,8 +624,16 @@ export class CustomersController {
         if (foundCust && foundCust.length === 0) {
           return CONSTANTS.USER_NOT_EXISTS
         }
-        await this.createActivationRecord(email)
-        //return CONSTANTS.RESET_PASSWORD_LINK_SENT
+        let activation = await this.createActivationRecord(email)
+        let gmailService = new GMailService();
+           gmailService.sendMail( 
+            email,  
+            `Your Forgot Password Code`,
+            
+            `Hi \n
+            ${activation.emailCode} is your forgot password code. Please use it and don't share it.
+            `
+            ); 
         return {customerId: foundCust[0].id}
          
   }

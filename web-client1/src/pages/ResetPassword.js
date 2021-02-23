@@ -74,14 +74,14 @@ function ResetPassword (props){
                 isSuccess={isSuccessModal}
                 />
                 <Container>
-                <Row>
+                {/* <Row>
                     <Col md={{span: 12}}>
                     <div className="custom-header">
-                                <img src="" alt="foster logo" />
-                                {/* <h1>Foster</h1> */}
+                                <img src="/header_logo.png" alt="foster logo" />
+                                <h1>Foster</h1>
                                     </div>
                         </Col>
-                </Row>
+                </Row> */}
 
                     <Row>
                     

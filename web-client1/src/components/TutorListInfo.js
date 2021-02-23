@@ -51,16 +51,8 @@ export default function TutorListInfo (props) {
                           <Col md={3} style={{float:'right'}}  >
                           <div  id="tutor-scoring-board" className="float-md-right">
                               <p><strong>Rs {props.tutor.fees}/{props.tutor.feesPer}</strong></p>
-                              {/* <p>
-                                  <i className="fa fa-star"> </i>
-                                  <i className="fa fa-star"> </i>
-                                  <i className="fa fa-star"> </i>
-                                  <i className="fa fa-star"> </i>
-                                  <i className="fa fa-star"> </i>
-                              <strong> 5 </strong>
-                              (4)
-                              </p> */}
-                             <RatingStars.profileListingStars stars={4}> </RatingStars.profileListingStars>
+                              
+                             <RatingStars.profileListingStars stars={props.tutor.stars}> </RatingStars.profileListingStars>
                               <p className="Offers-margin">
                               Offers 
                               </p>

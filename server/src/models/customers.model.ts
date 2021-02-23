@@ -242,6 +242,12 @@ export class Customers extends Entity {
     default: 0
   })
   totalRatings?: number;
+  
+  @property({
+    type: 'string',
+    required: false,
+  })
+  origion?: string;
 
 
   @hasMany(() => Orders)

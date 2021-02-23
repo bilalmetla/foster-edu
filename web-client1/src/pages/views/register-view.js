@@ -27,7 +27,7 @@ function RegisterView (props){
     const [isSuccessModal, setisSuccessModal] = useState(false);
 
     const onSubmit = (data) => {
-        
+        data.origion = window.location.origin
         setIsLoading(true)
         signUp(data)
         .then((responseJson) => {

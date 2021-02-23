@@ -4,12 +4,13 @@ export class GMailService {
   private _transporter: nodemailer.Transporter; 
   constructor() { 
     this._transporter = nodemailer.createTransport( 
-      `smtps://webapp992%40gmail.com:Safarifone@smtp.gmail.com` 
+      //`smtps://info%40thefoster.life:Safarifone@smtp.gmail.com` 
+      `smtps://info%40thefoster.life:Thefoster@1991@smtp.ionos.com` 
     ); 
   } 
   sendMail(to: string, subject: string, content: string) { 
     let options = { 
-      from: 'info@foster.com', 
+      from: 'info@thefoster.life', 
       to: to, 
       subject: subject, 
       text: content ,

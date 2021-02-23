@@ -15,11 +15,13 @@ export default function SearchTutors (props) {
   const { register, handleSubmit, setValue, errors, } = useForm();
   const [subject, setSubject] = useState('');
   let tutorsList = []
+  let countValidTutors = 0
 
   if(props.tutors && props.tutors.length > 0){
      tutorsList = props.tutors.map(item=>{
        
               if(item.tagLine && item.fees){
+                countValidTutors = countValidTutors + 1
                     return <TutorListInfo 
                         tutor={item}
                         key={item.id}
@@ -27,7 +29,7 @@ export default function SearchTutors (props) {
               }
               
      })
-     console.log('tutorsList', tutorsList)
+    // console.log('tutorsList', tutorsList)
   }
   
     
@@ -64,7 +66,7 @@ export default function SearchTutors (props) {
             </Form.Row>
 
             <div id="tutor-results-info" style={{marginTop:'25px'}}>
-                <h4>Total Found  <Badge variant="success">{tutorsList.length}</Badge>{' '}</h4>
+                <h4>Total Found  <Badge variant="success">{countValidTutors}</Badge>{' '}</h4>
             </div>
 
             </div>

@@ -18,7 +18,7 @@ export class CONSTANTS {
   public static readonly  ACTIVATION_RESENT = new ErrorResponse({resultCode: '2001', name: "Ok", code:"ACTIVATION_RESENT", message: "OTP Resent!"})  
   public static readonly  DEVICE_TOKEN_INVALID =  new ErrorResponse({resultCode: '400', name: "Bad Request", code:"DEVICE_TOKEN_INVALID", message: "Invalid Token Sent!"})  
   public static readonly  INVALID_EMAIL_ADDRESS =  new ErrorResponse({resultCode: '2001', name: "Bad Request", code:"INVID_EMAIL", message: "Email Not Exists!"})  
-  public static readonly  EMAIL_ALREADY_EXISTS =  new ErrorResponse({resultCode: '2001', name: "Bad Request", code:"DUPLICATE_EMAIL", message: "Email Already Exists!"})  
+  public static readonly  EMAIL_ALREADY_EXISTS =  new ErrorResponse({resultCode: 'ER4002', name: "Bad Request", code:"DUPLICATE_EMAIL", message: "Email Already Exists!"})  
   public static readonly  EMAIL_VERIFICATION_SUCCESS =  new ErrorResponse({resultCode: '2001', name: "", code:"EMAIL_VERIFICATION_SUCCESS", message: "Thanks, Your email is verified"})  
   public static readonly  EMAIL_VERIFICATION_FAILED =  new ErrorResponse({resultCode: 'ER3001', name: "", code:"EMAIL_VERIFICATION_FAILED", message: "Your email verification link is Expired!"})  
   public static readonly  USER_NOT_EXISTS =  new ErrorResponse({resultCode: 'ER3002', name: "", code:"USER_NOT_EXISTS", message: "User not found. Please register first!"})  
