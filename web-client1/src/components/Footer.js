@@ -42,14 +42,12 @@ export default function Footer () {
                           <div style={{display: 'flex'}}>
                                 <div style={{marginRight:'10px'}}>
                                 <p >
-                                 <a href="">About Us </a>
+                                 <a href="/">About Us </a>
                                  </p>
                                  <p>
                                 <Link to="/contact-us">Contact Us </Link>
                                 </p>
-                                <p>
-                                <Link to="/calling" target="_blank">Video Lecture </Link>
-                                </p>
+                                
                              </div>
 
                              <div style={{marginLeft:'10px'}}>
@@ -58,6 +56,9 @@ export default function Footer () {
                                  </p>
                                  <p>
                                 <Link to="/tutors">Hire a Tutor </Link>
+                                </p>
+                                <p>
+                                <Link to="/calling" target="_blank">Video Lecture </Link>
                                 </p>
                              </div>
 

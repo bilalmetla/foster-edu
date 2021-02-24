@@ -23,24 +23,26 @@ export default function CallingDemo () {
                 callingDemoImageIndex = 0
             }
             setimageUrl(imagesList[callingDemoImageIndex])
-        }, 1000 * 5);
+        }, 1000 * 8);
     }, []);
 
 
       return (
-          <div id="calling-demo"  class="section" >
-              <Container>
-                  <Row>
-                      <Col md={12}>
-                          <h2 class="section-heading">
-                          How online Lessons Works
+          <div id="calling-demo"  className="section" >
+              <Container >
+                  <Row >
+                      
+                          <h2 className="section-heading">
+                          See how online lessons works
                           </h2>
                           <div className="calling-demo-content" >
-                                <span style={{ width:'65%'}}>
+                          <Col md={8} sm={6}>
+                                <span >
                                     <img src={imageUrl} alt="video calling demo image" />
                                 </span>
-                                
-                                <span style={{paddingTop:'30px', width:'35%'}}>
+                            </Col>
+                            <Col md={4} sm={6}>
+                                <span style={{paddingTop:'30px'}}>
                                 <p>
                                 <i className="fa fa-angle-double-right "></i>  
                                  Meet with the expert of your choice, anywhere in the country, online or in-person
@@ -53,11 +55,12 @@ export default function CallingDemo () {
                                 <i className="fa fa-angle-double-right"></i>  
                                 Collaborate with online features built for any skill or subject
                                 </p>
-                                <a className="btn-link" href="/calling" target="_blank">How it work's</a>
+                                <a className="btn-link" href="/calling" target="_blank">See Video Calling</a>
                                 </span>
+                                </Col>
                           </div>
 
-                      </Col>
+                     
                   </Row>
               </Container>
           </div>

@@ -1,14 +1,52 @@
 
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 import { Container, Row, Col } from 'react-bootstrap';
+import { TestimonialsList } from "../fixtures/Testimonials";
+
+export default function Testimonials () {
+
+    let [currentIndex, setcurrentIndex] = useState(0);
+    //var currentIndex = 0
+    const [testimonials, settestimonials] = useState([]);
 
 
-export default class Testimonials extends React.Component {
- 
-    render(){
+    useEffect(() => {
+        if(currentIndex >= TestimonialsList.length-1 || currentIndex < 0 ){
+          //  setcurrentIndex(0)
+            return
+        }
+        settestimonials(
+            [
+                TestimonialsList[currentIndex],
+                TestimonialsList[++currentIndex]
+            ]
+        )
+        
+       setInterval(() => {
+            if(currentIndex >= TestimonialsList.length-1 || currentIndex < 0 ){
+                return setcurrentIndex(0)
+            }            
+            setcurrentIndex(currentIndex + 1)             
+
+       }, 1000 * 15);
+
+    }, [currentIndex]);
+   
+    const changeTestimonials = ()=>{
+        settestimonials(
+            [
+                TestimonialsList[currentIndex],
+                TestimonialsList[++currentIndex]
+            ]
+        )
+    }
+
+
       return (
-          <div id="testimonials" className="section">
+          <div id="testimonials" className="section" style={{display:'flex'}}>
+             <Col md={1} className="slider-arrow" onClick={()=>{setcurrentIndex(currentIndex - 1)}}> <i className="fa fa-arrow-left"> </i> </Col>
+
               <Container>
                   <Row>
                       <Col md={12}>
@@ -18,25 +56,26 @@ export default class Testimonials extends React.Component {
                       </Col>
                   </Row>
                   <Row>
-                      <Col md={6}>
-                          <p><strong>Good Website</strong></p>
-                          <p>I had no idea where to start finding a web tutor for a project I was working on. Thank goodness a Google search led me to Wyzant. They did all the work for me and I found someone excellent!</p>
-                          <img src="images/tutor2-280x300.jpg" alt="customer image" />
-                          <p className="author"><strong>Neha</strong> from <strong>Lahore </strong></p>
-                          {/* <div className="author-city">from Karachi</div> */}
-                      </Col>
+                      
+                  {testimonials && testimonials.length > 0 &&
+                  testimonials.map(item=>{
+                      return <Col md={6}>
+                                <p><strong>{item.title}</strong></p>
+                                <p>
+                                    {item.description}
+                                    </p>
+                                <p className="author"><strong>{item.author}</strong> from <strong>{item.from}</strong></p>
 
-                      <Col md={6}>
-                          <p><strong>Happy to have found you</strong></p>
-                          <p>I am a lawyer struggling with scientific concepts later in life. I find that using Wyzant to shore up my deficiencies has worked well.</p>
-                          <img src="images/tutor4-740x792.jpg" alt="customer image" />
-                          <p className="author"><strong>Ali</strong> from <strong>Lahore </strong></p>
-                          {/* <div className="author-city"></div> */}
-                      </Col>
+                            </Col>
+                  })
+                  }
+                 
+                      
 
                   </Row>
               </Container>
+              <Col md={1} className="float-right slider-arrow" onClick={()=> setcurrentIndex(currentIndex + 1)}> <i className="fa fa-arrow-right"> </i> </Col>
           </div>
       )
-    }
+    
 }

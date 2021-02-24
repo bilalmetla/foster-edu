@@ -125,7 +125,7 @@ export default function ViewProfile (props){
 
 
     return (
-        <div style={{marginTop:'50px', marginBottom:'50px'}} className="section">
+        <div style={{marginTop:'50px', marginBottom:'50px'}} className="">
             {isLoading && <Spinner />}
             <Container>
                 <Row>

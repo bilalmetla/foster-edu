@@ -30,7 +30,7 @@ export default function Header (){
           <div id="header" className="sticky">
             <Container>
             <Row>
-            <Col xs={4} md={4} sm={4}>
+            <Col xs={4} md={3} sm={2}>
                 {/* <h1 id="logo"> Foster </h1> */}
                 <img className="logo" src="/header_logo.png" alt="Foster" />
             </Col>

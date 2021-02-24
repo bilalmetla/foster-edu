@@ -24,16 +24,17 @@ h1 {
     z-index: 999;
     
 }
-#logo {
 
-    margin-top: 5px;
-}
 
 #menu {
-    margin: 0;
-    padding: 0;
+    /* margin: 0;
+    padding: 0; */
     list-style: none;
     display: flex;
+    @media screen and (max-width: 480px) {
+        /* margin-left: 50px; */
+        /* padding-left: 20px; */
+    }
 }
 /* #menu li {
     display: inline-block;
@@ -41,8 +42,11 @@ h1 {
 
 #menu li a{
     color: #fff;
-    padding: 15px 10px;
+    
     display: block;
+   
+    padding: 15px 10px;
+    
 }
 #menu li a:hover{ 
     background: #c0392b;
@@ -246,9 +250,11 @@ h1 {
       font-size: 12px;
   }
   .sticky {
+    @media screen and (max-width: 480px) {
     position: fixed;
     top: 0;
     width: 100%
+    }
   }
 
   #register{
@@ -563,7 +569,9 @@ form label{
 }
 
 .logo {
-    width: 160px;
+   
+    margin-top: 10px;
+    width: 100px; 
   
 }
 .float-right{
@@ -572,13 +580,19 @@ form label{
 
 #calling-demo{
     background-color: #ecf0f1;
-    text-align: justify;
+    text-align: center;
 }
+#calling-demo h2{
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
 .calling-demo-content {
     display: flex;
     margin-left: 0px;
     font-size: 18px;
+    text-align: justify;
     
 }
 .calling-demo-content span{
@@ -621,4 +635,17 @@ form label{
     font-size: 20px;
     text-decoration: none;
     
+}
+
+.slider-arrow {
+    margin-top: 100px;
+    /* color: #e74c3c; */
+    font-size: 30px;
+    cursor: pointer;
+    width: 50px;
+    height: 50;
+}
+
+.slider-arrow:hover {
+    font-size: 40px;
 }
