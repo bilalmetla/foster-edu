@@ -68,7 +68,7 @@ function DSMediums  (props){
         {isLoading && <Spinner />}
         <Container>
             <Row>
-                <Col md={{span:12, offset:4}}>
+                <Col md={{span:12}}>
                 <h2 className="section-heading">Teaching Mediums</h2>
                 <Form >
                     <Form.Row>

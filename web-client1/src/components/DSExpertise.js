@@ -114,7 +114,7 @@ function DSExpertise  (props){
 
         <Container>
             <Row>
-                <Col md={{span:12, offset: 4}}>
+                <Col md={{span:12, }}>
                 <h2 className="section-heading">Subjects & Grades</h2>
                 {/* </Col>
                 </Row>

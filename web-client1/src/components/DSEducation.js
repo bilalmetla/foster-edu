@@ -64,11 +64,11 @@ function DSEducation  (props){
             {isLoading && <Spinner />}
         <Container>
             <Row>
-                <Col md={{span:12, offset:0}}>
+                <Col md={{span:12,}}>
                 <h2 className="section-heading">Your Last Education Degree</h2>
                 <Form >
                     <Form.Row>
-                        <Form.Group as={Col} controlId="institute">
+                        <Form.Group as={Col} sm={12} controlId="institute">
                         <Form.Label>Institute Name</Form.Label>
                         <Form.Control type="text" 
                         placeholder="institute" 
@@ -79,7 +79,7 @@ function DSEducation  (props){
                         </Form.Group>
                         
 
-                        <Form.Group as={Col} controlId="degree">
+                        <Form.Group as={Col} sm={12} controlId="degree">
                         <Form.Label>Degree Title</Form.Label>
                         <Form.Control type="text" 
                         placeholder="degree" 
@@ -89,7 +89,7 @@ function DSEducation  (props){
                         />
                         </Form.Group>
 
-                        <Form.Group as={Col} controlId="passingYear">
+                        <Form.Group as={Col} sm={12} controlId="passingYear">
                         <Form.Label>Passing Year</Form.Label>
                         <Form.Control 
                         type="number"

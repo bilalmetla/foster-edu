@@ -10,21 +10,21 @@ export default class Dashboard extends React.Component {
 
       <div id="dashboard">
           {/* <DSHeader /> */}
-          <div style={{display:'flex', marginTop:'47px'}}>
+          {/* <div style={{display:'flex', marginTop:'47px'}}>
           <DSMenu />
           <DSContent />
-          </div>
+          </div> */}
           
-          {/* <Container>
+          <Container>
                 <Row>
-                    <Col md={{span:3}} style={{marginLeft:0}}>
-                    
+                    <Col md={{span:3}} >
+                    <DSMenu  className="toogleMenuHide dashboar-menu" />
                     </Col>
                     <Col md={{span:9}}>
-                   
+                    <DSContent />
                     </Col>
                 </Row>
-            </Container> */}
+            </Container>
          
             
 

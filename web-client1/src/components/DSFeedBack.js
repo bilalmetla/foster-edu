@@ -62,7 +62,7 @@ function DSFeedback  (props){
             {isLoading && <Spinner />}
             <Container>
                 <Row>
-                    <Col md={{span:12, offset:3}}>
+                    <Col md={{span:12,}}>
                     <h2 className="section-heading">Share Your Feed Back</h2>
                 
                     <RatingStars >

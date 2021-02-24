@@ -10,7 +10,7 @@ import { constants } from "../constants";
 
 
 
-export default function DSMenu (props) {
+export default function DSMenu ({children, ...restProps}) {
 
     const [profileImage, setprofileImage] = useState({});
     const [fileupload, setfileupload] = useState('');
@@ -78,6 +78,10 @@ export default function DSMenu (props) {
      const changeActiveClass = (event) => {
          document.getElementsByClassName('active')[0].classList.remove(activeLinkClass) ;
           event.target.classList.add(activeLinkClass) 
+          if(document.getElementById("dashboar-menu").classList.value.split(' ').includes('toogleMenuShow') ){
+            document.getElementById("dashboar-menu").classList.remove('toogleMenuShow');
+            document.getElementById("dashboar-menu").classList.add('toogleMenuHide');       
+          }
         }
      
         const changeActiveAccordionsClass = (event) => {
@@ -85,8 +89,10 @@ export default function DSMenu (props) {
           event.target.classList.add(activeAccordionsClass) 
         }
 
+       
+
       return (
-          <div id="dashboar-menu">
+          <div id="dashboar-menu" {...restProps}>
                <Container>
                 <Row>
                     <Col md={12}>
@@ -178,7 +184,7 @@ export default function DSMenu (props) {
 
             </Accordion>
             
-            <ul className="nav flex-column" style={{marginTop:'50px'}}>
+            <ul className="nav flex-column" style={{marginTop:'50px', marginBottom:'100px'}}>
               
                 <li className="nav-item">
                     <Link className="nav-link " to="/" onClick={()=> { localStorage.clear(); window.location.reload(); } }>Log Out</Link>

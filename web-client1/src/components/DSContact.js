@@ -64,7 +64,7 @@ const onSubmit = (data) => {
             {isLoading && <Spinner />}
         <Container>
             <Row>
-                <Col md={{span:12, offset:6}}>
+                <Col md={{span:12, }}>
                 <h2 className="section-heading">Contact Information</h2>
                 <Form>
                    

@@ -110,7 +110,7 @@ function DSChatBox  (props){
         {isLoading && <Spinner />}
         <Container>
             <Row > 
-                <Col md={{span:12, offset:2}} style={{ marginBottom:'25px', marginTop:'5%' }}>
+                <Col md={{span:12,}} style={{ marginBottom:'25px', marginTop:'5%' }}>
                 {/* <h2 className="section-heading"></h2> */}
                 <div style={{overflowY: "auto", height:'400px'}}>
                 {messagesList && messagesList.length > 0?
