@@ -137,7 +137,7 @@ function DSExpertise  (props){
 
                     <Form.Row>
                         
-                    <Col md={8}>
+                    {/* <Col md={8}> */}
                         <Multiselect 
                         options={props.grades} // Options to display in the dropdown
                         selectedValues={customer.teachingGrades} // Preselected value to persist in dropdown
@@ -148,7 +148,7 @@ function DSExpertise  (props){
                         onSelect={onGradeSelect} // Function will trigger on select event
                         onRemove={onGradeRemove} // Function will trigger on remove event
                         />
-                        </Col>
+                        {/* </Col> */}
                         
                     </Form.Row>
 

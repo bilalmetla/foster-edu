@@ -106,7 +106,7 @@ function DSChatBox  (props){
 
 
     return (
-        <div className="" style={{width:'600px'}}>
+        <div className="" >
         {isLoading && <Spinner />}
         <Container>
             <Row > 
@@ -152,12 +152,12 @@ function DSChatBox  (props){
 
 
             <Row>
-            <Col md={{span:12, offset:2}} style={{marginBottom:'10%' }}>
+            <Col md={{span:12, }} style={{marginBottom:'10%' }}>
 
                 <Form >
                     <Form.Row className="align-items-center">
                         
-                        <Col xs="auto" md="10">
+                        <Col xs="auto" md={10}>
                         <Form.Label htmlFor="inlineFormInputGroup" srOnly>
                             Message
                         </Form.Label>
@@ -175,7 +175,7 @@ function DSChatBox  (props){
                         </InputGroup>
                         </Col>
                        
-                        <Col xs="auto" >
+                        <Col xs="auto" md={2} >
                         <Button onClick={handleSubmit(sendMessage)} className="mb-2 " style={{background:'#e74c3c'}}>
                             Send
                         </Button>

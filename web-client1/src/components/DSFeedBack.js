@@ -88,7 +88,7 @@ function DSFeedback  (props){
                               placeholder="Enter Your Feedback"
                               value={feedbackMessage}
                               rows={4}
-                              cols={50}
+                            //   cols={50}
                              
                               onChange={event => {setfeedbackMessage(event.target.value)}}
                               > 

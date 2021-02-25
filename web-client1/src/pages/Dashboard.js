@@ -1,26 +1,37 @@
-import React from "react";
+import React, {useState} from "react";
 import { Container, Row, Col, Accordion, Card } from 'react-bootstrap';
 import {  DSHeader, DSMenu, DSContent} from "./../components";
 
 
-export default class Dashboard extends React.Component {
+export default function Dashboard () {
  
-  render(){
+  const changeMenuToggle = (event) => {
+    
+      if(document.getElementById("dashboar-menu").classList.value.split(' ').includes('toogleMenuShow') ){
+        document.getElementById("dashboar-menu").classList.remove('toogleMenuShow');
+        document.getElementById("dashboar-menu").classList.add('toogleMenuHide');       
+      }else{
+          document.getElementById("dashboar-menu").classList.remove('toogleMenuHide');
+          document.getElementById("dashboar-menu").classList.add('toogleMenuShow');       
+      }
+    }
+
+
     return (
 
       <div id="dashboard">
-          {/* <DSHeader /> */}
-          {/* <div style={{display:'flex', marginTop:'47px'}}>
-          <DSMenu />
-          <DSContent />
-          </div> */}
-          
+                   
           <Container>
+            
                 <Row>
+                  
                     <Col md={{span:3}} >
                     <DSMenu  className="toogleMenuHide dashboar-menu" />
                     </Col>
                     <Col md={{span:9}}>
+                    <div  className="Navbar__Link Navbar__Link-toggle float-right">
+                    <i class="fa fa-bars" onClick={changeMenuToggle} ></i>
+                  </div>
                     <DSContent />
                     </Col>
                 </Row>
@@ -31,5 +42,5 @@ export default class Dashboard extends React.Component {
          
       </div>
       )
-    }
+    
 }

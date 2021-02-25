@@ -325,7 +325,7 @@ export default function ViewProfile (props){
                               placeholder="Enter Your Feedback"
                               value={feedbackMessage}
                               rows={4}
-                              cols={50}
+                            //   cols={50}
                               onChange={event => {setfeedbackMessage(event.target.value)}}
                               > 
                               </RatingStars.messageBox >
@@ -377,7 +377,7 @@ export default function ViewProfile (props){
 
                     </Col>
                         <Col md={{span: 4}}>
-                        <Card style={{ width: '18rem', marginTop:'70px' }} className="sticky">
+                        <Card style={{ width: '18rem', marginTop:'70px' }} className="">
                         <Card.Header style={{background:'#e74c3c', color:'#fff'}}>Fees Rs{tutor.fees}/{tutor.feesPer}</Card.Header>
                             <Card.Body>
                             

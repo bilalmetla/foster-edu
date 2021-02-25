@@ -90,9 +90,9 @@ export default function Footer () {
                                 </i>
                                 </a>
                                 
-                                {/* <a target="_blank" href="">
+                                <a target="_blank" href="https://twitter.com/Foster38235316">
                                 <i className="fa fa-twitter"></i>
-                                </a> */}
+                                </a>
                         </div>
                       </Col>
                   </Row>

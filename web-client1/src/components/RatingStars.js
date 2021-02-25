@@ -92,7 +92,7 @@ RatingStars.rating = function({children, ...restProps}){
 RatingStars.messageBox = function({children, ...restProps}){
     return <span style={{display: 'block'}}>
         {/* <label>Message</label> */}
-        <textarea {...restProps} />
+        <textarea {...restProps}  style={{width:'100%'}}/>
     </span> 
     
 }
