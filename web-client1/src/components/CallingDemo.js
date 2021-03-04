@@ -5,24 +5,27 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 
 export default function CallingDemo () {
 
-    const [imageUrl, setimageUrl] = useState(''); 
+    const [imageUrl, setimageUrl] = useState( '/images/calling_demo/01.jpg'); 
     const imagesList = [
-        '/images/calling_demo/01.jpg',
+       
         '/images/calling_demo/02.jpg',
         '/images/calling_demo/03.jpg',
         '/images/calling_demo/04.jpg',
+        '/images/calling_demo/01.jpg'
         
     ]
 
     useEffect(() => {
+        
         var callingDemoImageIndex = 0
-        setimageUrl(imagesList[callingDemoImageIndex])
+      //  setimageUrl(imagesList[callingDemoImageIndex])
         setInterval(() => {
-            callingDemoImageIndex = callingDemoImageIndex +1
-            if(callingDemoImageIndex >= imagesList.length){
+            
+            if(callingDemoImageIndex > imagesList.length-1){
                 callingDemoImageIndex = 0
             }
             setimageUrl(imagesList[callingDemoImageIndex])
+            callingDemoImageIndex = callingDemoImageIndex +1
         }, 1000 * 8);
     }, []);
 

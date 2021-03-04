@@ -5,6 +5,10 @@ import {  Banner, Services,
    Testimonials,StartTutoringBanner, CallingDemo,
    HaveQuestion} from "./../components";
 
+   import { FaqsContainer } from "../containers/faqs.js";
+
+
+
 class Home extends React.Component {
  
   render(){
@@ -17,6 +21,7 @@ class Home extends React.Component {
         <Testimonials />
         <StartTutoringBanner />
         <HaveQuestion />
+        <FaqsContainer isMoreFaqsShow="true" showFaqs="5" />
       </div>
     );
   }

@@ -21,7 +21,8 @@ import  {Home, Tutors, Register,
   ResetPassword,
   ViewProfile,
   ContactUs,
-  StudentRequest
+  StudentRequest,
+  Faqs,
  }  from "./pages";
 
  import { DSChatBox } from "./components";
@@ -63,14 +64,22 @@ export default class App extends React.Component {
                     <Register />
                    
                   </Route>
+
+                  <Route path="/faqs">
+                    <Faqs />
+                   
+                  </Route>
+
                   <Route path="/register">
                     <Register />
                   
                   </Route>
+
                   <Route path="/forgotpassword">
                     <Register />
                    
                   </Route>
+
                   <Route path="/tutors">
                     <Tutors />
                   </Route>

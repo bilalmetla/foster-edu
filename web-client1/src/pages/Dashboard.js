@@ -1,10 +1,11 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Container, Row, Col, Accordion, Card } from 'react-bootstrap';
 import {  DSHeader, DSMenu, DSContent} from "./../components";
 
 
 export default function Dashboard () {
- 
+  const [isDashboard, setisDashboard] = useState(true);
+
   const changeMenuToggle = (event) => {
     
       if(document.getElementById("dashboar-menu").classList.value.split(' ').includes('toogleMenuShow') ){
@@ -15,6 +16,13 @@ export default function Dashboard () {
           document.getElementById("dashboar-menu").classList.add('toogleMenuShow');       
       }
     }
+
+    useEffect(() => {
+      
+      return () => {
+        setisDashboard(false)
+      };
+    }, []);
 
 
     return (
@@ -29,9 +37,12 @@ export default function Dashboard () {
                     <DSMenu  className="toogleMenuHide dashboar-menu" />
                     </Col>
                     <Col md={{span:9}}>
-                    <div  className="Navbar__Link Navbar__Link-toggle float-right">
-                    <i class="fa fa-bars" onClick={changeMenuToggle} ></i>
-                  </div>
+                      {isDashboard &&
+                        <div  className="Navbar__Link Navbar__Link-toggle float-right">
+                        <i class="fa fa-bars" onClick={changeMenuToggle} ></i>
+                        </div>
+                      }
+                    
                     <DSContent />
                     </Col>
                 </Row>

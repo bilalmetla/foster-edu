@@ -51,3 +51,5 @@ export {
     DSFeedback,
     CallingDemo,
 }
+
+export {default as Accordion} from './accordion'

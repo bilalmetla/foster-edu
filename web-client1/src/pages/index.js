@@ -10,6 +10,7 @@ import ResetPassword  from "./ResetPassword";
 import ViewProfile  from "./ViewProfile";
 import StudentRequest  from "./StudentRequest";
 
+export {default as Faqs} from './faqs'
 export {
     Home,
     Tutors,

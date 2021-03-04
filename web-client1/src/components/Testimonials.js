@@ -13,7 +13,7 @@ export default function Testimonials () {
 
     useEffect(() => {
         if(currentIndex >= TestimonialsList.length-1 || currentIndex < 0 ){
-          //  setcurrentIndex(0)
+            setcurrentIndex(0)
             return
         }
         settestimonials(
@@ -23,13 +23,13 @@ export default function Testimonials () {
             ]
         )
         
-       setInterval(() => {
-            if(currentIndex >= TestimonialsList.length-1 || currentIndex < 0 ){
-                return setcurrentIndex(0)
-            }            
-            setcurrentIndex(currentIndex + 1)             
+    //    setInterval(() => {
+    //         if(currentIndex >= TestimonialsList.length-1 || currentIndex < 0 ){
+    //             return setcurrentIndex(0)
+    //         }            
+    //         setcurrentIndex(currentIndex + 1)             
 
-       }, 1000 * 15);
+    //    }, 1000 * 15);
 
     }, [currentIndex]);
    

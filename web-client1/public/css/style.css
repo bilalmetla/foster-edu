@@ -340,7 +340,7 @@ padding: 15px;
     background-color: #e74c3c;
     color: #fff;
     width: 250px;
-    margin-top: 15px;
+    margin-top: 100px;
     /* padding-left: 30px; */
     /* text-align: center; */
     text-decoration: none;
@@ -677,6 +677,7 @@ form label{
         display:block!important;
         position: fixed; /* Stay in place */
         z-index: 1000; /* Sit on top */
+        margin-top: 0px;
         padding-top: 50px;
         padding-bottom: 100px;
         left: 0;
@@ -696,4 +697,10 @@ form label{
         right:20px
       }
    
+}
+
+#faqs{
+    margin: 0 auto;
+    background-color: #ecf0f1;
+    text-align: center;
 }

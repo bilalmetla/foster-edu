@@ -111,7 +111,40 @@ function WebrtcApp(props) {
     {/* <Footer/> */}
   </>
 
+
   useEffect(() => {
+    const DetectRTC = window.DetectRTC
+    if ( DetectRTC.isWebRTCSupported === false) {
+      alert('Please use Chrome or Firefox.');
+    }
+
+  //   if (DetectRTC.hasWebcam === false) {
+  //     alert('Please install an external webcam device.');
+  // }
+  
+  if (DetectRTC.hasMicrophone === false && DetectRTC.isAudioContextSupported === false) {
+      alert('Please install an external microphone device.'+ DetectRTC.hasMicrophone);
+  }
+  
+  if (DetectRTC.hasSpeakers === false && (DetectRTC.browser.name === 'Chrome' || DetectRTC.browser.name === 'Edge')) {
+      alert('Oops, your system can not play audios.'+ DetectRTC.hasSpeakers);
+  }
+ 
+ 
+  DetectRTC.DetectLocalIPAddress(function(ipsList){
+    console.log(ipsList)
+  })
+  // console.log('isMobileDevice',DetectRTC.isMobileDevice)
+  // console.log('DetectRTC.audioInputDevices',DetectRTC.audioInputDevices)
+  // console.log('DetectRTC.audioOutputDevices',DetectRTC.audioOutputDevices)
+  // console.log('DetectRTC.videoInputDevices',DetectRTC.videoInputDevices)
+  // console.log('DetectRTC.osName',DetectRTC.osName)
+  // console.log('DetectRTC.osVersion',DetectRTC.osVersion)
+  // console.log('DetectRTC.browser',DetectRTC.browser)
+
+  
+  //console.log('obj',DetectRTC.load(function(data){console.log(data)}))
+
     if(props && props.match && props.match.params){
       setReceiverID(props.match.params.receiverId)
       
