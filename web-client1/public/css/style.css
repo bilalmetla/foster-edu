@@ -596,7 +596,9 @@ form label{
     display: flex;
     margin-left: 0px;
     font-size: 18px;
-    text-align: justify;
+    /* text-align: justify; */
+    justify-content: flex-start;
+    align-items: center;
     
 }
 .calling-demo-content span{
@@ -626,10 +628,9 @@ form label{
     padding: 15px 30px;
     text-decoration: none;
     border-radius: 20%;
-    /* margin: 0px auto; */
-    /* display: block; */
+    margin-top: 20px; 
+    /* margin-left: 10%; */
     float: right;
-    margin-top: 20px;
 }
 
 .calling-demo-content a:hover{
@@ -704,3 +705,4 @@ form label{
     background-color: #ecf0f1;
     text-align: center;
 }
+

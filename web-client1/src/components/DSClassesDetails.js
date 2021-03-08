@@ -37,7 +37,7 @@ export default function DSClassesDetails (){
             {isLoading && <Spinner />}
             <Container>
                 <Row> 
-                    <Col md={{span:12, offset:0}}>
+                    <Col md={{span:10, offset:2}}>
                     <h2 className="section-heading">Sessions</h2>
 
                     </Col>

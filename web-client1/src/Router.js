@@ -8,7 +8,7 @@ import {
   
 } from "react-router-dom";
 
-
+import {Routes} from "./constants/routes";
 
 import './App.css';
 
@@ -32,6 +32,7 @@ import 'react-notifications/lib/notifications.css';
 import { NotificationContainer } from 'react-notifications';
 
 import WebrtcApp from "./webrtc/App";
+import ClassRoom from "./classroom";
 
 export default class App extends React.Component {
     render(){
@@ -41,77 +42,69 @@ export default class App extends React.Component {
             <Router >
             <Header />
           
-        
-                {/*
-                  A <Switch> looks through all its children <Route>
-                  elements and renders the first one whose path
-                  matches the current URL. Use a <Switch> any time
-                  you have multiple routes, but you want only one
-                  of them to render at a time
-                */}
                 <Switch>
-                  <Route exact path="/">
-                  {/* <Header /> */}
-                   <Home />
-                  
+                  <Route exact path={Routes.home}>                 
+                   <Home />                  
                   </Route>
 
-                  <Route path="/customers/:id/verify/:code" render={(props) => <VerifyEmail {...props} />} />
-                  <Route path="/customers/:customerId/reset-password" render={(props) => <ResetPassword {...props} />} />
+                  <Route path={Routes.verifyCustomer} render={(props) => <VerifyEmail {...props} />} />
+                  <Route path={Routes.resetPassword} render={(props) => <ResetPassword {...props} />} />
                  
 
-                  <Route path="/login">
+                  <Route path={Routes.login}>
                     <Register />
                    
                   </Route>
 
-                  <Route path="/faqs">
+                  <Route path={Routes.faqs}>
                     <Faqs />
                    
                   </Route>
 
-                  <Route path="/register">
+                  <Route path={Routes.register}>
                     <Register />
                   
                   </Route>
 
-                  <Route path="/forgotpassword">
+                  <Route path={Routes.forgotpassword}>
                     <Register />
                    
                   </Route>
 
-                  <Route path="/tutors">
+                  <Route path={Routes.tutors}>
                     <Tutors />
                   </Route>
                   
-                  <Route path="/dashboard">
-                    <Dashboard />
-                    {/* <Dashboard2 /> */}
-                   
+                  <Route path={Routes.dashboard}>
+                    <Dashboard />                   
                   </Route>
                   
                   
-                  <Route path="/contact-us">
+                  <Route path={Routes.contactUs}>
                     <ContactUs />
                    
                   </Route>
                  
                  
-                  <Route path="/calling">
+                  <Route path={Routes.annonymousCall}>
                     <WebrtcApp />
                   </Route>
-                   <Route path="/calling-route/:receiverId" render={(props) => <WebrtcApp {...props} />} >
+                   <Route path={Routes.studentCall} render={(props) => <WebrtcApp {...props} />} >
                    </Route>
                   
                   
-                  <Route path="/profile/:id" render={(props) => <ViewProfile {...props} />} >
+                  <Route path={Routes.tutorsProfile} render={(props) => <ViewProfile {...props} />} >
                                         
                   </Route>
                   
-                  <Route path="/request/to/:tutorId" render={(props) => <StudentRequest {...props} />} >
+                  <Route path={Routes.studentRequest} render={(props) => <StudentRequest {...props} />} >
                                         
                   </Route>
 
+                  <Route path={Routes.classRoom} >
+                    
+                    <ClassRoom className="section"  />
+                    </Route>
                   
 
                  

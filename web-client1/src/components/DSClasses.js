@@ -39,7 +39,7 @@ function DSClasses (props){
         {isLoading && <Spinner />}
         <Container>
             <Row> 
-                <Col md={{span:12, offset:0}}>
+                <Col md={{span:10, offset:2}}>
                 <h2 className="section-heading">My Sessions</h2>
                 {classes.length === 0 ? <p>No Classes Yet.</p> : <p>Your Classes</p>}
                 <Table striped bordered hover  responsive  size="md" >

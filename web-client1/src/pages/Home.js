@@ -7,7 +7,7 @@ import {  Banner, Services,
 
    import { FaqsContainer } from "../containers/faqs.js";
 
-
+   import ClassRoom from "../classroom";
 
 class Home extends React.Component {
  
@@ -15,6 +15,7 @@ class Home extends React.Component {
     return (
 
       <div>
+       
         <Banner />
         <Services />
         <CallingDemo />

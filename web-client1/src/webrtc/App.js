@@ -114,23 +114,25 @@ function WebrtcApp(props) {
 
   useEffect(() => {
     const DetectRTC = window.DetectRTC
-    if ( DetectRTC.isWebRTCSupported === false) {
+    if (DetectRTC && DetectRTC.isWebRTCSupported === false) {
       alert('Please use Chrome or Firefox.');
     }
 
-  //   if (DetectRTC.hasWebcam === false) {
+  //   if (DetectRTC && DetectRTC.hasWebcam === false) {
   //     alert('Please install an external webcam device.');
   // }
   
-  if (DetectRTC.hasMicrophone === false && DetectRTC.isAudioContextSupported === false) {
+  if (DetectRTC && DetectRTC.hasMicrophone === false &&
+     DetectRTC.isAudioContextSupported === false) {
       alert('Please install an external microphone device.'+ DetectRTC.hasMicrophone);
   }
   
-  if (DetectRTC.hasSpeakers === false && (DetectRTC.browser.name === 'Chrome' || DetectRTC.browser.name === 'Edge')) {
+  if (DetectRTC && DetectRTC.hasSpeakers === false &&
+     (DetectRTC.browser.name === 'Chrome' || DetectRTC.browser.name === 'Edge')) {
       alert('Oops, your system can not play audios.'+ DetectRTC.hasSpeakers);
   }
  
- 
+ if(DetectRTC)
   DetectRTC.DetectLocalIPAddress(function(ipsList){
     console.log(ipsList)
   })

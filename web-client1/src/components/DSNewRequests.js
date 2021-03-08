@@ -38,7 +38,7 @@ function DSNewRequests  (props){
         {isLoading && <Spinner />}
         <Container>
             <Row> 
-                <Col md={{span:12, offset:0}}>
+                <Col md={{span:10, offset:2}}>
                 <h2 className="section-heading">New Requests</h2>
                 <Table striped bordered hover  responsive  size="md" >
                     <thead>

@@ -7,6 +7,7 @@ import { Container, Row, Col, Accordion, Card } from 'react-bootstrap';
 import { uploadCustomerImage, getCustomerImage } from "../services";
 import { NotificationManager } from 'react-notifications';
 import { constants } from "../constants";
+import { Routes } from "../constants/routes";
 
 
 
@@ -127,23 +128,23 @@ export default function DSMenu ({children, ...restProps}) {
                 <Card.Body>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link className={`nav-link ${activeLinkClass}`} onClick={changeActiveClass} to="/dashboard/about">About</Link>
+                        <Link className={`nav-link ${activeLinkClass}`} onClick={changeActiveClass} to={Routes.aboutInfo}>About</Link>
                     </p>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link className="nav-link " onClick={changeActiveClass} to="/dashboard/contact">Contact Info</Link>
+                        <Link className="nav-link " onClick={changeActiveClass} to={Routes.contactInfo}>Contact Info</Link>
                     </p>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link className="nav-link " onClick={changeActiveClass} to="/dashboard/expertise">Expertise</Link>
+                        <Link className="nav-link " onClick={changeActiveClass} to={Routes.expertise}>Expertise</Link>
                     </p>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link className="nav-link " onClick={changeActiveClass} to="/dashboard/education">Education</Link>
+                        <Link className="nav-link " onClick={changeActiveClass} to={Routes.education}>Education</Link>
                     </p>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                        <Link className="nav-link " onClick={changeActiveClass} to="/dashboard/mediums">Teaching Mediums</Link>
+                        <Link className="nav-link " onClick={changeActiveClass} to={Routes.studyMediums}>Teaching Mediums</Link>
                     </p>
                     </Card.Body>
                 </Accordion.Collapse>
@@ -158,7 +159,7 @@ export default function DSMenu ({children, ...restProps}) {
                 <Card.Body>
                     <p>
                     {/* <i className="fa fa-user"> </i> */}
-                    <Link className="nav-link" onClick={changeActiveClass} to="/dashboard/new-requests">New Requests</Link>
+                    <Link className="nav-link" onClick={changeActiveClass} to={Routes.newRequest}>New Requests</Link>
                     </p>
                     {/* <p>
                     <i className="fa fa-user"> </i>
@@ -172,10 +173,10 @@ export default function DSMenu ({children, ...restProps}) {
                         <Link className="nav-link" to="#">Student Reviews</Link>
                     </p> */}
                     <p>
-                        <Link className="nav-link" onClick={changeActiveClass} to="/dashboard/classes">My Sessions</Link>
+                        <Link className="nav-link" onClick={changeActiveClass} to={Routes.mySessions}>My Sessions</Link>
                     </p>
                     <p>  
-                        <Link className="nav-link " to="/dashboard/feedback" onClick={changeActiveClass} >Feed Back</Link>
+                        <Link className="nav-link " to={Routes.feedback} onClick={changeActiveClass} >Feed Back</Link>
                     </p>
                     
                     </Card.Body>
@@ -187,7 +188,7 @@ export default function DSMenu ({children, ...restProps}) {
             <ul className="nav flex-column" style={{marginTop:'50px', marginBottom:'100px'}}>
               
                 <li className="nav-item">
-                    <Link className="nav-link " to="/" onClick={()=> { localStorage.clear(); window.location.reload(); } }>Log Out</Link>
+                    <Link className="nav-link " to={Routes.home} onClick={()=> { localStorage.clear(); window.location.reload(); } }>Log Out</Link>
                 </li>
                 
                 </ul>
