@@ -23,4 +23,5 @@ export const Routes = {
     mySessions:'/dashboard/classes',
     feedback:'/dashboard/feedback',
     classRoom:'/class-room',
+    conferenceRoom:'/conference-call',
 }

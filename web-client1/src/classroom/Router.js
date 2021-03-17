@@ -10,7 +10,7 @@ import {
 import { Routes } from "./constants/routes";
 import CreateClassRoom from "./pages/createclass";
 
-export default class App extends React.Component {\
+export default class App extends React.Component {
   render(){
 
       return (<div>
@@ -18,7 +18,9 @@ export default class App extends React.Component {\
           <Switch>
           <Route  path={Routes.createClass}>                 
                    <CreateClassRoom />                  
-                  </Route>
+          </Route>
+
+
           </Switch>
           </Router>
         </div>

@@ -1,7 +1,7 @@
 
 export const constants =  {
-    isStaging: false,
-    isProductionDeployment: true,
+    isStaging: true,
+    isProductionDeployment: false,
     
    
     

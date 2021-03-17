@@ -10,7 +10,10 @@ import ResetPassword  from "./ResetPassword";
 import ViewProfile  from "./ViewProfile";
 import StudentRequest  from "./StudentRequest";
 
+
 export {default as Faqs} from './faqs'
+export {default as ConferenceRoom} from './conferencecall'
+
 export {
     Home,
     Tutors,

@@ -4,6 +4,13 @@ const app = express()
 const server = http.createServer(app)
 const socket = require('socket.io')
 const io = socket(server)
+const { ExpressPeerServer } = require('peer');
+const peerServer = ExpressPeerServer(server, {
+    debug: true,
+})
+
+
+app.use('/peerjs', peerServer)
 const apis = require('./clients/api')
 // io.origins((origin, callback) => {
 //     if (origin !== 'http://localhost:3001') {
@@ -96,6 +103,12 @@ io.on('connection', socket => {
         io.to(users[data.to]).emit('message', data)
     })
     
+    socket.on('join-room', (data)=>{
+        console.log('join-room', data)
+        socket.to(data.roomId).broadcast.emit('user-connected')
+    })
+
+
 })
 
 const port = process.env.PORT || 8000

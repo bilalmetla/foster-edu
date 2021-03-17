@@ -1,18 +1,53 @@
 import React, {  } from "react";
 import './index.css';
-import FloatingButton from "./components/floatingbutton";
+
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  
+} from "react-router-dom";
+
+import { Routes } from "./constants/routes";
+import CreateClassRoom from "./pages/createclass";
+import ListCalssesPage from "./pages/listclasses";
+import DetailsCalssPage from "./pages/detailsclass";
+import ClassRoomPage from "./pages/classroom";
+
+
 
 function ClassRoom ({...restProps}) {
   
         return (
     
-          <>
+          <div {...restProps}>
          
-            <FloatingButton >
-              {/* <i class="fa fa-plus my-float"></i> */}
-              </FloatingButton>
 
-          </>
+              <Router >
+                <Switch>
+                    <Route  exact path="/class-room">                 
+                                  <ClassRoomPage />           
+                    </Route>
+
+                    <Route  path={Routes.createClass}>                 
+                            <CreateClassRoom />                  
+                    </Route>
+                   
+                    <Route  path={Routes.listClasses}>                 
+                            <ListCalssesPage />                  
+                    </Route>
+                    
+                    <Route  path={Routes.detailClass}>                 
+                            <DetailsCalssPage />                  
+                    </Route>
+
+
+                </Switch>
+            </Router>
+
+
+          </div>
         )
     
 }

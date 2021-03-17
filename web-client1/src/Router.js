@@ -23,6 +23,7 @@ import  {Home, Tutors, Register,
   ContactUs,
   StudentRequest,
   Faqs,
+  ConferenceRoom,
  }  from "./pages";
 
  import { DSChatBox } from "./components";
@@ -104,6 +105,11 @@ export default class App extends React.Component {
                   <Route path={Routes.classRoom} >
                     
                     <ClassRoom className="section"  />
+                    </Route>
+                  
+                  <Route path={Routes.conferencecall} >
+                    
+                    <ConferenceRoom className="section"  />
                     </Route>
                   
 

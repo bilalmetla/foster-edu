@@ -53,3 +53,4 @@ export {
 }
 
 export {default as Accordion} from './accordion'
+export {default as Room} from './room'
