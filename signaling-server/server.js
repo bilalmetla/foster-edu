@@ -4,22 +4,26 @@ const app = express()
 const server = http.createServer(app)
 const socket = require('socket.io')
 const io = socket(server)
-const { ExpressPeerServer } = require('peer');
-const peerServer = ExpressPeerServer(server, {
-    debug: true,
+const { v4: uuidV4 } = require('uuid')
+const apis = require('./clients/api')
+const username = require('username-generator')
+const path = require('path')
+
+
+
+
+app.set('view engine', 'ejs')
+app.use(express.static('public'))
+
+app.get('/', (req, res) => {
+  res.redirect(`/${uuidV4()}`)
+})
+
+app.get('/:room', (req, res) => {
+  res.render('room', { roomId: req.params.room })
 })
 
 
-app.use('/peerjs', peerServer)
-const apis = require('./clients/api')
-// io.origins((origin, callback) => {
-//     if (origin !== 'http://localhost:3001') {
-//         return callback('origin not allowed', false);
-//     }
-//     callback(null, true);
-//   });
-const username = require('username-generator')
-const path = require('path')
 //const { AwakeHeroku } = require('awake-heroku');
 
 // AwakeHeroku.add({
@@ -103,10 +107,14 @@ io.on('connection', socket => {
         io.to(users[data.to]).emit('message', data)
     })
     
-    socket.on('join-room', (data)=>{
-        console.log('join-room', data)
-        socket.to(data.roomId).broadcast.emit('user-connected')
-    })
+    socket.on('join-room', (roomId, userId) => {
+        socket.join(roomId)
+        socket.to(roomId).broadcast.emit('user-connected', userId)
+    
+        socket.on('disconnect', () => {
+          socket.to(roomId).broadcast.emit('user-disconnected', userId)
+        })
+      })
 
 
 })

@@ -29,10 +29,13 @@ export default function VideoConferenceRoom({...restProps}){
             console.log('room id: ', id)
             //setYourID(id);
            // setcallingLink(`${window.location.origin}/calling-route/${id}`)
-           socket.current.emit('join-room', {roomId: id})
+           socket.current.emit('join-room', {userId: id})
            
           })
-
+          socket.current.on('user-connected', (userId)=>{
+              console.log('user-connected: ', userId)
+          })
+          
           navigator.mediaDevices.getUserMedia({
             video: true,
             audio: true,

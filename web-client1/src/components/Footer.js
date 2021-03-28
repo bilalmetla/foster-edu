@@ -3,11 +3,11 @@ import {
     Link
   } from "react-router-dom";
 import { Container, Row, Col, Button } from 'react-bootstrap';
-
+import FooterData from "../fixtures/footer.json";
 
 export default function Footer () {
     const [enableLinks, setenableLinks] = useState(true);
-
+    const [socialLinks, setsocialLinks] = useState([]);
 
     useEffect(() => {
         
@@ -15,6 +15,7 @@ export default function Footer () {
         if(pathname.includes('calling-route') || pathname.includes('calling')){ 
           setenableLinks(false)
         }
+        setsocialLinks(FooterData.socialLinks)
 
       }, []);
 
@@ -28,12 +29,9 @@ export default function Footer () {
                       <Col md={4}>
                           <div id="logo">
                               {/* <h2>Foster</h2> */}
-                              <img className="logo" src="/footer_logo.png" alt="Foster" />
+                              <img className="logo" src={FooterData.logo} alt={FooterData.title} />
 
-                              <p>
-                              Foster connects people who need to know with the experts who can teach them.
-
-                              </p>
+                              <p>{FooterData.description}</p>
                           </div>
                       </Col>
                       
@@ -73,29 +71,29 @@ export default function Footer () {
                         <div id="footer-contact">
                             <p>
                                 <i className="fa fa-user"></i>
-                                Evacuee Trust Complex.
+                                {FooterData.contactus.addressline}
                             </p>
 
                             <p>
                                 <i className="fa fa-envelope"></i>
-                                info@thefoster.life
+                                {FooterData.contactus.email}
                             </p>
                             <p>
                                 <i className="fa fa-phone"></i>
-                                +92-301-5339780
+                                {FooterData.contactus.phone}
                             </p>
 
                         </div>
                         <div id="social-links" >
                            
-                                <a target="_blank" href="https://www.facebook.com/The-Foster-112666314196501/?view_public_for=112666314196501">
-                                <i className="fa fa-facebook">
-                                </i>
-                                </a>
-                                
-                                <a target="_blank" href="https://twitter.com/Foster38235316">
-                                <i className="fa fa-twitter"></i>
-                                </a>
+                        {socialLinks.map(item=>{
+                            return <a target="_blank" href={item.link}>
+                                    <i className={item.icon}>
+                                    </i>
+                                    </a>
+                        })}
+                               
+                              
                         </div>
                       </Col>
                   </Row>

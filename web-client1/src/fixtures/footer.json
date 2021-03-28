@@ -1,0 +1,23 @@
+
+{
+    "title":"FOSTER",
+    "logo":"/footer_logo.png",
+    "description":"Foster connects people who need to know with the experts who can teach them.",
+    "contactus":{
+        "addressline":"Evacuee Trust Complex.",
+        "email":"me.thefoster@gmail.com",
+        "phone":"+92-316-6685087"
+    },
+    "socialLinks":[
+        {
+            "social":"facebook",
+            "icon":"fa fa-facebook",
+            "link":"https://www.facebook.com/The-Foster-112666314196501/?view_public_for=112666314196501"
+        },
+        {
+            "social":"twitter",
+            "icon":"fa fa-twitter",
+            "link":"https://twitter.com/Foster38235316"
+        }
+    ]
+}

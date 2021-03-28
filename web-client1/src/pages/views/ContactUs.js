@@ -1,5 +1,5 @@
 
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {
   Link,
   useHistory
@@ -11,6 +11,7 @@ import Spinner from '../../components/common/Spinner';
 import {useForm} from 'react-hook-form';
 import { MessageBox, sendContactUs } from "../../services"
 import { NotificationManager } from 'react-notifications';
+import FooterData from "../../fixtures/footer.json";
 
 
 
@@ -23,7 +24,7 @@ function ContactUs (props){
     const [modalHeading, setModalHeading] = useState('Error!');
     const [modalMessage, setModalMessage] = useState('');
     const [isSuccessModal, setisSuccessModal] = useState(false);
-
+    const [socialLinks, setsocialLinks] = useState([]);
 
     const onSubmit = (data) => {
         setIsLoading(true)
@@ -67,6 +68,10 @@ function ContactUs (props){
           });
     };
 
+    useEffect(() => {
+        setsocialLinks(FooterData.socialLinks)
+    }, []);
+
    
     return (
 
@@ -90,30 +95,29 @@ function ContactUs (props){
                     <div id="contact-us-info">
                             <p>
                                <strong>Address: </strong> 
-                               {/* <i className="fa fa-user"></i> */}
-                                Evacuee Trust Complex.
+                               
+                               {FooterData.contactus.addressline}
                             </p>
 
                             <p>
                             <strong>Email: </strong> 
                                 <i className="fa fa-envelope"></i>
-                                info@thefoster.life
+                                {FooterData.contactus.email}
                             </p>
                             <p>
                             <strong>Phone: </strong> 
                                 <i className="fa fa-phone"></i> 
-                                +92-301-5339780
+                                {FooterData.contactus.phone}
                             </p>
 
                         </div>
                         <div id="contact-us-social-links"  style={{float:'right', marginRight:'25px'}} >
-                            <a target="_blank" href="https://www.facebook.com/The-Foster-112666314196501/?view_public_for=112666314196501">
-                                <i className="fa fa-facebook"></i>
-                                </a>
-                                
-                                <a target="_blank" href="https://twitter.com/Foster38235316">
-                                <i className="fa fa-twitter"></i>
-                                </a>
+                        {socialLinks.map(item=>{
+                            return <a target="_blank" href={item.link}>
+                                    <i className={item.icon}>
+                                    </i>
+                                    </a>
+                        })}
                         </div>
                 </Col>
 

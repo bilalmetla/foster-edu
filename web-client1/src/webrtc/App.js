@@ -127,10 +127,10 @@ function WebrtcApp(props) {
       alert('Please install an external microphone device.'+ DetectRTC.hasMicrophone);
   }
   
-  if (DetectRTC && DetectRTC.hasSpeakers === false &&
-     (DetectRTC.browser.name === 'Chrome' || DetectRTC.browser.name === 'Edge')) {
-      alert('Oops, your system can not play audios.'+ DetectRTC.hasSpeakers);
-  }
+  // if (DetectRTC && DetectRTC.hasSpeakers === false &&
+  //    (DetectRTC.browser.name === 'Chrome' || DetectRTC.browser.name === 'Edge')) {
+  //     alert('Oops, your system can not play audios.'+ DetectRTC.hasSpeakers);
+  // }
  
  if(DetectRTC)
   DetectRTC.DetectLocalIPAddress(function(ipsList){
