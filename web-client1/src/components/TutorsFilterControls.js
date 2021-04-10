@@ -49,14 +49,15 @@ export default function TutorsFilterControls (props) {
 
                             <Form.Group  controlId="teachingCity">
                                 <Form.Label>City</Form.Label>
-                                <Form.Control as="select" 
-                            onChange={handleOnChange}
+                                <Form.Control 
+                                // as="select"
+                                onChange={handleOnChange}
                                 name="teachingCity"
                                 >
-                                    <option  />
+                                    {/* <option  />
                                     <option value="Lahore" >Lahore</option>
                                     <option value="Islamabad">Islamabad</option>
-                                    <option value="Karachi">Karachi</option>
+                                    <option value="Karachi">Karachi</option> */}
                                 </Form.Control>
                         </Form.Group>
 

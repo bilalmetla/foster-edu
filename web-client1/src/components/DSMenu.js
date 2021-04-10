@@ -36,8 +36,10 @@ export default function DSMenu ({children, ...restProps}) {
     setcustomerName(user.firstName +' '+ user.lastName)
     user.imageUrl = userImage ? userImage : user.imageUrl 
     
-    let image = user.imageUrl? user.imageUrl : '/images/customers/default.jpg'
-    setfileupload(constants.api_server()+image)
+    //let image = user.imageUrl? user.imageUrl : '/images/customers/default.jpg'
+    //setfileupload(constants.api_server()+image)
+    let image = "/images/default-user.jpg"
+    setfileupload(image)
    
   }, []);
 

@@ -2,12 +2,12 @@
     {
       "id": 1,
       "header": "What is Foster Learning?",
-      "body": "Foster Learning is a streaming service that offers a wide variety of award-winning TV programmes, films, anime, documentaries and more – on thousands of internet-connected devices.\n\nYou can watch as much as you want, whenever you want, without a single advert – all for one low monthly price. There's always something new to discover, and new TV programmes and films are added every week!"
+      "body": "<p>Foster Learning is an online platfor for students and teachers to study online. Foster has online audio and video call feature free.</p>"
     },
     {
       "id": 2,
       "header": "Can I try the online tool before scheduling a lesson?",
-      "body": "You definitely can! Check out the online tool demo room and get familiar with all the features! In this closed test room you can get comfortable with uploading documents, writing on the whiteboard, or sharing your screen. Be sure to use the most up to date version of Google Chrome or Mozilla Firefox when accessing Wyzant for the best experience."
+      "body": "You definitely can! Check out the online tooland get familiar with all the features! In this closed test room you can get comfortable with uploading documents, or sharing your screen. Be sure to use the most up to date version of Google Chrome or Mozilla Firefox when accessing Wyzant for the best experience."
     },
     {
       "id": 3,
@@ -23,6 +23,46 @@
       "id": 5,
       "header": "How to request a tutor?",
       "body": "Go to the Request a Tutor page. Click Get Started. Answer a few questions that will help us list qualified tutors for you. You can write an optional personal message to better explain your needs to potential tutors. We'll ask for your first name, last name, and email address so tutors can contact you. Accept our Terms of Use, and we'll post your request on our jobs board, where local tutors who teach the subject you requested will be able to apply for the job and email you directly."
+        }
+   , {
+      "id": 6,
+      "header": "What subjects and grade levels are currently offered?",
+      "body": "We are focused on supporting students in core k-5, k-8, k-10, K-12 subjects at the time being. We are constantly expanding, please reach out to recommend a new subject to offer."
+        }
+   , {
+      "id": 7,
+      "header": "What curriculum or standards systems does Foster support?",
+      "body": "We are recruiting Educators that specialize in the American Education System (American High School Diplomas/SAT), British Education System (National Curriculum for England/GCSEs and A Level), International Baccalaureate® (IB)."
+        }
+   , {
+      "id": 8,
+      "header": "Do I set my own fee or is it a fixed fee?",
+      "body": "Tutors are able to set their own fees, but we do place caps on the maximum amount that can be charged per hour."
+        }
+   , {
+      "id": 9,
+      "header": "Do I need to download special software or have fast internet to tutor on Foster?",
+      "body": "Foster is a web app and can run effectively in any modern browser. For computers, you need a laptop or desktop computer with (at least) 4G of memory and a 2+ Ghz processor (any computer bought in the last three years should be fine), or any Chromebook with 4G of memory and a 1.5+ Ghz processor. For bandwidth, you must have at least 2.0 Mbits/second upstream and 2 Mbits/second downstream. To check bandwidth use, https://speedtest.net/. For browsers, we recommend Google Chrome, Mozilla FireFox or Microsoft Edge. You can also use Safari on Mac OS X, but you will not be able to use the screen sharing feature. For audio, we strongly recommend using a headset. A headset will ensure that others can hear your voice clearly and you don’t cause echo or background noise for others. You do not need to buy an expensive one -- any basic headset with a built-in microphone will work. A laptop with a built-in webcam and microphone will be sufficient as well if you’re in a quiet area."
+        }
+   , {
+      "id": 10,
+      "header": "What if I teach a subject you are not currently offering?",
+      "body": "Please reach out us and we will consider your request. In order for us to offer a high-quality learning experience for our students, we need to ensure any subject we offer has multiple educators around the world available on the platform."
+        }
+   , {
+      "id": 11,
+      "header": "What credentials are required to be accepted?",
+      "body": "We require a minimum of a bachelor’s degree of all our educators. We also allow qualified High School students to tutor Middle and Elementary students at reduced rates."
+        }
+   , {
+      "id": 12,
+      "header": "Can I teach more than one subject?",
+      "body": "Yes! As long as you have the necessary qualifications and the time, you can offer to teach multiple subjects and grade levels."
+        }
+   , {
+      "id": 13,
+      "header": "How does on-demand tutoring work?",
+      "body": "“On-Demand tutoring” is when a student requires immediate help and needs to connect with a tutor without a prescheduled session. Tutors that have set their availability set may get on demand requests and they can choose to accept those requests or not. On Demand requests are paid with an additional 10% premium on top of the tutors currently set rate."
         }
   ]
   

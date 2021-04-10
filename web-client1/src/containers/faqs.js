@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Accordion } from "../components";
 import faqsList from "../fixtures/faqs";
+import Parser  from 'html-react-parser';
 
 export function FaqsContainer ({isMoreFaqsShow, showFaqs}){
     const [showTotalFaqs, setshowTotalFaqs] = useState(0);
@@ -36,7 +37,7 @@ export function FaqsContainer ({isMoreFaqsShow, showFaqs}){
                                     {item.header}
                                 </Accordion.Header>
                                 <Accordion.Body>
-                                    {item.body}
+                                    {Parser (item.body)}
                                 </Accordion.Body>
                         </Accordion.Item>
                    }

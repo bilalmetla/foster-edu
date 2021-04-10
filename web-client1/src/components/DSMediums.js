@@ -102,16 +102,17 @@ function DSMediums  (props){
                     <Form.Row>
                     <Form.Group as={Col} controlId="teachingCity">
                         <Form.Label>City</Form.Label>
-                        <Form.Control as="select" 
+                        <Form.Control 
+                        // as="select" 
                        
                         name="teachingCity"
                         value={props.teachingCity}
                         ref={register()}
                         >
-                            <option  />
+                            {/* <option  />
                             <option value="Lahore" >Lahore</option>
                             <option value="Islamabad">Islamabad</option>
-                            <option value="Karachi">Karachi</option>
+                            <option value="Karachi">Karachi</option> */}
                         </Form.Control>
                         </Form.Group>
 

@@ -10,6 +10,7 @@
     "bootstrap": "^4.6.0",
     "font-awesome": "^4.7.0",
     "howler": "^2.2.1",
+    "html-react-parser": "^1.2.4",
     "multiselect-react-dropdown": "^1.6.3",
     "ra-data-simple-rest": "^3.10.4",
     "react": "^17.0.1",

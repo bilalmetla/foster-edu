@@ -131,7 +131,8 @@ export default function ViewProfile (props){
                 <Row>
                     <Col md={{span: 8}}>
                     <div style={{display:'flex'}}>
-                    <img className="profile-img" src={constants.api_server() + tutor.imageUrl || "/images/tutor2-280x300.jpg"}alt="user profile image"></img>
+                    {/* <img className="profile-img" src={constants.api_server() + tutor.imageUrl}alt="user profile image"></img> */}
+                    <img className="profile-img" src="/images/default-user.jpg" alt="user profile image"></img>
                         <span style={{marginLeft:'20px'}} className="user-profile-title">
                             <h2>{tutor.firstName} {tutor.lastName}</h2>
                             <p><strong>
@@ -156,7 +157,7 @@ export default function ViewProfile (props){
                             <p>Bio</p>
                             </Col>
                             <Col md={10}>
-                            <p>
+                                <p>
                                 {tutor.greateTutorLine}
                                 </p>
                                 <p>
