@@ -1,0 +1,42 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d6370b78.chunk.css",
+    "main.js": "/static/js/main.d3896df5.chunk.js",
+    "main.js.map": "/static/js/main.d3896df5.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.6320985a.js",
+    "runtime-main.js.map": "/static/js/runtime-main.6320985a.js.map",
+    "static/css/2.7d5b43ec.chunk.css": "/static/css/2.7d5b43ec.chunk.css",
+    "static/js/2.55ed8c73.chunk.js": "/static/js/2.55ed8c73.chunk.js",
+    "static/js/2.55ed8c73.chunk.js.map": "/static/js/2.55ed8c73.chunk.js.map",
+    "static/css/3.cc7f20a0.chunk.css": "/static/css/3.cc7f20a0.chunk.css",
+    "static/js/3.96f3089e.chunk.js": "/static/js/3.96f3089e.chunk.js",
+    "static/js/3.96f3089e.chunk.js.map": "/static/js/3.96f3089e.chunk.js.map",
+    "static/js/4.3c62478e.chunk.js": "/static/js/4.3c62478e.chunk.js",
+    "static/js/4.3c62478e.chunk.js.map": "/static/js/4.3c62478e.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.7d5b43ec.chunk.css.map": "/static/css/2.7d5b43ec.chunk.css.map",
+    "static/css/3.cc7f20a0.chunk.css.map": "/static/css/3.cc7f20a0.chunk.css.map",
+    "static/css/main.d6370b78.chunk.css.map": "/static/css/main.d6370b78.chunk.css.map",
+    "static/js/2.55ed8c73.chunk.js.LICENSE.txt": "/static/js/2.55ed8c73.chunk.js.LICENSE.txt",
+    "static/media/camera-stop.5d5abf1d.svg": "/static/media/camera-stop.5d5abf1d.svg",
+    "static/media/camera.69bb6510.svg": "/static/media/camera.69bb6510.svg",
+    "static/media/cuckoo-logo.svg": "/static/media/cuckoo-logo.e383572d.svg",
+    "static/media/ecd6bc09da634e4e2efa16b571618a22.6f1edbbc.gif": "/static/media/ecd6bc09da634e4e2efa16b571618a22.6f1edbbc.gif",
+    "static/media/font-awesome.min.css": "/static/media/fontawesome-webfont.f691f37e.woff",
+    "static/media/fullscreen.fe7e5433.svg": "/static/media/fullscreen.fe7e5433.svg",
+    "static/media/hang-up.0fd93cba.svg": "/static/media/hang-up.0fd93cba.svg",
+    "static/media/microphone-stop.bdea9903.svg": "/static/media/microphone-stop.bdea9903.svg",
+    "static/media/microphone.c954ec03.svg": "/static/media/microphone.c954ec03.svg",
+    "static/media/minimize.34ff6977.svg": "/static/media/minimize.34ff6977.svg",
+    "static/media/notifications.css": "/static/media/notification.c5d9251e.ttf",
+    "static/media/ringtone.15727de3.mp3": "/static/media/ringtone.15727de3.mp3",
+    "static/media/share.a5ae5800.svg": "/static/media/share.a5ae5800.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6320985a.js",
+    "static/css/2.7d5b43ec.chunk.css",
+    "static/js/2.55ed8c73.chunk.js",
+    "static/css/main.d6370b78.chunk.css",
+    "static/js/main.d3896df5.chunk.js"
+  ]
+}

@@ -5,7 +5,9 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "start:pm2": "pm2 start node . --name foster-eu"
+    
   },
   "dependencies": {
     "axios": "^0.21.1",

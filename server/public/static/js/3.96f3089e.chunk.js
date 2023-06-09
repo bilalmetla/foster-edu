@@ -1,0 +1,2 @@
+(this["webpackJsonptutors-template"]=this["webpackJsonptutors-template"]||[]).push([[3],{637:function(t,s,e){},638:function(t,s,e){"use strict";e.r(s);var a=e(1),c=(e(0),e(239));e(637);s.default=function(){return Object(a.jsxs)("div",{className:"watermark",children:[Object(a.jsx)("img",{className:"logoImage",src:c.a,alt:"Cuckoo Logo"}),Object(a.jsx)("span",{className:"logoText",children:"cuckoo"})]})}}}]);
+//# sourceMappingURL=3.96f3089e.chunk.js.map

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server":"npm start --prefix server",
-    "client":"npm start --prefix web-client1"
+    "client":"npm start --prefix web-client1",
+    "publish:all": "cd web-client1 && npm run build && pwd && cd ../server/ && npm run build && cp -r dist C:/Users/m.bilal/Documents/code/dev-foster/ && cp -r public C:/Users/m.bilal/Documents/code/dev-foster/ && pwd && cp -r ../signaling-server/ C:/Users/m.bilal/Documents/code/dev-foster/ && pwd && rm -r C:/Users/m.bilal/Documents/code/dev-foster/signaling-server/node_modules "
   },
   "repository": {
     "type": "git",
